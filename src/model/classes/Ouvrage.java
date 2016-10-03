@@ -72,7 +72,7 @@ public class Ouvrage {
      */
     public Ouvrage() {
     }
-
+    
     public Long getId() {
         return id;
     }

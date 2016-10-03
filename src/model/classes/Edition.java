@@ -40,7 +40,7 @@ public class Edition {
     /**
      * Quantité physique disponible.
      */
-    private Integer stock;
+    public Integer stock;
 
     /**
      * Statut de l'édition.
@@ -48,6 +48,10 @@ public class Edition {
      * @see StatutEdition
      * @see StatutEditionDAO
      */
+    
+    public int qty;
+    
+    
     private StatutEdition statut;
     /**
      * Ouvrage auquel se réfère l'édition.
@@ -76,6 +80,11 @@ public class Edition {
      * Constructeur de la classe; accès sans utiliser de paramètres.
      */
     public Edition() {
+    }
+    
+    public Edition(String isbn, int qty){
+        this.isbn = isbn;
+        this.qty = qty;
     }
 
     public Long getId() {
@@ -195,6 +204,21 @@ public class Edition {
         this.stock = stock;
     }
 
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+
+    public void change(int qty) {
+        this.qty+=qty;
+    }
+    
+    
+    
+    
     /**
      * Retourne le statut de l'édition.
      *

@@ -1,5 +1,7 @@
 package model.classes;
 
-public class ShoppingCart {
+import java.util.HashMap;
 
+public class ShoppingCart {
+    private HashMap<String, Ouvrage> map;
 }

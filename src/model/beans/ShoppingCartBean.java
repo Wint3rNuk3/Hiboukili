@@ -7,11 +7,13 @@ import model.classes.ShoppingCart;
 
 public class ShoppingCartBean implements Serializable {
     
-    HashMap<String, Ouvrage> map; // remplacer ouvrage par Edition si besoin
+     // remplacer ouvrage par Edition si besoin
 
     public ShoppingCartBean() {
-        this.map= new HashMap();
+        this.map = new HashMap();
     }
+    
+    // creer un panier
     public void create( String ref) {
         create( ref, +1);
     }
@@ -20,7 +22,7 @@ public class ShoppingCartBean implements Serializable {
     }
     public void add( String ref, int qty) {
         if( map.containsKey(ref)) {
-            Item i= map.get(ref);
+           Ouvrage i= map.get(ref);
 //            i.setQty( i.getQty()+qty);
             i.change(qty);
             if( i.getQty()<1)
@@ -41,7 +43,7 @@ public class ShoppingCartBean implements Serializable {
     public void del( String ref) {
         map.remove(ref);
     }
-    public Collection<Item> list() {
+    public Collection<Ouvrage> list() {
         return map.values();
     }
     public int size() {
@@ -57,7 +59,4 @@ public class ShoppingCartBean implements Serializable {
     }
     public void load() { 
     }
-}
-public class shoppingCartBean {
-
 }

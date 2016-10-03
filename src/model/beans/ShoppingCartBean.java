@@ -68,9 +68,7 @@ public class ShoppingCartBean implements Serializable {
         map.clear();
     }
     public void save() {
-        
     }
     public void load() {
-        
     }
 }

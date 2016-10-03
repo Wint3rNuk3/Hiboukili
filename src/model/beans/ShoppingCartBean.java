@@ -71,4 +71,7 @@ public class ShoppingCartBean implements Serializable {
     }
     public void load() {
     }
+    public void checkout() {
+        // validation du panier...
+    }
 }

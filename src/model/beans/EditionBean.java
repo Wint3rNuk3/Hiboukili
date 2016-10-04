@@ -49,6 +49,7 @@ public class EditionBean {
                 edition.setPrixHt(rs.getFloat("prixHt"));
                 edition.setCouverture(rs.getString("couverture"));
                 edition.setTitre(rs.getString("titre"));
+                edition.setStock(rs.getInt("stock"));
                 
                 // recuperer l'ouvrage.
                 Ouvrage ouvrage = new OuvrageBean().findById(bc, idOuvrage);

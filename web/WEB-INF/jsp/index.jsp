@@ -209,6 +209,11 @@
                                         Auteur : 
                                         <c:out value="${ edition.ouvrage.auteur.nom }"/>
                                     </p>
+                                    
+                                    <p>
+                                        Quantité : 
+                                        <c:out value="${ edition.stock }"/>
+                                    </p>
                                 </div>
 
                                 <div class="media-right col-md-2 col-sm-2  col-xs-2">

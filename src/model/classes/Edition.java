@@ -49,7 +49,10 @@ public class Edition {
      * @see StatutEditionDAO
      */
     
-    public int qty;
+    /**
+     * Quantité physique disponible.
+     */
+    private int cartQty;
     
     
     private StatutEdition statut;
@@ -84,7 +87,7 @@ public class Edition {
     
     public Edition(String isbn, int qty){
         this.isbn = isbn;
-        this.qty = qty;
+        this.cartQty = qty;
     }
 
     public Long getId() {
@@ -204,16 +207,16 @@ public class Edition {
         this.stock = stock;
     }
 
-    public int getQty() {
-        return qty;
+    public int getCartQty() {
+        return cartQty;
     }
 
-    public void setQty(int qty) {
-        this.qty = qty;
+    public void setCartQty(int qty) {
+        this.cartQty = qty;
     }
 
     public void change(int qty) {
-        this.qty+=qty;
+        this.cartQty += qty;
     }
     
     

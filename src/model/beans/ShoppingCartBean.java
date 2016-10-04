@@ -24,14 +24,15 @@ public class ShoppingCartBean implements Serializable {
     
     public void add(String isbn, int qty) {
         if(map.containsKey(isbn)) {
-           Edition o = map.get(isbn);
-//            o.setQty(o.getQty()+qty);
-            o.change(qty);
-            map.get(isbn).setStock(map.get(isbn).getStock() - qty);
-            if(o.getQty()<1){ del(isbn); }
+            System.out.println(map.get(isbn));
+           Edition e = map.get(isbn);
+//            e.setQty(e.getQty()+qty);
+            e.change(qty);
+            //map.get(isbn).setStock(map.get(isbn).getStock() - qty);
+            if(e.getCartQty()<1){ del(isbn); }
         } else {
             map.put(isbn, new Edition(isbn, qty));
-            map.get(isbn).setStock(map.get(isbn).getStock() - 1);
+//            map.get(isbn).setStock(map.get(isbn).getStock() - 1);
         }
     }
     

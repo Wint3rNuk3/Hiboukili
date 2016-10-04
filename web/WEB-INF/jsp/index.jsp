@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -20,7 +21,6 @@
         <link rel="icon" href="icon.png">
 
         <style>
-
             body { 
                 padding-top: 70px; 
             }
@@ -29,6 +29,12 @@
                 width: 100px;
                 height: 80px;
             }
+            
+            .left-menu {
+                position: fixed;
+            }
+            
+            
         </style>
 
         <!-- import de bootstrap -->
@@ -81,35 +87,32 @@
             </div>
         </nav>
 
-        <!-- Main jumbotron for a primary marketing message or call to action
-        <div class="jumbotron">
-          <div class="container">
-            <h1>Hello, world!</h1>
-            <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
-            <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more &raquo;</a></p>
-          </div>
-        </div>
-        -->
+        <%-- Application container --%>
         <section class="container-fluid">
 
             <div class="row">
 
+                <%-- left-nav --%>
                 <div class="col-md-3 col-sm-3 col-xs-3">
 
-                    <ul class="nav nav-tabs nav-stacked">
+                    <ul class="left-menu nav nav-pills nav-stacked">
+                        
                         <li>
                             <a href="#">Les bons plans</a>
                         </li>
+                        
                         <li> 
                             <a href="#">Salon du livre</a>
                         </li>
+                        
                         <li> 
                             <a href="#">Les bons plans</a>
                         </li>
                     </ul>
 
-                </div>
+                </div><%-- Fin left-nav --%>
 
+                <%-- Colonne centrale --%>
                 <div class="col-md-9 col-sm-9 col-xs-9">
 
                     <div class="row text-center">
@@ -132,186 +135,81 @@
                     </div>
 
                     <hr>
-
-
-                    <div class="row">
-
-                        <div class="thumbnail col-md-3">
-                            <img class="img edition" src="images/placeholder.png">
-
-                            <div class="caption">
-
-                                <h3> Actes et paroles </h3>
-
-                                <p>Résumé du livre : Actes et paroles - Avant l'exil</p>
-
+                    
+                    <!--<div class="row">-->
+                    <%-- On parcourt la liste des editions / ouvrages --%>
+                    <ul class="media-list">
+                    <c:forEach varStatus="status" var="edition" items="${ editions }" end="${ perPage }">
+                        
+                        <li class="col-md-12 col-sm-12 col-xs-12 media thumbnail">
+                            
+                            <div class="media-left pull-left col-md-3 col-sm-3 col-xs-3">
+                                <a href="#">
+                                    <img class="edition media-object" src="images/placeholder.png">
+                                </a>
                             </div>
-
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
+                            
+                            <div class="media-body col-md-7 col-sm-7  col-xs-7">
+                                <h4 class="media-heading">
+                                    Livre <c:out value="${ edition.isbn }"/>
+                                </h4>
+                                <p>
+                                    Résumé du livre <c:out value="${ edition.isbn }"/>: Actes et paroles - Avant l'exil
+                                </p>
                             </div>
-
-                        </div>
-
-                        <!-- -->
-
-                        <div class="thumbnail col-md-3 col-md-offset-1">
-                            <img class="img edition" src="images/placeholder.png">
-
-                            <div class="caption">
-
-                                <h3> Actes et paroles </h3>
-
-                                <p>Résumé du livre : Actes et paroles - Avant l'exil</p>
-
+                                
+                            <div class="media-right col-md-2 col-sm-2  col-xs-2">
+                                <div class="pull-right btn-group btn-group-vertical" role="group" aria-label="...">
+                                   <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
+                                   <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
+                                   <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
+                                </div>
                             </div>
-
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
-                            </div>
-
-                        </div>
-
-                        <!-- -->
-
-                        <div class="thumbnail col-md-3 col-md-offset-1">
-                            <img class="img edition" src="images/placeholder.png">
-
-                            <div class="caption">
-
-                                <h3> Actes et paroles </h3>
-
-                                <p>Résumé du livre : Actes et paroles - Avant l'exil</p>
-
-                            </div>
-
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <!-- une autre ligne de produits -->
-
-                    <div class="row">
-
-
-                        <div class="thumbnail col-md-3">
-                            <img class="img edition" src="images/placeholder.png">
-
-                            <div class="caption">
-
-                                <h3> Actes et paroles </h3>
-
-                                <p>Résumé du livre : Actes et paroles - Avant l'exil</p>
-
-                            </div>
-
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
-                            </div>
-
-                        </div>
-
-                        <!-- -->
-
-                        <div class="thumbnail col-md-3 col-md-offset-1">
-                            <img class="img edition" src="images/placeholder.png">
-
-                            <div class="caption">
-
-                                <h3> Actes et paroles </h3>
-
-                                <p>Résumé du livre : Actes et paroles - Avant l'exil</p>
-
-                            </div>
-
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
-                            </div>
-
-                        </div>
-
-                        <!-- -->
-
-                        <div class="thumbnail col-md-3 col-md-offset-1">
-                            <img class="img edition" src="images/placeholder.png">
-
-                            <div class="caption">
-
-                                <h3> Actes et paroles </h3>
-
-                                <p>Résumé du livre : Actes et paroles - Avant l'exil</p>
-
-                            </div>
-
-                            <div class="btn-group btn-group-justified" role="group" aria-label="...">
-                                <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
-                                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                        </li>
+                    </c:forEach>
+                    </ul>
+                    <!--</div>-->
+                    
+                    <%-- Pagination --%>
                     <div class="text-center">
                         <nav aria-label="Page navigation">
                             <ul class="pagination">
-                                <li>
-                                    <a href="#" aria-label="Previous">
+                                <li class="<c:if test="${ page < 2 }">disabled</c:if>">
+                                    <c:url value="" var="url">
+                                        <c:param name="page" value="${ 1 }" />
+                                        <c:param name="perPage" value="${ perPage }" />
+                                    </c:url>
+                                    <a href="${ url }" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                <li><a href="#">1</a></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li>
-                                    <a href="#" aria-label="Next">
+                                
+                                <c:forEach varStatus="status" begin="1" end="${ nbPage }">
+                                    
+                                    <c:url value="" var="url">
+                                        <c:param name="page" value="${ status.index }" />
+                                        <c:param name="perPage" value="${ perPage }" />
+                                    </c:url>
+                                    
+                                    <li class="<c:if test="${ status.index == page }"> active </c:if>">
+                                        <a href="<c:out value="${ url }"/>"><c:out value="${ status.index }"/></a>
+                                    </li>
+                                </c:forEach>
+                                    
+                                <li class="<c:if test="${ page >= nbPage}">disabled</c:if>">
+                                    <c:url value="" var="url">
+                                        <c:param name="page" value="${ nbPage }" />
+                                        <c:param name="perPage" value="${ perPage }" />
+                                    </c:url>
+                                    <a href="${ url }" aria-label="Next">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
                             </ul>
                         </nav>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <!-- Example row of columns
-            <div class="row">
-              <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-              </div>
-              <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-             </div>
-              <div class="col-md-4">
-                <h2>Heading</h2>
-                <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-                <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-              </div>
-            </div>
-            -->
+                    </div><%-- Fin pagination --%>
+                </div><%-- Fin colonne centrale --%>
+            </div><%-- Fin row --%>
 
             <footer class="row well">
                 <div class="col-md-4">

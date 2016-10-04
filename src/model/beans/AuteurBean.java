@@ -77,12 +77,14 @@ public class AuteurBean {
             
             ResultSet rs = ps.executeQuery();
             
-            item = new Auteur();
-            item.setId(rs.getLong("idAuteur"));
-            item.setNom(rs.getString("nom"));
-            item.setPrenom(rs.getString("prenom"));
-            item.setDateNaissance(rs.getDate("date_naissance"));
-            item.setDateDeces(rs.getDate("date_deces"));
+            if(rs.next()) {
+                item = new Auteur();
+                item.setId(rs.getLong("idAuteur"));
+                item.setNom(rs.getString("nom"));
+                item.setPrenom(rs.getString("prenom"));
+                item.setDateNaissance(rs.getDate("date_naissance"));
+                item.setDateDeces(rs.getDate("date_deces"));
+            }
             
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);

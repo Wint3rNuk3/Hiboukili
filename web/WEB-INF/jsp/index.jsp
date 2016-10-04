@@ -204,6 +204,11 @@
                                         Statut : 
                                         <c:out value="${ edition.statut.libelle }"/>
                                     </p>
+                                    
+                                    <p>
+                                        Auteur : 
+                                        <c:out value="${ edition.ouvrage.auteur.nom }"/>
+                                    </p>
                                 </div>
 
                                 <div class="media-right col-md-2 col-sm-2  col-xs-2">

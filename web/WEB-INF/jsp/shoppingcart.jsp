@@ -44,13 +44,20 @@
                                     <h4 class="product-name"><strong>Nom de l'édition</strong></h4><h4><small>Description de l'édition</small></h4>
                                 </div>
                                 <div class="col-xs-6">
-                                    <div class="col-xs-6 text-right">
+                                    <div class="col-xs-4 text-right" style="margin-top:10px;">
                                         <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
                                     </div>
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-4" style="margin-top:10px;">
                                         <input type="text" class="form-control input-sm" value="1">
                                     </div>
-                                    <div class="col-xs-2">
+                                    <div class="col-xs-2" style="margin-top:5px;">
+                                        <button type="button" class="btn btn-success btn-xs" style="font-size:10px; width:18px; height:18px;">+</button>                <!-- ICI -->
+                                        <button type="button" class="btn btn-danger btn-xs" style="font-size:10px; width:18px; height:18px;">
+                                            <p style="margin-top: -1px; margin-left: -1px">-</p>
+                                        </button>                <!-- ICI -->
+                                    </div>
+                                    <!--  text-align:center;  margin-right:-20px; -->
+                                    <div class="col-xs-2" style="margin-top:15px;">
                                         <button type="button" class="btn btn-link btn-xs">
                                             <span class="glyphicon glyphicon-trash"> </span>
                                         </button>
@@ -65,13 +72,19 @@
                                     <h4 class="product-name"><strong>Nom de l'édition</strong></h4><h4><small>Description de l'édition</small></h4>
                                 </div>
                                 <div class="col-xs-6">
-                                    <div class="col-xs-6 text-right">
+                                    <div class="col-xs-4 text-right" style="margin-top:10px;">
                                         <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
                                     </div>
-                                    <div class="col-xs-4">
+                                    <div class="col-xs-4" style="margin-top:10px;">
                                         <input type="text" class="form-control input-sm" value="1">
                                     </div>
-                                    <div class="col-xs-2">
+                                    <div class="col-xs-2" style="margin-top:5px;">
+                                        <button type="button" class="btn btn-success btn-xs" style="font-size:10px; width:18px; height:18px;">+</button>                <!-- ICI -->
+                                        <button type="button" class="btn btn-danger btn-xs" style="font-size:10px; width:18px; height:18px;">
+                                            <p style="margin-top: -1px; margin-left: -1px">-</p>
+                                        </button>                <!-- ICI -->
+                                    </div>
+                                    <div class="col-xs-2" style="margin-top:15px;">
                                         <button type="button" class="btn btn-link btn-xs">
                                             <span class="glyphicon glyphicon-trash"> </span>
                                         </button>
@@ -82,7 +95,7 @@
                             <div class="row">
                                 <div class="text-center">
                                     <div class="col-xs-9">
-                                        <h6 class="text-right">Changements dans le panier?</h6>
+                                        <h6 class="text-right">Changements dans le panier ?</h6>
                                     </div>
                                     <div class="col-xs-3">
                                         <button type="button" class="btn btn-default btn-sm btn-block" style="margin-bottom:4px; white-space: normal;">
@@ -98,7 +111,7 @@
                                     <h4 class="text-right">Total <strong>€50.00</strong></h4>
                                 </div>
                                 <div class="col-xs-3">
-                                    <button type="button" class="btn btn-success btn-block">
+                                    <button type="button" class="btn btn-success btn-block" style="margin-bottom:4px; white-space: normal;">
                                         Valider
                                     </button>
                                 </div>

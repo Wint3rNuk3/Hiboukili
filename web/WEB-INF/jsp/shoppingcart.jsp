@@ -85,7 +85,7 @@
                                         <h6 class="text-right">Changements dans le panier?</h6>
                                     </div>
                                     <div class="col-xs-3">
-                                        <button type="button" class="btn btn-default btn-sm btn-block">
+                                        <button type="button" class="btn btn-default btn-sm btn-block" style="margin-bottom:4px; white-space: normal;">
                                             Mettre à jour le panier
                                         </button>
                                     </div>
@@ -99,7 +99,7 @@
                                 </div>
                                 <div class="col-xs-3">
                                     <button type="button" class="btn btn-success btn-block">
-                                        Checkout
+                                        Valider
                                     </button>
                                 </div>
                             </div>

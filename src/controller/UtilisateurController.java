@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 import model.beans.BeanConnexion;
 import model.beans.BeanLogin;
+import model.classes.Utilisateur;
 
 @WebServlet(name = "UtilisateurController", urlPatterns = {"/UtilisateurController"})
 public class UtilisateurController extends HttpServlet {
@@ -73,14 +74,18 @@ public class UtilisateurController extends HttpServlet {
             DataSource ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
             
             //renvoie un boolean verifiant si le couple login/mdp a ete saisi correctement
-            boolean b = bl.checkLogin(ds, bc,request.getParameter("loginTI"), request.getParameter("mdpTI"));
+            Utilisateur uti = bl.checkLogin(ds, bc,request.getParameter("loginTI"), request.getParameter("mdpTI"));
 
             //recupere le login saisi ds le champ Login
             request.setAttribute("recupLogin", request.getParameter("loginTI"));
 
-            if (b) {//si le couple login/mdp est exact
+            if (uti!=null) {//si le couple login/mdp est exact
                 url = "/WEB-INF/jsp/bienvenue.jsp";//renvoie a la page de bienvenue
                 //cree un cookie de login reussi
+                
+                session.setAttribute("utilisateur", uti);
+                request.setAttribute("prenomUtilisateur", uti.getPrenom());
+                
                 cookieLoginReussi = new Cookie("cookieLoginReussi", request.getParameter("loginTI"));
                 cookieLoginReussi.setMaxAge(60 * 60 * 24);
                 response.addCookie(cookieLoginReussi);

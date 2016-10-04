@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.beans.BeanConnexion;
+import model.beans.EditionBean;
 import model.classes.Edition;
 
 @WebServlet(name = "IndexController", urlPatterns = {""})
@@ -16,16 +19,16 @@ public class IndexController extends HttpServlet {
     private static final String INDEX_ROUTE = "/WEB-INF/jsp/index.jsp";
 
     // temporaire en attendant les acces bdd.
-    private List<Edition> editions = new ArrayList();
+//    private List<Edition> editions = new ArrayList();
     
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
               
         // On construit une liste d'edition en attendant les methodes de recuperation de la bdd.
-        for (int i = 0; i < 100; i++) {
-            editions.add(new Edition(String.valueOf(i), i));
-        }
+//        for (int i = 0; i < 100; i++) {
+//            editions.add(new Edition(String.valueOf(i), i));
+//        }
         
     }
 
@@ -41,6 +44,20 @@ public class IndexController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
   
+        // c'est du copié/collé, car on refuse de reutiliser les DAO,
+        // et que je n'ai pas le droit de coder.
+        
+        // début copié/collé
+        // vérifié si un beanConnexion est enregistre ds la session; si non, le cree 
+        HttpSession session = request.getSession();           
+        BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
+        if (bc == null) {
+            bc = new BeanConnexion();
+            session.setAttribute("sessionConnexion", bc);
+        }
+        // fin copié/collé
+        
+        List<Edition> editions = new EditionBean().findAll(bc);
         
         Integer page = 1;
         
@@ -61,6 +78,7 @@ public class IndexController extends HttpServlet {
         List displayed = editions.subList(
                 Math.max(page * perPage - perPage, 0), 
                 Math.min(page * perPage, editions.size()));
+        
         request.setAttribute("editions", displayed);
         
         int nbPage = (int)Math.ceil((double) editions.size() / perPage);

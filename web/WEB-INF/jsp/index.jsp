@@ -29,12 +29,12 @@
                 width: 100px;
                 height: 80px;
             }
-            
+
             .left-menu {
                 position: fixed;
             }
-            
-            
+
+
         </style>
 
         <!-- import de bootstrap -->
@@ -73,15 +73,56 @@
                 </div>
 
                 <div id="navbar" class="navbar-collapse collapse">
-                    <form class="navbar-form navbar-right" role="form">
-                        <div class="form-group">
-                            <input type="text" placeholder="Email" class="form-control">
-                        </div>
-                        <div class="form-group">
-                            <input type="password" placeholder="Password" class="form-control">
-                        </div>
-                        <button type="submit" class="btn btn-success">Sign in</button>
-                    </form>
+                    
+                    <ul class="nav navbar-nav">
+                        <li class="active">
+                            <a href="#">
+                                Link 
+                                <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">Link</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <c:choose>
+                        
+                        <c:when test="${ utilisateur != null }">
+                            Vous etes connecté: <c:out value="${ utilisateur.nom }"/>
+                        </c:when>
+                            
+                        <c:otherwise>
+                            <form class="navbar-form navbar-right" role="form">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Email" class="form-control">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" placeholder="Password" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-success">Sign in</button>
+                            </form>
+                        </c:otherwise>
+                        
+                    </c:choose>
+                    
+                    <%--<c:if test="${ utilisateur != null }" scope="session">
+                        Vous etes connecté
+                    </c:if> --%>
+
+                    
                 </div><!--/.navbar-collapse -->
 
             </div>
@@ -96,15 +137,15 @@
                 <div class="col-md-3 col-sm-3 col-xs-3">
 
                     <ul class="left-menu nav nav-pills nav-stacked">
-                        
+
                         <li>
                             <a href="#">Les bons plans</a>
                         </li>
-                        
+
                         <li> 
                             <a href="#">Salon du livre</a>
                         </li>
-                        
+
                         <li> 
                             <a href="#">Les bons plans</a>
                         </li>
@@ -135,41 +176,49 @@
                     </div>
 
                     <hr>
-                    
+
                     <!--<div class="row">-->
                     <%-- On parcourt la liste des editions / ouvrages --%>
                     <ul class="media-list">
-                    <c:forEach varStatus="status" var="edition" items="${ editions }" end="${ perPage }">
-                        
-                        <li class="col-md-12 col-sm-12 col-xs-12 media thumbnail">
-                            
-                            <div class="media-left pull-left col-md-3 col-sm-3 col-xs-3">
-                                <a href="#">
-                                    <img class="edition media-object" src="images/placeholder.png">
-                                </a>
-                            </div>
-                            
-                            <div class="media-body col-md-7 col-sm-7  col-xs-7">
-                                <h4 class="media-heading">
-                                    Livre <c:out value="${ edition.isbn }"/>
-                                </h4>
-                                <p>
-                                    Résumé du livre <c:out value="${ edition.isbn }"/>: Actes et paroles - Avant l'exil
-                                </p>
-                            </div>
-                                
-                            <div class="media-right col-md-2 col-sm-2  col-xs-2">
-                                <div class="pull-right btn-group btn-group-vertical" role="group" aria-label="...">
-                                   <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
-                                   <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
-                                   <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
+                        <c:forEach varStatus="status" var="edition" items="${ editions }" end="${ perPage }">
+
+                            <li class="col-md-12 col-sm-12 col-xs-12 media thumbnail">
+
+                                <div class="media-left pull-left col-md-3 col-sm-3 col-xs-3">
+                                    <a href="#">
+                                        <img class="edition media-object" src="images/placeholder.png">
+                                    </a>
                                 </div>
-                            </div>
-                        </li>
-                    </c:forEach>
+
+                                <div class="media-body col-md-7 col-sm-7  col-xs-7">
+                                    <h4 class="media-heading">
+                                        <c:out value="${ edition.ouvrage.titre }"/>
+                                    </h4>
+                                    
+                                    <p>
+                                        Résumé : 
+                                        <c:out value="${ edition.ouvrage.resume }"/>
+                                    </p>
+                                    
+                                    <p>
+                                        Statut : 
+                                        <c:out value="${ edition.statut.libelle }"/>
+                                    </p>
+                                </div>
+
+                                <div class="media-right col-md-2 col-sm-2  col-xs-2">
+                                    <div class="pull-right btn-group btn-group-vertical" role="group" aria-label="...">
+                                        <a role="button" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"> </i></a>
+                                        <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-eye-open"> </i></a>
+                                        <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </c:forEach>
                     </ul>
                     <!--</div>-->
-                    
+
+                    <c:if test="${ nbPage > 1 }">
                     <%-- Pagination --%>
                     <div class="text-center">
                         <nav aria-label="Page navigation">
@@ -183,19 +232,19 @@
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
-                                
+
                                 <c:forEach varStatus="status" begin="1" end="${ nbPage }">
-                                    
+
                                     <c:url value="" var="url">
                                         <c:param name="page" value="${ status.index }" />
                                         <c:param name="perPage" value="${ perPage }" />
                                     </c:url>
-                                    
+
                                     <li class="<c:if test="${ status.index == page }"> active </c:if>">
                                         <a href="<c:out value="${ url }"/>"><c:out value="${ status.index }"/></a>
                                     </li>
                                 </c:forEach>
-                                    
+
                                 <li class="<c:if test="${ page >= nbPage}">disabled</c:if>">
                                     <c:url value="" var="url">
                                         <c:param name="page" value="${ nbPage }" />
@@ -208,6 +257,7 @@
                             </ul>
                         </nav>
                     </div><%-- Fin pagination --%>
+                    </c:if>
                 </div><%-- Fin colonne centrale --%>
             </div><%-- Fin row --%>
 

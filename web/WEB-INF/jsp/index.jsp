@@ -99,11 +99,25 @@
                     </ul>
                     
                     <div class="nav navbar-nav navbar-right">
-                    
+                        <c:url value="shoppingcart" var="url" />
+                        <a class="btn btn-default navbar-btn" href="${ url }">
+                            <i class="glyphicon glyphicon-shopping-cart"></i>
+                        </a>
                     <c:choose>
                         
                         <c:when test="${ utilisateur != null }">
-                            <p class="navbar-text">Vous etes connecté: <c:out value="${ utilisateur.nom }"/></p>
+                            <button class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
+                                <i class="glyphicon glyphicon-user"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header"><span>Vous etes connecté: <c:out value="${ utilisateur.nom }"/></span></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">One more separated link</a></li>
+                            </ul>
                         </c:when>
                             
                         <c:otherwise>
@@ -112,26 +126,11 @@
                                 <i class="glyphicon glyphicon-log-in"></i>
                                 Se connecter
                             </a>
-                            <%--<jsp:include page="/UtilisateurController" flush="true" />--%>
-<!--                            <form class="navbar-form navbar-right" role="form">
-                                <div class="form-group">
-                                    <input type="text" placeholder="Email" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <input type="password" placeholder="Password" class="form-control">
-                                </div>
-                                <button type="submit" class="btn btn-success">Sign in</button>
-                            </form>-->
                         </c:otherwise>
                         
                     </c:choose>
                         
                     </div>
-                    
-                    <%--<c:if test="${ utilisateur != null }" scope="session">
-                        Vous etes connecté
-                    </c:if> --%>
-
                     
                 </div><!--/.navbar-collapse -->
 

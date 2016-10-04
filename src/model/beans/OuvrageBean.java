@@ -89,8 +89,6 @@ public class OuvrageBean {
     public Ouvrage findById(BeanConnexion bc, Long id) {
         Ouvrage item = null;
         
-        System.out.println("looking for ouvrage: " + id);
-
         // le nom de méthode commence par une majuscule,
         // mais ce n'est pas de mon ressort.
         DataSource ds = bc.MaConnexion();

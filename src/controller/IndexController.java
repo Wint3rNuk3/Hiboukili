@@ -18,18 +18,10 @@ public class IndexController extends HttpServlet {
     
     private static final String INDEX_ROUTE = "/WEB-INF/jsp/index.jsp";
 
-    // temporaire en attendant les acces bdd.
-//    private List<Edition> editions = new ArrayList();
-    
     @Override
     public void init() throws ServletException {
         super.init(); //To change body of generated methods, choose Tools | Templates.
-              
-        // On construit une liste d'edition en attendant les methodes de recuperation de la bdd.
-//        for (int i = 0; i < 100; i++) {
-//            editions.add(new Edition(String.valueOf(i), i));
-//        }
-        
+           
     }
 
     /**
@@ -59,14 +51,6 @@ public class IndexController extends HttpServlet {
         
         List<Edition> editions = new EditionBean().findAll(bc);
         
-        Integer page = 1;
-        
-        if(request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
-        }
-        
-        request.setAttribute("page", page);
-        
         int perPage = 6;
         
         if(request.getParameter("perPage") != null) {
@@ -75,19 +59,28 @@ public class IndexController extends HttpServlet {
         
         request.setAttribute("perPage", perPage);
         
+        int nbPage = (int)Math.ceil((double) editions.size() / perPage);
+        request.setAttribute("nbPage", nbPage);
+        
+        Integer page = 1;
+        
+        if(request.getParameter("page") != null) {
+            page = Integer.parseInt(request.getParameter("page"));
+            
+            if(page > nbPage) {
+                // Si la page demandée excede le nombre de page,
+                // allons a la derniere page.
+                page = nbPage;
+            }
+        }
+        
+        request.setAttribute("page", page);
+        
         List displayed = editions.subList(
                 Math.max(page * perPage - perPage, 0), 
                 Math.min(page * perPage, editions.size()));
         
         request.setAttribute("editions", displayed);
-        
-        int nbPage = (int)Math.ceil((double) editions.size() / perPage);
-        request.setAttribute("nbPage", nbPage);
-        
-        System.out.println("viewing " + editions.size() + " editions");
-        System.out.println("from : " + Math.max(page * perPage - perPage, 0));
-        System.out.println("to : " + Math.min(page * perPage, editions.size()));
-        System.out.println("nbPage : " + nbPage);
         
         getServletContext()
                 .getRequestDispatcher(INDEX_ROUTE)

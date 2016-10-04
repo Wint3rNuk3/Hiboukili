@@ -40,7 +40,7 @@ public class Edition {
     /**
      * Quantité physique disponible.
      */
-    public Integer stock;
+    private Integer stock;
 
     /**
      * Statut de l'édition.

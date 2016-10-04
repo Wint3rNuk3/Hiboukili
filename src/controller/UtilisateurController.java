@@ -34,7 +34,7 @@ public class UtilisateurController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = request.getSession();
-        String url = "/WEB-INF/pageLogin.jsp";
+        String url = "/WEB-INF/jsp/pageLogin.jsp";
 
         //initialisation des cookies
         Cookie cookieLoginReussi = getMyCookies(request.getCookies(), "cookieLoginReussi");
@@ -45,12 +45,12 @@ public class UtilisateurController extends HttpServlet {
 
         //renvoie a la page d'erreur si le login/mdp est errone plus de 3 fois
         if (cookieLoginRate != null && cookieLoginRate.getValue().length() > 2) {
-            url = "/WEB-INF/error.jsp";
+            url = "/WEB-INF/jsp/error.jsp";
         }
 
         //renvoie a la page de bienvenue lorsque le cookie de Login reussi existe
         if (cookieLoginReussi != null) {
-            url = "/WEB-INF/bienvenue.jsp";
+            url = "/WEB-INF/jsp/bienvenue.jsp";
         }
 
         //lorsqu'on appuie sur le bouton valider du formulaire d'identification
@@ -79,7 +79,7 @@ public class UtilisateurController extends HttpServlet {
             request.setAttribute("recupLogin", request.getParameter("loginTI"));
 
             if (b) {//si le couple login/mdp est exact
-                url = "/WEB-INF/bienvenue.jsp";//renvoie a la page de bienvenue
+                url = "/WEB-INF/jsp/bienvenue.jsp";//renvoie a la page de bienvenue
                 //cree un cookie de login reussi
                 cookieLoginReussi = new Cookie("cookieLoginReussi", request.getParameter("loginTI"));
                 cookieLoginReussi.setMaxAge(60 * 60 * 24);
@@ -111,7 +111,7 @@ public class UtilisateurController extends HttpServlet {
         if (request.getParameter("deconnecterBT") != null) {
             cookieLoginReussi.setMaxAge(0);//supprime le cookie de login reussi
             response.addCookie(cookieLoginReussi);
-            url = "/WEB-INF/pageLogin.jsp";//renvoie a la page du formulaire de login
+            url = "/WEB-INF/jsp/pageLogin.jsp";//renvoie a la page du formulaire de login
 
         }
 

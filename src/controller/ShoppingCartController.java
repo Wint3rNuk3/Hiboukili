@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ShoppingCartBean;
 
-@WebServlet(name = "shoppingCartController", urlPatterns = {"/shoppingCartController"})
+@WebServlet(name = "shoppingCartController", urlPatterns = {"/shoppingcart"})
 public class ShoppingCartController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)

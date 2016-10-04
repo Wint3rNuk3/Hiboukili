@@ -59,7 +59,7 @@ public class BeanLogin implements Serializable {
                 
                 u.setStatut(su);
 
-                System.out.println(u.getNom() + " " + u.getPrenom() + " " + u.getStatut().getCode());
+                //System.out.println(u.getNom() + " " + u.getPrenom() + " " + u.getStatut().getCode());
                 return u; //renvoie vrai
             }
 

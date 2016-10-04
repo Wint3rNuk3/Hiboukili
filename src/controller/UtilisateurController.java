@@ -73,19 +73,31 @@ public class UtilisateurController extends HttpServlet {
 
             DataSource ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
             
-            //renvoie un boolean verifiant si le couple login/mdp a ete saisi correctement
+            //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
             Utilisateur uti = bl.checkLogin(ds, bc,request.getParameter("loginTI"), request.getParameter("mdpTI"));
 
             //recupere le login saisi ds le champ Login
             request.setAttribute("recupLogin", request.getParameter("loginTI"));
-
-            if (uti!=null) {//si le couple login/mdp est exact
+            
+            
+            //si l'objet utilisateur existe (donc login/mdp saisis correctement)
+            if(uti!=null && uti.getStatut().getCode().trim().equals("NOK")){
+                url = "/WEB-INF/jsp/compteDesactive.jsp";//renvoie a la page de bienvenue
+            }else if (uti!=null && uti.getStatut().getCode().trim().equals("OK")) {//si le couple login/mdp est exact
+//                if(uti.getStatut().getCode().trim().equals("OK")){
+//                    System.out.println("ca marche");
+//                }else{
+//                                     System.out.println("ca plante");
+//   
+//                }
                 url = "/WEB-INF/jsp/bienvenue.jsp";//renvoie a la page de bienvenue
-                //cree un cookie de login reussi
-                
+
+                //enregistre l'objet ds la session
                 session.setAttribute("utilisateur", uti);
-                request.setAttribute("prenomUtilisateur", uti.getPrenom());
+                //enregistre le prenom ds une requete pour l'utiliser ds la page bienvenue
+                session.setAttribute("prenomUtilisateur", uti.getPrenom());
                 
+                //cree un cookie de login reussi
                 cookieLoginReussi = new Cookie("cookieLoginReussi", request.getParameter("loginTI"));
                 cookieLoginReussi.setMaxAge(60 * 60 * 24);
                 response.addCookie(cookieLoginReussi);

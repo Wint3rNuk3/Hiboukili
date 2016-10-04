@@ -8,6 +8,7 @@
     <body>
         <h1>Login</h1>
         <form action ="UtilisateurController" method = "POST">
+            <input type="hidden" name="section" value="sectionLogin" />
             Login<br/> 
             <input type ="text" name = "loginTI" value = "${recupLogin}" /><br/> <br/> 
             Mot de passe<br/> 

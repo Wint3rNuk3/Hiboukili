@@ -42,13 +42,14 @@ public class BeanLogin implements Serializable {
             ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {//s'il existe un couple login/mdp existant ds la BDD
-                StatutUtilisateur su = new StatutUtilisateur();
 
+                //recupere les infos de l'objet StatutUtilisateur                
+                StatutUtilisateur su = new StatutUtilisateur();                
                 su.setId(rs.getLong("idStatutUtilisateur"));
                 su.setLibelle(rs.getString("libelle"));
                 su.setCode(rs.getString("code"));
                 
-
+                //recupere les infos de l'objet Utilisateur
                 Utilisateur u = new Utilisateur();
                 u.setNom(rs.getString("nom"));
                 u.setPrenom(rs.getString("prenom"));
@@ -57,10 +58,9 @@ public class BeanLogin implements Serializable {
                 u.setEmail(rs.getString("mail"));
                 u.setMotDePasse(rs.getString("mot_de_passe"));
                 
-                u.setStatut(su);
+                u.setStatut(su); //integre l'objet StatutUtilisateur a Utilisateur
 
-                //System.out.println(u.getNom() + " " + u.getPrenom() + " " + u.getStatut().getCode());
-                return u; //renvoie vrai
+                return u; //renvoie l'objet utilisateur
             }
 
         } catch (SQLException ex) {

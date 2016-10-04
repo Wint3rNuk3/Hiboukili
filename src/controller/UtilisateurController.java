@@ -1,4 +1,3 @@
-
 package controller;
 
 import java.io.IOException;
@@ -17,8 +16,8 @@ import model.classes.Utilisateur;
 
 @WebServlet(name = "UtilisateurController", urlPatterns = {"/UtilisateurController"})
 public class UtilisateurController extends HttpServlet {
-       
-            //recupere les cookies et verifie s'ils existent
+
+    //recupere les cookies et verifie s'ils existent
     private Cookie getMyCookies(Cookie[] tab, String name) {
         if (tab != null) {
             for (Cookie c : tab) {
@@ -53,81 +52,79 @@ public class UtilisateurController extends HttpServlet {
         if (cookieLoginReussi != null) {
             url = "/WEB-INF/jsp/bienvenue.jsp";
         }
+        
+        //gestion de la section Login
+        if ("sectionLogin".equals(request.getParameter("section"))) {
+            //lorsqu'on appuie sur le bouton valider du formulaire d'identification
+            if (request.getParameter("validerBT") != null) {
 
-        //lorsqu'on appuie sur le bouton valider du formulaire d'identification
-        if (request.getParameter("validerBT") != null) {
-            
-            //verifie si un beanLogin est enregistre ds la session; si non, le cree
-            BeanLogin bl = (BeanLogin) session.getAttribute("sessionLogin");
-            if (bl == null) {
-                bl = new BeanLogin();
-                session.setAttribute("sessionLogin", bl);
-            }
+                //verifie si un beanLogin est enregistre ds la session; si non, le cree
+                BeanLogin bl = (BeanLogin) session.getAttribute("sessionLogin");
+                if (bl == null) {
+                    bl = new BeanLogin();
+                    session.setAttribute("sessionLogin", bl);
+                }
 
-            //verifie si un beanConnexion est enregistre ds la session; si non, le cree            
-            BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
-            if (bc == null) {
-                bc = new BeanConnexion();
-                session.setAttribute("sessionConnexion", bc);
-            }
+                //verifie si un beanConnexion est enregistre ds la session; si non, le cree            
+                BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
+                if (bc == null) {
+                    bc = new BeanConnexion();
+                    session.setAttribute("sessionConnexion", bc);
+                }
 
-            DataSource ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
-            
-            //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
-            Utilisateur uti = bl.checkLogin(ds, bc,request.getParameter("loginTI"), request.getParameter("mdpTI"));
+                DataSource ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
 
-            //recupere le login saisi ds le champ Login
-            request.setAttribute("recupLogin", request.getParameter("loginTI"));
-            
-            
-            //si l'objet utilisateur existe (donc login/mdp saisis correctement)
-            if(uti!=null && uti.getStatut().getCode().trim().equals("NOK")){
-                url = "/WEB-INF/jsp/compteDesactive.jsp";//renvoie a la page de bienvenue
-            }else if (uti!=null && uti.getStatut().getCode().trim().equals("OK")) {//si le couple login/mdp est exact
-//                if(uti.getStatut().getCode().trim().equals("OK")){
-//                    System.out.println("ca marche");
-//                }else{
-//                                     System.out.println("ca plante");
-//   
-//                }
-                url = "/WEB-INF/jsp/bienvenue.jsp";//renvoie a la page de bienvenue
+                //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
+                Utilisateur uti = bl.checkLogin(ds, bc, request.getParameter("loginTI"), request.getParameter("mdpTI"));
 
-                //enregistre l'objet ds la session
-                session.setAttribute("utilisateur", uti);
-                //enregistre le prenom ds une requete pour l'utiliser ds la page bienvenue
-                session.setAttribute("prenomUtilisateur", uti.getPrenom());
-                
-                //cree un cookie de login reussi
-                cookieLoginReussi = new Cookie("cookieLoginReussi", request.getParameter("loginTI"));
-                cookieLoginReussi.setMaxAge(60 * 60 * 24);
-                response.addCookie(cookieLoginReussi);
+                //recupere le login saisi ds le champ Login
+                request.setAttribute("recupLogin", request.getParameter("loginTI"));
 
-                //s'il existe un cookie de login rate, il le supprime
-                if (cookieLoginRate != null) {
-                    cookieLoginRate.setMaxAge(0);
+                //si l'objet utilisateur existe (donc login/mdp saisis correctement) mais que le statut est desactive
+                if (uti != null && uti.getStatut().getCode().trim().equals("NOK")) {
+                    url = "/WEB-INF/jsp/compteDesactive.jsp";//renvoie a la page desactive
+                } else if (uti != null && uti.getStatut().getCode().trim().equals("OK")) {//si le couple login/mdp est exact avec un statut valide
+
+                    url = "/WEB-INF/jsp/bienvenue.jsp";//renvoie a la page de bienvenue
+
+                    //enregistre l'objet ds la session
+                    session.setAttribute("utilisateur", uti);
+                    //enregistre le prenom ds une requete pour l'utiliser ds la page bienvenue
+                    request.setAttribute("prenomUtilisateur", uti.getPrenom());
+                    //cree un cookie de login reussi
+                    cookieLoginReussi = new Cookie("cookieLoginReussi", request.getParameter("loginTI"));
+                    cookieLoginReussi.setMaxAge(60 * 60 * 24);
+                    response.addCookie(cookieLoginReussi);
+
+                    //s'il existe un cookie de login rate, il le supprime
+                    if (cookieLoginRate != null) {
+                        cookieLoginRate.setMaxAge(0);
+                        response.addCookie(cookieLoginRate);
+                    }
+                } else {//sinon, si le couple login/mdp est errone
+                    //cree un cookie de login rate s'il n'existe pas encore
+                    if (cookieLoginRate == null) {
+                        cookieLoginRate = new Cookie("cookieLoginRate", "*");
+                    } else {//si le cookie de login rate existe deja
+                        String s = cookieLoginRate.getValue();//recupere sa valeur
+                        s += "*";// ajoute 1 tentative de login erronee au cookie
+                        cookieLoginRate.setValue(s);
+                    }
+                    cookieLoginRate.setMaxAge(30);
                     response.addCookie(cookieLoginRate);
-                }
-            } else {//sinon, si le couple login/mdp est errone
-                //cree un cookie de login rate s'il n'existe pas encore
-                if (cookieLoginRate == null) {
-                    cookieLoginRate = new Cookie("cookieLoginRate", "*");
-                } else {//si le cookie de login rate existe deja
-                    String s = cookieLoginRate.getValue();//recupere sa valeur
-                    s += "*";// ajoute 1 tentative de login erronee au cookie
-                    cookieLoginRate.setValue(s);
-                }
-                cookieLoginRate.setMaxAge(30);
-                response.addCookie(cookieLoginRate);
 
+                }
+                //met a jour le message d'erreur qui s'affiche lorsque le login/mdp est faux
+                request.setAttribute("msgLogin", "Erreur : Login/Mot de passe invalide(s) !!!");
             }
-            //met a jour le message d'erreur qui s'affiche lorsque le login/mdp est faux
-            request.setAttribute("msgLogin", "Erreur : Login/Mot de passe invalide(s) !!!");
         }
 
-        //lorsqu'on appuie sur le bouton deconnecter de la page de bienvenue
+        //gestion du bouton deconnecter page de bienvenue
         if (request.getParameter("deconnecterBT") != null) {
             cookieLoginReussi.setMaxAge(0);//supprime le cookie de login reussi
             response.addCookie(cookieLoginReussi);
+            session.setAttribute("utilisateur", null);//supprime l'objet utilisateur de la session
+
             url = "/WEB-INF/jsp/pageLogin.jsp";//renvoie a la page du formulaire de login
 
         }

@@ -57,6 +57,8 @@ public class ShoppingCartController extends HttpServlet {
         if(request.getParameter("load") != null){
             ShoppingCartBean cartL = (ShoppingCartBean) session.getAttribute("ShoppingCart"); // faut il le mettre dans un objet ? sais pas. 
                                                                                               // tu le sais toi ? moi non.
+                                                                                              // moi non plus alors...fait le au feeling ! 
+            
         }
         
         

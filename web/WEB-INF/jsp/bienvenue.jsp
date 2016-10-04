@@ -7,7 +7,7 @@
     </head>
     <body>
         <h1>Connexion réussie</h1>
-        Bienvenue ${recupLogin} !<br/><br/>
+        Bienvenue ${prenomUtilisateur} !<br/><br/>
         <form action ="UtilisateurController" method = "POST">
             <input type ="submit" name = "deconnecterBT" value = "Déconnexion" /><br/> <br/> 
         </form>

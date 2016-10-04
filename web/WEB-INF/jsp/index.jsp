@@ -98,14 +98,22 @@
                         </li>
                     </ul>
                     
+                    <div class="nav navbar-nav navbar-right">
+                    
                     <c:choose>
                         
                         <c:when test="${ utilisateur != null }">
-                            Vous etes connecté: <c:out value="${ utilisateur.nom }"/>
+                            <p class="navbar-text">Vous etes connecté: <c:out value="${ utilisateur.nom }"/></p>
                         </c:when>
                             
                         <c:otherwise>
-                            <form class="navbar-form navbar-right" role="form">
+                            <c:url value="UtilisateurController" var="url" />
+                            <a class="btn btn-default navbar-btn" href="${ url }"> 
+                                <i class="glyphicon glyphicon-log-in"></i>
+                                Se connecter
+                            </a>
+                            <%--<jsp:include page="/UtilisateurController" flush="true" />--%>
+<!--                            <form class="navbar-form navbar-right" role="form">
                                 <div class="form-group">
                                     <input type="text" placeholder="Email" class="form-control">
                                 </div>
@@ -113,10 +121,12 @@
                                     <input type="password" placeholder="Password" class="form-control">
                                 </div>
                                 <button type="submit" class="btn btn-success">Sign in</button>
-                            </form>
+                            </form>-->
                         </c:otherwise>
                         
                     </c:choose>
+                        
+                    </div>
                     
                     <%--<c:if test="${ utilisateur != null }" scope="session">
                         Vous etes connecté

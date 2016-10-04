@@ -44,7 +44,7 @@
                             ${cart.add("124241", 2)}
                             ${cart.add("124242", 2)}
 
-                            ${cart.list()}
+                            <%--${cart.list()}--%>
                             <c:choose>
                                 <c:when test="${empty cart}">
                                     Panier vide !
@@ -63,7 +63,7 @@
                                                     <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
                                                 </div>
                                                 <div class="col-xs-4" style="margin-top:10px;">
-                                                    <input type="text" class="form-control input-sm" value="1">
+                                                    <input type="text" class="form-control input-sm" value="${e.cartQty}">
                                                 </div>
                                                 <div class="col-xs-2" style="margin-top:5px;">
                                                     <a type="button" class="btn btn-success btn-xs" href="shoppingcart.jsp?inc=${e.isbn}" style="font-size:10px; width:18px; height:18px;">+</a>                <!-- ICI -->

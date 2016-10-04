@@ -351,7 +351,8 @@ public class Edition {
                 + ", statut=" + statut
                 + ", ouvrage=" + ouvrage
                 + ", langue=" + langue
-                + ", taxes=" + taxes + '}';
+                + ", taxes=" + taxes 
+                + ", cartQty="+ cartQty + '}';
     }
     
     

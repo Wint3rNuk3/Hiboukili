@@ -353,5 +353,7 @@ public class Edition {
                 + ", langue=" + langue
                 + ", taxes=" + taxes + '}';
     }
+    
+    
 
 }

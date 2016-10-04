@@ -30,6 +30,15 @@ public class ShoppingCartController extends HttpServlet {
             cart = new ShoppingCartBean();
             session.setAttribute("ShoppingCart", cart);
         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         if (request.getParameter("add") != null) {
             cart.create(request.getParameter("add"));

@@ -30,9 +30,10 @@ public class ShoppingCartBean implements Serializable {
            Edition o = map.get(isbn);
 //            o.setQty(o.getQty()+qty);
             o.change(qty);
-            map.get(isbn).stock -= qty;
-            if(o.getQty()<1)
+            map.get(isbn).stock -= qty; //get stock
+            if(o.getQty()<1){
                 del(isbn);
+            }
         } else {
             map.put(isbn, new Edition(isbn, qty));
             map.get(isbn).stock--;
@@ -52,7 +53,7 @@ public class ShoppingCartBean implements Serializable {
         map.get(isbn).stock += qty;
     }
     public void del(String isbn) {
-        map.get(isbn).qty = 0;
+        map.get(isbn).qty = 0;                      // get ou set
         map.remove(isbn);
     }
     public Collection<Edition> list() {

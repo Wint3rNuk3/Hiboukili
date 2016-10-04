@@ -16,9 +16,14 @@ public class ShoppingCartController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
+        
+        String url = "/WEB-INF/jsp/shoppingcart.jsp";
+        
+        
         HttpSession session = request.getSession();
         // get le panier à partir de la session.
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("ShoppingCart");
+        
 
         // Si l'utilisateur n'a pas de panier, le creer.
         if (cart == null) {
@@ -53,6 +58,9 @@ public class ShoppingCartController extends HttpServlet {
             ShoppingCartBean cartL = (ShoppingCartBean) session.getAttribute("ShoppingCart"); // faut il le mettre dans un objet ? sais pas. 
                                                                                               // tu le sais toi ? moi non.
         }
+        
+        
+        request.getRequestDispatcher(url).include(request, response);
 
     }
 

@@ -34,56 +34,75 @@ public class ShoppingCartController extends HttpServlet {
         // fin copié/collé
 
         // get le panier à partir de la session.
-        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("ShoppingCart");
+        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
 
         final Map<String, Edition> cartMap = new HashMap<>();
+        String prix = null;
 
         EditionBean eb = new EditionBean();
-        
+//        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+//        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
 
         if (cart == null) {
             // Si l'utilisateur n'a pas de panier, le creer.
             cart = new ShoppingCartBean(bc, cartMap);
-            session.setAttribute("ShoppingCart", cart);
+            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+            session.setAttribute("cart", cart);
         } else {
-            cart.setMap(cartMap);
+            //cart.setMap(cartMap);
+            //session.setAttribute("cart", cart);
         }
         
-        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+        
         System.out.println(cart.list());
 
         if (request.getParameter("add") != null) {
-
             cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
+            
+            
+            
+            //ajouter le prix dans le shopping cart
+            
+            prix = cart.prix(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
+            session.setAttribute("prix", prix);
+            session.setAttribute("cart", cart);
         }
         if (request.getParameter("inc") != null) {
-            //EditionBean eb = new EditionBean();
-            cart.create(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("add")));
+            cart.inc(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("add")));
+            prix = cart.prix(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("inc")));
+            session.setAttribute("prix", prix);
+            session.setAttribute("cart", cart);
         }
         if (request.getParameter("dec") != null) {
-            //EditionBean eb = new EditionBean();
-            cart.create(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("add")));
+            cart.dec(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("add")));
+            prix = cart.prix(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("dec")));
+            session.setAttribute("prix", prix);
+            session.setAttribute("cart", cart);
         }
         if (request.getParameter("del") != null) {
-            //EditionBean eb = new EditionBean();
-            cart.create(request.getParameter("del"), eb.findByIsbn(bc, request.getParameter("add")));
+            cart.del(request.getParameter("del"));
+            prix = cart.prix(request.getParameter("del"), eb.findByIsbn(bc, request.getParameter("del")));
+            session.setAttribute("prix", prix);
+            session.setAttribute("cart", cart);
         }
         if (request.getParameter("clean") != null) {
             cart.clean();
+            prix = cart.prix(request.getParameter("clean"), eb.findByIsbn(bc, request.getParameter("clean")));
+            session.setAttribute("prix", prix);
+            session.setAttribute("cart", cart);
         }
 
         // à l'arrache pour le moment
         if (request.getParameter("save") != null) {
-            session.setAttribute("ShoppingCart", cart);
+            session.setAttribute("cart", cart);
         }
         if (request.getParameter("load") != null) {
-            ShoppingCartBean cartL = (ShoppingCartBean) session.getAttribute("ShoppingCart"); // faut il le mettre dans un objet ? sais pas. 
+            ShoppingCartBean cartL = (ShoppingCartBean) session.getAttribute("cart"); // faut il le mettre dans un objet ? sais pas. 
             // tu le sais toi ? moi non.
             // moi non plus alors...fait le au feeling ! 
-
         }
-
+        
         request.getRequestDispatcher(SHOPPINGCART_ROUTE).include(request, response);
 
     }

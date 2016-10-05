@@ -34,20 +34,14 @@ public class ShoppingCartBean implements Serializable {
     }
 
     public void add(String isbn, Edition e, int qty) {
-        if (map.size() > 1) {
-            //System.out.println(e);
-            e.change(qty);
-            //map.get(isbn).setStock(map.get(isbn).getStock() - qty);
-            map.put(isbn, e);
-            System.out.println("la map si le panier contient un element : " + map);
-            if (e.getCartQty() < 1) {
-                del(isbn, e);
+        if (map.containsKey(isbn)) {
+            Edition ed = map.get(isbn);
+            ed.change(qty);
+            if (ed.getCartQty() < 1) {
+                del(isbn);
             }
         } else {
-            //System.out.println(e);
             map.put(isbn, e);
-            System.out.println("la map si le panier contient 0 element : " + map);
-            //map.get(isbn).setStock(map.get(isbn).getStock() - 1);
         }
     }
 
@@ -61,20 +55,21 @@ public class ShoppingCartBean implements Serializable {
 
     public void dec(String isbn, Edition e, int qty) {
         add(isbn, e, -qty);
-        map.get(isbn).setStock(map.get(isbn).getStock() + qty);
+        //map.get(isbn).setStock(map.get(isbn).getStock() + qty);
     }
 
-    public void del(String isbn, Edition e) {
-        map.get(isbn).setStock(0);
+    public void del(String isbn) {
+        //map.get(isbn).setStock(0);
         map.remove(isbn);
     }
 
     public Collection<Edition> list() {
         return map.values();
     }
-
-    public Set keyList() {
-        return map.keySet();
+    
+    public String prix(String isbn, Edition e){
+        double prix = e.getCartQty() * (e.getPrixHt() + ((e.getTaxes().iterator().next().getValeur() /100) * e.getPrixHt()));
+        return String.valueOf(prix);
     }
 
     public int size() {

@@ -68,28 +68,27 @@
                                 <c:otherwise>
                                     <c:forEach items="${ cart.list() }" var="e">
                                         <div class="row">
-                                            ${ cart.list() }
                                             <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
                                             </div>
                                             <div class="col-xs-4">
-                                                <h4 class="product-name"><strong>${e.ouvrage.titre}</strong></h4><h4><small>Description de l'édition</small></h4>
+                                                <h4 class="product-name"><strong>${e.ouvrage.titre}</strong></h4><h4><small>${e.ouvrage.resume}</small></h4>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="col-xs-4 text-right" style="margin-top:10px;">
-                                                    <h6><strong>25.00 <span class="text-muted">x</span></strong></h6>
+                                                    <h6><strong>${ e.prixHt } <span class="text-muted">x</span></strong></h6>
                                                 </div>
                                                 <div class="col-xs-4" style="margin-top:10px;">
                                                     <input type="text" class="form-control input-sm" value="${e.cartQty}">
                                                 </div>
                                                 <div class="col-xs-2" style="margin-top:5px;">
-                                                    <a type="button" class="btn btn-success btn-xs" href="shoppingcart.jsp?inc=${e.isbn}" style="font-size:10px; width:18px; height:18px;">+</a>                <!-- ICI -->
-                                                    <a type="button" class="btn btn-danger btn-xs" href="shoppingcart.jsp?dec=${e.isbn}" style="font-size:10px; width:18px; height:18px;">
+                                                    <a type="button" class="btn btn-success btn-xs" href="shoppingcart?inc=${e.isbn}" style="font-size:10px; width:18px; height:18px;">+</a>                <!-- ICI -->
+                                                    <a type="button" class="btn btn-danger btn-xs" href="shoppingcart?dec=${e.isbn}" style="font-size:10px; width:18px; height:18px;">
                                                         <p style="margin-top: -1px; margin-left: -1px">-</p>
                                                     </a>                <!-- ICI -->
                                                     <!--<a href="jspPanier.jsp?clean">Vider le panier</a>-->          
                                                 </div>
                                                 <div class="col-xs-2" style="margin-top:15px;">
-                                                    <a type="button" href="shoppingcart.jsp?del=${e.isbn}" class="btn btn-link btn-xs">
+                                                    <a type="button" href="shoppingcart?del=${e.isbn}" class="btn btn-link btn-xs">
                                                         <span class="glyphicon glyphicon-trash"> </span>
                                                     </a>
                                                 </div>
@@ -115,7 +114,7 @@
                         <div class="panel-footer">
                             <div class="row text-center">
                                 <div class="col-xs-9">
-                                    <h4 class="text-right">Total <strong>€50.00</strong></h4>
+                                    <h4 class="text-right">Total <strong>€${prix}</strong></h4>
                                 </div>
                                 <div class="col-xs-3">
                                     <button type="button" class="btn btn-success btn-block" style="margin-bottom:4px; white-space: normal;">

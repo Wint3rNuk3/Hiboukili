@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Enregistre les différentes info. relatives à un ouvrage.
  *
  */
-public class Ouvrage {
+public class Ouvrage implements Serializable {
 
     /**
      * Séquentiel de la table Ouvrage généré automatiquement par la BDD.

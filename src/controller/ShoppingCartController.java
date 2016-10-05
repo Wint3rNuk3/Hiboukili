@@ -1,9 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,7 +47,6 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("ShoppingCart", cart);
         } else {
             cart.setMap(cartMap);
-            session.setAttribute("ShoppingCart", cart);
         }
         
         cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
@@ -59,22 +56,18 @@ public class ShoppingCartController extends HttpServlet {
         if (request.getParameter("add") != null) {
 
             cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
-            session.setAttribute("ShoppingCart", cart);
         }
         if (request.getParameter("inc") != null) {
             //EditionBean eb = new EditionBean();
             cart.create(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("add")));
-            session.setAttribute("ShoppingCart", cart);
         }
         if (request.getParameter("dec") != null) {
             //EditionBean eb = new EditionBean();
             cart.create(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("add")));
-            session.setAttribute("ShoppingCart", cart);
         }
         if (request.getParameter("del") != null) {
             //EditionBean eb = new EditionBean();
             cart.create(request.getParameter("del"), eb.findByIsbn(bc, request.getParameter("add")));
-            session.setAttribute("ShoppingCart", cart);
         }
         if (request.getParameter("clean") != null) {
             cart.clean();

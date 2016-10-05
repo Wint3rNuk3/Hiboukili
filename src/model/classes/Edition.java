@@ -77,6 +77,9 @@ public class Edition {
      */
     private List<Taxe> taxes;
     
+    
+    private List<Promotion> promotions;
+
     //private Editeur editeur;
 
     /**
@@ -335,8 +338,22 @@ public class Edition {
 
         this.taxes.add(taxe);
     }
+    
+    public List<Promotion> getPromotions() {
+        return promotions;
+    }
 
-   
+    public void setPromotions(List<Promotion> promotions) {
+        this.promotions = promotions;
+    }
+    
+    public void addPromotion(Promotion promotion) {
+        if (this.promotions == null) {
+            this.promotions = new ArrayList<>();
+        }
+
+        this.promotions.add(promotion);
+    }
     
     
     @Override

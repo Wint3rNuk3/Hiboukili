@@ -5,6 +5,9 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%-- Le footer de l'application --%>
+
 <footer class="row well">
     <div class="col-md-4">
 

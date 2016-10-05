@@ -5,10 +5,19 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <ul class="left-menu nav nav-pills nav-stacked">
-
+    
+    <c:forEach var="rubrique" items="${ rubriques }">
+        
     <li>
+        <a href="#"><c:out value="${ rubrique.libelle }"></c:out></a>
+    </li>
+        
+    </c:forEach>
+
+<!--    <li>
         <a href="#">Les bons plans</a>
     </li>
 
@@ -18,5 +27,5 @@
 
     <li> 
         <a href="#">Les bons plans</a>
-    </li>
+    </li>-->
 </ul>

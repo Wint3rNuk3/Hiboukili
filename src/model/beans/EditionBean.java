@@ -76,4 +76,14 @@ public class EditionBean {
         
         return list;
     }
+    
+//    public List<Edition> paginate(BeanConnexion bc, int page, int perPage){
+//        List<Edition> list = findAll(bc);
+//        
+//        return list.subList(
+//                Math.max(page * perPage - perPage, 0), 
+//                Math.min(page * perPage, list.size()));
+//    }
+    
+    
 }

@@ -16,11 +16,26 @@ import model.classes.Edition;
 public class IndexController extends HttpServlet {
     
     private static final String INDEX_ROUTE = "/WEB-INF/jsp/index.jsp";
+    
+    private static final String PAGE_PARAMETER = "page";
+    private static final String PER_PAGE_PARAMETER = "perPage";
+    
+    private static final String PAGE_ATTRIBUTE = "page";
+    private static final String NB_PAGE_ATTRIBUTE = "nbPage";
+    private static final String PER_PAGE_ATTRIBUTE = "perPage";
+    private static final String EDITIONS_ATTRIBUTE = "editions";
+    
+    private static final int DEFAULT_PAGE = 1;
+    private static final int DEFAULT_PERPAGE = 6;
+    
+    private int perPage;
+    private int page;
 
     @Override
     public void init() throws ServletException {
-        super.init(); //To change body of generated methods, choose Tools | Templates.
-           
+        super.init();
+        this.page = DEFAULT_PAGE;
+        this.perPage = DEFAULT_PERPAGE;
     }
 
     /**
@@ -48,23 +63,25 @@ public class IndexController extends HttpServlet {
         }
         // fin copié/collé
         
+        // on demande la liste complète des editions.
         List<Edition> editions = new EditionBean().findAll(bc);
         
-        int perPage = 6;
-        
-        if(request.getParameter("perPage") != null) {
-            perPage = Integer.parseInt(request.getParameter("perPage"));
+        // traitement du parametre indiquant le nombre d'edition par page.
+        if(request.getParameter(PER_PAGE_PARAMETER) != null) {
+            perPage = Integer.parseInt(request.getParameter(PER_PAGE_PARAMETER));
         }
         
-        request.setAttribute("perPage", perPage);
+        // on transmet ne nombre d'element par page en attribut, 
+        // pour l'utiliser dans la jsp.
+        request.setAttribute(PER_PAGE_ATTRIBUTE, perPage);
         
+        // on calcule le nombre de page.
         int nbPage = (int)Math.ceil((double) editions.size() / perPage);
-        request.setAttribute("nbPage", nbPage);
+        request.setAttribute(NB_PAGE_ATTRIBUTE, nbPage);
         
-        Integer page = 1;
-        
-        if(request.getParameter("page") != null) {
-            page = Integer.parseInt(request.getParameter("page"));
+        // on reagrde la page demandée.
+        if(request.getParameter(PAGE_PARAMETER) != null) {
+            page = Integer.parseInt(request.getParameter(PAGE_PARAMETER));
             
             if(page > nbPage) {
                 // Si la page demandée excede le nombre de page,
@@ -73,14 +90,18 @@ public class IndexController extends HttpServlet {
             }
         }
         
-        request.setAttribute("page", page);
+        // on transmet la valeur en attribute pour l'utiliser dans la jsp.
+        request.setAttribute(PAGE_ATTRIBUTE, page);
         
+        // on forme une nouvelle liste a partir de l'ensemble.
         List displayed = editions.subList(
-                Math.max(page * perPage - perPage, 0), 
-                Math.min(page * perPage, editions.size()));
+                Math.max(page * perPage - perPage, 0),      // avoid <0
+                Math.min(page * perPage, editions.size())); // avoid >index
         
-        request.setAttribute("editions", displayed);
+        // on transmet la liste des editions a afficher.
+        request.setAttribute(EDITIONS_ATTRIBUTE, displayed);
         
+        // on fait suivre à la jsp de l'index.
         getServletContext()
                 .getRequestDispatcher(INDEX_ROUTE)
                 .forward(request, response);

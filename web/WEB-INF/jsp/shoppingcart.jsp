@@ -41,13 +41,31 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            ${cart.add("124241", 2)}
-                            ${cart.add("124242", 2)}
+                            ${cart.clean()}
+                            ${cart.create("978-2-0001-0001-0")}
+                            ${cart.create("978-2-0002-0002-0")}
 
                             <%--${cart.list()}--%>
                             <c:choose>
                                 <c:when test="${empty cart}">
-                                    Panier vide !
+                                    <div class="row">
+                                            <div class="col-xs-2">
+                                            </div>
+                                            <div class="col-xs-4">
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="col-xs-4">
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <span>Panier vide !</span>
+                                                </div>
+                                                <div class="col-xs-2">          
+                                                </div>
+                                                <div class="col-xs-2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach items="${ cart.list() }" var="e">
@@ -56,7 +74,7 @@
                                             <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
                                             </div>
                                             <div class="col-xs-4">
-                                                <h4 class="product-name"><strong>Nom de l'édition</strong></h4><h4><small>Description de l'édition</small></h4>
+                                                <h4 class="product-name"><strong>${e.ouvrage.titre}</strong></h4><h4><small>Description de l'édition</small></h4>
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="col-xs-4 text-right" style="margin-top:10px;">
@@ -89,9 +107,9 @@
                                         <h6 class="text-right">Changements dans le panier ?</h6>
                                     </div>
                                     <div class="col-xs-3">
-                                        <button type="button" class="btn btn-default btn-sm btn-block" style="margin-bottom:4px; white-space: normal;">
+                                        <a type="button" class="btn btn-default btn-sm btn-block" href="shoppingcart" style="margin-bottom:4px; white-space: normal;">
                                             Mettre à jour le panier
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

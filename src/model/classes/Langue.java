@@ -1,11 +1,13 @@
 
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives à la langue dans laquelle
  * a été rédigé une édition.
  */
-public class Langue {
+public class Langue implements Serializable {
     
         /**
      * Séquentiel de la table Langue généré automatiquement par la BDD.

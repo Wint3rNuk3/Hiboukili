@@ -3,87 +3,74 @@ package model.beans;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.Map;
 import java.util.Set;
 import model.classes.Edition;
 
 public class ShoppingCartBean implements Serializable {
 
     BeanConnexion bc;
-    HashMap<String, Edition> map;
-    HashMap<String, EditionBean> mapBean;
+    Map<String, Edition> map;
 
     public ShoppingCartBean() {
         this.map = new HashMap();
-        this.mapBean = null;
+        //this.mapBean = new HashMap();
     }
 
-    public ShoppingCartBean(BeanConnexion bc, HashMap<String, Edition> arr, HashMap<String, EditionBean> map) {
-        this.map = arr;
+    public ShoppingCartBean(BeanConnexion bc, Map<String, Edition> map) {
+        this.map = map;
         this.bc = bc;
-        this.mapBean = map;
+        //this.mapBean = new HashMap();
     }
 
-    public void create(String isbn) {
-        create(isbn, +1);
+    public void create(String isbn, Edition e) {
+        //System.out.println(e.toString());
+        create(isbn, e, +1);
     }
 
-    public void create(String isbn, int qty) {
-        add(isbn, qty);
+    public void create(String isbn, Edition e, int qty) {
+        add(isbn, e, qty);
         //map.get(isbn).setStock(map.get(isbn).getStock() - qty);
     }
 
-    public void add(String isbn, int qty) {
+    public void add(String isbn, Edition e, int qty) {
         if (map.size() > 1) {
-            System.out.println(map);
-            Edition e = map.get(isbn);
+            //System.out.println(e);
             e.change(qty);
-            // reprendre ici
-            map.get(isbn).setStock(map.get(isbn).getStock() - qty);
+            //map.get(isbn).setStock(map.get(isbn).getStock() - qty);
+            map.put(isbn, e);
+            System.out.println("la map si le panier contient un element : " + map);
             if (e.getCartQty() < 1) {
-                del(isbn);
+                del(isbn, e);
             }
         } else {
-            map.put(isbn, new Edition());
+            //System.out.println(e);
+            map.put(isbn, e);
+            System.out.println("la map si le panier contient 0 element : " + map);
             //map.get(isbn).setStock(map.get(isbn).getStock() - 1);
         }
     }
 
-    public void inc(String isbn) {
-        add(isbn, +1);
+    public void inc(String isbn, Edition e) {
+        add(isbn, e, +1);
     }
 
-    public void dec(String isbn) {
-        dec(isbn, 1);
+    public void dec(String isbn, Edition e) {
+        dec(isbn, e, 1);
     }
 
-    public void dec(String isbn, int qty) {
-        add(isbn, -qty);
+    public void dec(String isbn, Edition e, int qty) {
+        add(isbn, e, -qty);
         map.get(isbn).setStock(map.get(isbn).getStock() + qty);
     }
 
-    public void del(String isbn) {
+    public void del(String isbn, Edition e) {
         map.get(isbn).setStock(0);
         map.remove(isbn);
     }
 
-    public Collection<EditionBean> list() {
-        System.out.println(map.values());
-
-        if (mapBean == null) {
-            return mapBean.values();
-        } else {
-            Iterator<Edition> it = map.values().iterator();
-            int i = 0;
-            while (it.hasNext() && i < map.values().size()) {
-                mapBean.put(this.keyList().toArray()[i].toString(), new EditionBean());
-                i++;
-            }
-            return mapBean.values();
-        }
-
+    public Collection<Edition> list() {
+        return map.values();
     }
 
     public Set keyList() {
@@ -111,4 +98,13 @@ public class ShoppingCartBean implements Serializable {
     public void checkout() {
         // validation du panier...
     }
+
+    public void setBc(BeanConnexion bc) {
+        this.bc = bc;
+    }
+
+    public void setMap(Map<String, Edition> map) {
+        this.map = map;
+    }
+
 }

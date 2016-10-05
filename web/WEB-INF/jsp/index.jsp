@@ -8,28 +8,50 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!doctype html>
+
+<%-- Cette partie permet de traiter differement les versions de IE --%>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang=""> <!--<![endif]-->
     
+    <%-- 
+        Importation de la jsp contenant la balise html head 
+    --%>
     <c:import url="template/head.jsp"/>
         
     <body>
 
+        <%-- 
+            Importation de la jsp contenant le code servant à alerter
+            l'utilisateur que son navigateur est obsolète.
+        --%>
         <c:import url="template/browserAlert.jsp"/>
         
+        <%--
+            Importation de la jsp contenant la navbar. (menu du haut)
+        --%>
         <c:import url="template/navbar.jsp"/>
 
-        <%-- Application container --%>
+        <%-- 
+            Section principale de l'application, 
+            elle est découpée en deux colonnes :
+                - le menu de gauche ().
+                - l'affichage au centre.
+        --%>
         <section class="container-fluid">
 
             <div class="row">
 
                 <%-- left-nav --%>
                 <div class="col-md-3 col-sm-3 col-xs-3">
+                    <%-- 
+                        Importation de la jsp contenant le menu de gauche 
+                    --%>
                     <c:import url="template/leftMenu.jsp"/>
-                </div><%-- Fin left-nav --%>
+                    
+                <%-- Fin left-nav --%>
+                </div>
 
                 <%-- Colonne centrale --%>
                 <div class="col-md-9 col-sm-9 col-xs-9">
@@ -56,14 +78,20 @@
 
                     <c:import url="listEdition.jsp"/>
                     
-                </div><%-- Fin colonne centrale --%>
-            </div><%-- Fin row --%>
+                <%-- Fin colonne centrale --%>
+                </div>
+            <%-- Fin row --%>
+            </div>
 
+            <%-- Importation de la jsp contenant le footer --%>
             <c:import url="template/footer.jsp"/>
 
-        </section> <!-- /container -->        
+        <%-- fin section container --%>
+        </section>        
 
+        <%-- Importation de la jsp contenant les scripts javascript --%>
         <c:import url="template/scripts.jsp"/>
+        
     </body>
 </html>
 

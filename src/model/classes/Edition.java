@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @see Ouvrage
  */
-public class Edition {
+public class Edition implements Serializable {
 
     private Long id;
     

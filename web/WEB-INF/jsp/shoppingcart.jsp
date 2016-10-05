@@ -41,36 +41,34 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            ${cart.clean()}
-                            ${cart.create("978-2-0001-0001-0")}
-                            ${cart.create("978-2-0002-0002-0")}
+                            
 
                             <%--${cart.list()}--%>
                             <c:choose>
                                 <c:when test="${empty cart}">
                                     <div class="row">
-                                            <div class="col-xs-2">
-                                            </div>
+                                        <div class="col-xs-2">
+                                        </div>
+                                        <div class="col-xs-4">
+                                        </div>
+                                        <div class="col-xs-6">
                                             <div class="col-xs-4">
                                             </div>
-                                            <div class="col-xs-6">
-                                                <div class="col-xs-4">
-                                                </div>
-                                                <div class="col-xs-4">
-                                                    <span>Panier vide !</span>
-                                                </div>
-                                                <div class="col-xs-2">          
-                                                </div>
-                                                <div class="col-xs-2">
-                                                </div>
+                                            <div class="col-xs-4">
+                                                <span>Panier vide !</span>
+                                            </div>
+                                            <div class="col-xs-2">          
+                                            </div>
+                                            <div class="col-xs-2">
                                             </div>
                                         </div>
-                                        <hr>
+                                    </div>
+                                    <hr>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach items="${ cart.list() }" var="e">
                                         <div class="row">
-                                            ${cartElement}
+                                            ${ cart.list() }
                                             <div class="col-xs-2"><img class="img-responsive" src="http://placehold.it/100x70">
                                             </div>
                                             <div class="col-xs-4">

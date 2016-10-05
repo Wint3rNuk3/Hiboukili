@@ -1,9 +1,8 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,36 +35,39 @@ public class ShoppingCartController extends HttpServlet {
 
         // get le panier à partir de la session.
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("ShoppingCart");
-        HashMap<String, EditionBean> mapBean = new HashMap<>();
-        HashMap<String, Edition> cartList = new HashMap<>();
 
-        if (cart != null) {
-            for (EditionBean ed : cart.list()) {
-                for (int i = 0; i < cart.keyList().size(); i++) {
-                    mapBean.put(cart.keyList().toArray()[i].toString(), ed);
-                    cartList.put(cart.keyList().toArray()[i].toString(), ed.findByIsbn(bc, cart.keyList().toArray()[i].toString()));
-                }
-            }
-        } else {
+        final Map<String, Edition> cartMap = new HashMap<>();
+
+        EditionBean eb = new EditionBean();
+        
+
+        if (cart == null) {
             // Si l'utilisateur n'a pas de panier, le creer.
-            cart = new ShoppingCartBean(bc, cartList, mapBean);
+            cart = new ShoppingCartBean(bc, cartMap);
             session.setAttribute("ShoppingCart", cart);
+        } else {
+            cart.setMap(cartMap);
         }
+        
+        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+        System.out.println(cart.list());
 
-//        for(Edition e : cartList){
-//            System.out.println(e.toString());
-//        }
         if (request.getParameter("add") != null) {
-            cart.create(request.getParameter("add"));
+
+            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
         }
         if (request.getParameter("inc") != null) {
-            cart.inc(request.getParameter("inc"));
+            //EditionBean eb = new EditionBean();
+            cart.create(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("add")));
         }
         if (request.getParameter("dec") != null) {
-            cart.dec(request.getParameter("dec"));
+            //EditionBean eb = new EditionBean();
+            cart.create(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("add")));
         }
         if (request.getParameter("del") != null) {
-            cart.del(request.getParameter("del"));
+            //EditionBean eb = new EditionBean();
+            cart.create(request.getParameter("del"), eb.findByIsbn(bc, request.getParameter("add")));
         }
         if (request.getParameter("clean") != null) {
             cart.clean();

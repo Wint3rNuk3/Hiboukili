@@ -1,9 +1,11 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les info. obligatoires relatives à l'entreprise.
  */
-public class Entreprise {
+public class Entreprise implements Serializable{
 
     /**
      * Séquentiel de la table Entreprise généré automatiquement par la BDD.

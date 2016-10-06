@@ -1,10 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives au statut d'une adresse.
  *
  */
-public class StatutAdresse {
+public class StatutAdresse implements Serializable{
 
     /**
      * Séquentiel de la table StatutAdresse généré automatiquement par la BDD.

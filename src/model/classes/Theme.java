@@ -1,11 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Enregistre les différetes info. relatives au thèmes d'un ouvrage.
  */
-public class Theme {
+public class Theme implements Serializable{
 
     /**
      * Séquentiel de la table Theme généré automatiquement par la BDD.

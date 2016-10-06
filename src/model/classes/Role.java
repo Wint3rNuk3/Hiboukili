@@ -1,9 +1,11 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Distingue les employés des clients.
  */
-public class Role {
+public class Role implements Serializable{
 
     /**
      * Séquentiel de la table Role généré automatiquement par la BDD.

@@ -1,10 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives au statut d'une transaction.
  *
  */
-public class StatutTransaction {
+public class StatutTransaction implements Serializable{
 
     /**
      * Séquentiel de la table StatutTransaction généré automatiquement par la

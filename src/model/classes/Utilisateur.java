@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  * employé).
  *
  */
-public class Utilisateur {
+public class Utilisateur implements Serializable{
 
     /**
      * Séquentiel de la table Ouvrage généré automatiquement par la BDD.

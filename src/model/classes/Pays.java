@@ -1,12 +1,13 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Enregistre les différentes info. relatives à un pays.
  *
  */
-public class Pays {
+public class Pays implements Serializable{
 
     /**
      * Séquentiel de la table Pays généré automatiquement par la BDD.

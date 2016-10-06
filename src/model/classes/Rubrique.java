@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.Objects;
 /**
  * Enregistre les différentes info. relatives à une rubrique.
  */
-public class Rubrique {
+public class Rubrique implements Serializable{
 
     /**
      * Séquentiel de la table Rubrique généré automatiquement par la BDD.

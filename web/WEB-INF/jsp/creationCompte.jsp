@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Creation d'un nouveau compte !</h1>
-        <form action = "Controller" method ="GET" />
+        <form action = "UtilisateurController" method ="GET" />
 
         Nom<br/>
         <input type ="text" name ="nomTI" value ="${recupNomCompte}" required ></br></br>

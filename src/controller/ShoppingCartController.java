@@ -35,20 +35,20 @@ public class ShoppingCartController extends HttpServlet {
 
         // get le panier à partir de la session.
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-        // get le prix le cas echeant
+        
+        // trucs dont on va avoir besoin
         String prixTotal;
-
         final Map<String, Edition> cartMap = new HashMap<>();
-
         EditionBean eb = new EditionBean();
-//        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-//        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
 
+        
+        
+        
         if (cart == null) {
             // Si l'utilisateur n'a pas de panier, le creer.
             cart = new ShoppingCartBean(bc, cartMap);
-            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"), 2);
+            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"), 2);
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);

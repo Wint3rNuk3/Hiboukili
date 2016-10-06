@@ -17,17 +17,14 @@ public class ShoppingCartBean implements Serializable {
 
     public ShoppingCartBean() {
         this.map = new HashMap();
-        //this.mapBean = new HashMap();
     }
 
     public ShoppingCartBean(BeanConnexion bc, Map<String, Edition> map) {
         this.map = map;
         this.bc = bc;
-        //this.mapBean = new HashMap();
     }
 
     public void create(String isbn, Edition e) {
-        //System.out.println(e.toString());
         create(isbn, e, +1);
     }
 
@@ -39,9 +36,9 @@ public class ShoppingCartBean implements Serializable {
     public void add(String isbn, Edition e, int qty) {
         if (map.containsKey(isbn)) {
             Edition ed = map.get(isbn);
+            System.out.println(ed.getCartQty());
             ed.change(qty);
-            ed.getPrix();
-            //Float prix = (ed.getCartQty() * ed.getPrix());
+            System.out.println(ed.getCartQty());
             if (ed.getCartQty() < 1) {
                 del(isbn);
             }
@@ -104,8 +101,8 @@ public class ShoppingCartBean implements Serializable {
 
     public String getCartPrice() {
         Float prixTotal = 0F;
-        for (Edition e : this.list())
-            prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+        for (Edition e : this.list()) prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+        
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
         otherSymbols.setDecimalSeparator('.');
         otherSymbols.setGroupingSeparator(',');

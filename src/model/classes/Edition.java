@@ -312,7 +312,9 @@ public class Edition implements Serializable {
      * @see Taxe
      *
      */
-
+    public final List<Taxe> getTaxes() {
+        return taxes;
+    }
     /**
      * Met à jour la/les taxe(s). Utilisation d'une collection pour enregistrer
      * toutes les taxes affectées à une édition.
@@ -321,10 +323,6 @@ public class Edition implements Serializable {
      *
      * @see Taxe
      */
-    public final List<Taxe> getTaxes() {
-        return taxes;
-    }
-
     public void setTaxes(List<Taxe> taxes) {
         this.taxes = taxes;
     }

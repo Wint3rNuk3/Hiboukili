@@ -5,12 +5,14 @@
  */
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives aà la/aux taxe(s) appliquée(s)
  * lors de la vente d'un ouvrage à partir de son prix hors taxes.
  *
  */
-public class Taxe {
+public class Taxe implements Serializable{
 
         /**
      * Séquentiel de la table Taxe généré automatiquement par la

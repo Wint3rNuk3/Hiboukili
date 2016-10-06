@@ -1,5 +1,7 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives à chaque ligne d'une commande.
  * Cette classe a pour objet de "figer" les informations relatives à la commande
@@ -7,7 +9,7 @@ package model.classes;
  * commande, voire après, cette classe permet de conserver le prix de l'article
  * lors du passage de la commande.
  */
-public class LigneCommande {
+public class LigneCommande implements Serializable{
 
     /**
      * Séquentiel de la table LigneCommande généré automatiquement par la BDD.

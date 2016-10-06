@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  * résumer un ouvrage.
  *
  */
-public class Tag {
+public class Tag implements Serializable{
 
     /**
      * Séquentiel de la table Tag généré automatiquement par la

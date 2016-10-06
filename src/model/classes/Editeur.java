@@ -1,9 +1,11 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives à l'Editeur d'une Edition.
  */
-public class Editeur {
+public class Editeur implements Serializable{
 
     /**
      * Séquentiel de la table Editeur généré automatiquement par la BDD.

@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Enregistre les différentes info. relatives à une promotion.
  *
  */
-public class Promotion {
+public class Promotion implements Serializable{
 
     /**
      * Séquentiel de la table Promotion généré automatiquement par la BDD.

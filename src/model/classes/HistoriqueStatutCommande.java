@@ -1,11 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Enregistre les différentes info. relatives au passage d'une commande.
  */
-public class HistoriqueStatutCommande {
+public class HistoriqueStatutCommande implements Serializable{
 
     /**
      * Séquentiel de la table HistoriqueStatutCommande généré automatiquement par la BDD.

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.beans.BeanConnexion;
+import model.beans.ConnexionBean;
 import model.beans.EditionBean;
 import model.beans.ShoppingCartBean;
 import model.classes.Edition;
@@ -22,32 +22,43 @@ public class OrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String url="/WEB-INF/jsp/RecapOrder.jsp";
+
         HttpSession session = request.getSession();
-        BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
+        String url = "/WEB-INF/jsp/RecapOrder.jsp";
+
+        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
         if (bc == null) {
-            bc = new BeanConnexion();
+            bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
-        
-        if("panier".equals(request.getParameter("section"))){
-          ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-          if( cart == null){
-              url="";
-              
-          }
-          
-          url="/WEB-INF/jsp/RecapOrder.jsp";
-          request.setAttribute("panier", cart.isEmpty());
-          request.setAttribute("panier", cart.list());
-          
-          
-        }
-        
-        //controller pour les boutons "modifier" et " valider"
- 
 
+        if ("panier".equals(request.getParameter("section"))) {
+            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new ShoppingCartBean();
+                session.setAttribute("cart", cart);
+
+            }
+
+            // url = "/WEB-INF/jsp/RecapOrder.jsp";
+            request.setAttribute("panierVide", cart.isEmpty());
+            request.setAttribute("panier", cart.list());
+
+        } else {
+            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+            if (cart == null) {
+                cart = new ShoppingCartBean();
+                session.setAttribute("cart", cart);
+
+            }
+            request.setAttribute("panierVide", cart.isEmpty());
+            request.setAttribute("panier", cart.list());
+            
+            
+            System.out.println(">>>>>>>>>>>>"+ cart.list().size());
+        }
+
+        //controller pour les boutons "modifier" et " valider"
         request.getRequestDispatcher(url).include(request, response);
 
     }

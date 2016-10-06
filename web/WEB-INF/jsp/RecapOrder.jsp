@@ -12,8 +12,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <jsp:useBean class="model.beans.ShoppingCartBean" id="cart" scope="session" />
-        <form action="RecapOrder.jsp" method="get">
+        <form action="OrderController" method="get">
             <h1 align="center"> Recapitulatif</h1><br/>
             <br/>
 
@@ -46,6 +45,7 @@
                                     <th class="text-center">Quantité</th>
                                 </tr>
                             </thead>
+                            
                             <c:choose> 
                                 <c:when test="${empty cart}">
                                      <div class="row">
@@ -68,7 +68,7 @@
                                     <hr>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach items="${cart.list()}" var="e">
+                                    <c:forEach items="${panier}" var="e">
                                         <tr>
                                             <td class="col-md-9"><em>${e.isbn}</em></h4></td>
                                             <td class="col-md-1 text-center">${e.prixHt}</td>

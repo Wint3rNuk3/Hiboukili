@@ -3,6 +3,8 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.BeanConnexion;
+import model.beans.EditionBean;
 import model.beans.ShoppingCartBean;
+import model.classes.Edition;
 
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
@@ -32,7 +36,6 @@ public class OrderController extends HttpServlet {
         }
         String url="/WEB-INF/jsp/RecapOrder.jsp";
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-        
         
         
         

@@ -1,10 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les commentaires rédigés par les Clients à propose d'une édition
  * d'un ouvrage.
  */
-public class Commentaire {
+public class Commentaire implements Serializable{
 
     /**
      * Séquentiel de la table Commentaire généré automatiquement par la BDD.

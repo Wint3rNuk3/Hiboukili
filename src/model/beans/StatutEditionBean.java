@@ -25,7 +25,7 @@ public class StatutEditionBean {
             + " FROM StatutEdition"
             + " WHERE idStatutEdition = ?";
     
-    public List<StatutEdition> findAll(BeanConnexion bc) {
+    public List<StatutEdition> findAll(ConnexionBean bc) {
         List<StatutEdition> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -55,7 +55,7 @@ public class StatutEditionBean {
 
     }
     
-    public StatutEdition findById(BeanConnexion bc, Long id) {
+    public StatutEdition findById(ConnexionBean bc, Long id) {
         StatutEdition item = null;
 
         // le nom de méthode commence par une majuscule,

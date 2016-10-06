@@ -12,7 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
-import model.beans.BeanConnexion;
+import model.beans.ConnexionBean;
 import model.beans.RubriqueBean;
 import model.classes.Rubrique;
 
@@ -36,7 +36,7 @@ public class MenuFilter implements Filter {
             log("MenuFilter:DoBeforeProcessing");
         }
         
-        BeanConnexion bc = new BeanConnexion();
+        ConnexionBean bc = new ConnexionBean();
         
         // nous chargons la liste des rubriques, utilisée dans le menu de gauche.
         List<Rubrique> rubriques = new RubriqueBean().findAll(bc);

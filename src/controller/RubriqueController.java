@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.beans.BeanConnexion;
+import model.beans.ConnexionBean;
 import model.beans.RubriqueBean;
 import model.classes.Rubrique;
 
@@ -27,9 +27,9 @@ public class RubriqueController extends HttpServlet {
             throws ServletException, IOException {
         
         HttpSession session = request.getSession();           
-        BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
+        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
         if (bc == null) {
-            bc = new BeanConnexion();
+            bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
         

@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
-import model.classes.Promotion;
 import model.classes.Rubrique;
 
 public class RubriqueBean {
@@ -32,7 +31,7 @@ public class RubriqueBean {
             + " JOIN MiseEnRubrique AS mer on r.idRubrique = mer.idRubrique"
             + " WHERE mer.idOuvrage = ?";
     
-    public Rubrique findById(BeanConnexion bc, Long id) {
+    public Rubrique findById(ConnexionBean bc, Long id) {
         Rubrique item = null;
 
         // le nom de méthode commence par une majuscule,
@@ -54,7 +53,7 @@ public class RubriqueBean {
         return item;
     }
     
-    public List<Rubrique> findAll(BeanConnexion bc) {
+    public List<Rubrique> findAll(ConnexionBean bc) {
         List<Rubrique> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -76,7 +75,7 @@ public class RubriqueBean {
 
     }
     
-    public List<Rubrique> findByOuvrage(BeanConnexion bc, Long idOuvrage) {
+    public List<Rubrique> findByOuvrage(ConnexionBean bc, Long idOuvrage) {
         List<Rubrique> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,

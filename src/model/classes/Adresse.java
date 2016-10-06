@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  *
  * @see Utilisateur
  */
-public class Adresse {
+public class Adresse implements Serializable{
     
     /**
      * Séquentiel de la table Adresse généré automatiquement par la BDD.

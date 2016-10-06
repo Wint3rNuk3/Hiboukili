@@ -2,9 +2,11 @@
 package model.beans;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class OrderBean implements Serializable {
-
+    
+    
     
    //propriete
     
@@ -12,16 +14,13 @@ public class OrderBean implements Serializable {
     //constructeur
     
     public OrderBean() {
+        
     }
     
+   
     //comportement
-    public void afficherRecap(){
-        
-    }
     
-    public void afficherCommande(){
-        
-    }
+  
     
     public void modifier(){
         

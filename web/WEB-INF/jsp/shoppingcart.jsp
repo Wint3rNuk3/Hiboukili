@@ -41,9 +41,6 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            
-
-                            <%--${cart.list()}--%>
                             <c:choose>
                                 <c:when test="${empty cart}">
                                     <div class="row">
@@ -75,16 +72,17 @@
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="col-xs-4 text-right" style="margin-top:10px;">
-                                                    <h6><strong>${ e.prixHt } <span class="text-muted">x</span></strong></h6>
+                                                    <h6><strong>${ e.prixHt } HT <span class="text-muted">x</span></strong></h6>
                                                 </div>
                                                 <div class="col-xs-4" style="margin-top:10px;">
-                                                    <input type="text" class="form-control input-sm" value="${e.cartQty}">
+                                                    <!--<div name="isbnSur" value="dollar{e.isbn}">--><input type="text" class="form-control input-sm" name="qty" value="${e.cartQty}"><!--</div>-->
                                                 </div>
                                                 <div class="col-xs-2" style="margin-top:5px;">
-                                                    <a type="button" class="btn btn-success btn-xs" href="shoppingcart?inc=${e.isbn}" style="font-size:10px; width:18px; height:18px;">+</a>                <!-- ICI -->
-                                                    <a type="button" class="btn btn-danger btn-xs" href="shoppingcart?dec=${e.isbn}" style="font-size:10px; width:18px; height:18px;">
+                                                    <a type="button" class="btn btn-success btn-xs" id="inc" href="shoppingcart?inc=${e.isbn}" style="font-size:10px; width:18px; height:18px;">+</a>
+                                                    <a type="button" class="btn btn-danger btn-xs" id="dec" href="shoppingcart?dec=${e.isbn}" style="font-size:10px; width:18px; height:18px;">
                                                         <p style="margin-top: -1px; margin-left: -1px">-</p>
-                                                    </a>                <!-- ICI -->
+                                                    </a>                
+                                                    <!-- ICI -->
                                                     <!--<a href="jspPanier.jsp?clean">Vider le panier</a>-->          
                                                 </div>
                                                 <div class="col-xs-2" style="margin-top:15px;">
@@ -114,7 +112,7 @@
                         <div class="panel-footer">
                             <div class="row text-center">
                                 <div class="col-xs-9">
-                                    <h4 class="text-right">Total <strong>€${prix}</strong></h4>
+                                    <h4 class="text-right">Total <strong>${prixTotal} €</strong></h4>
                                 </div>
                                 <div class="col-xs-3">
                                     <button type="button" class="btn btn-success btn-block" style="margin-bottom:4px; white-space: normal;">

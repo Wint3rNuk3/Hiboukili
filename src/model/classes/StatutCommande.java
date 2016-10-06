@@ -1,10 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives au statut d'une commande.
  * 
  */
-public class StatutCommande {
+public class StatutCommande implements Serializable{
 
     /**
      * Séquentiel de la table StatutCommande généré automatiquement par

@@ -30,7 +30,7 @@ public class TaxeBean {
             +" JOIN ApplicationTaxe AS at ON at.idTaxe = t.idTaxe"
             +" WHERE at.idEdition = ?";
     
-    public List<Taxe> findAll(BeanConnexion bc) {
+    public List<Taxe> findAll(ConnexionBean bc) {
         List<Taxe> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -60,7 +60,7 @@ public class TaxeBean {
 
     }
     
-    public Taxe findById(BeanConnexion bc, Long id) {
+    public Taxe findById(ConnexionBean bc, Long id) {
         Taxe item = null;
 
         // le nom de méthode commence par une majuscule,
@@ -86,7 +86,7 @@ public class TaxeBean {
         return item; 
     }
     
-    public List<Taxe> findByEdition(BeanConnexion bc, Long idEdition) {
+    public List<Taxe> findByEdition(ConnexionBean bc, Long idEdition) {
         List<Taxe> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,

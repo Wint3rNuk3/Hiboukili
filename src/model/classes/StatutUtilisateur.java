@@ -1,10 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives au statut d'un utilisateur.
  *
  */
-public class StatutUtilisateur {
+public class StatutUtilisateur implements Serializable{
 
     /**
      * Séquentiel de la table StatutUtilisateur généré automatiquement par la

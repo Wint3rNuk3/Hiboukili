@@ -1,10 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives au statut d'une édition.
  *
  */
-public class StatutEdition {
+public class StatutEdition implements Serializable{
 
     /**
      * Séquentiel de la table StatutEdition généré automatiquement par la BDD.

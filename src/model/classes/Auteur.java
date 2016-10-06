@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Objects;
 
@@ -8,7 +9,7 @@ import java.util.Objects;
  *
  * @see Ouvrage
  */
-public class Auteur {
+public class Auteur implements Serializable{
 
     /**
      * Séquentiel de la table Auteur généré automatiquement par la BDD.

@@ -12,10 +12,10 @@ import java.util.Collection;
 import java.util.HashMap;
 import javax.sql.DataSource;
 
-public class BeanListePays implements Serializable{
+public class ListePaysBean implements Serializable{
     
     HashMap map = null;
-    public BeanListePays(){
+    public ListePaysBean(){
         map = new HashMap();
     }
     
@@ -35,7 +35,7 @@ public class BeanListePays implements Serializable{
         return map;
     }        
 
-    public void getListFromBdd(DataSource ds, BeanConnexion bc){
+    public void getListFromBdd(DataSource ds, ConnexionBean bc){
         ds=bc.MaConnexion();//connexion
         try(Connection c = ds.getConnection()){
             //extraction de l'idPays et libelle

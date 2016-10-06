@@ -30,7 +30,7 @@ public class PromotionBean {
             + " JOIN ApplicationPromo AS ap ON p.idPromo = ap.idPromo"
             + " WHERE ap.idEdition = ?";
     
-    public List<Promotion> findAll(BeanConnexion bc) {
+    public List<Promotion> findAll(ConnexionBean bc) {
         List<Promotion> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,
@@ -52,7 +52,7 @@ public class PromotionBean {
 
     }
 
-    public Promotion findById(BeanConnexion bc, Long id) {
+    public Promotion findById(ConnexionBean bc, Long id) {
         Promotion item = null;
 
         // le nom de méthode commence par une majuscule,
@@ -74,7 +74,7 @@ public class PromotionBean {
         return item;
     }
     
-    public List<Promotion> findByEdition(BeanConnexion bc, Long idEdition) {
+    public List<Promotion> findByEdition(ConnexionBean bc, Long idEdition) {
         List<Promotion> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,

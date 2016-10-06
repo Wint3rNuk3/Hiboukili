@@ -1,11 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  * Enregistre la date d'une transaction.
  */
-public class Transaction {
+public class Transaction implements Serializable{
 
     /**
      * Séquentiel de la table Transaction généré automatiquement par la BDD.

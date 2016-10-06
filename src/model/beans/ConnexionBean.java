@@ -8,9 +8,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class BeanConnexion implements Serializable {
+public class ConnexionBean implements Serializable {
 
-    public BeanConnexion() {//bean de connexion 
+    public ConnexionBean() {//bean de connexion 
 
     }
 
@@ -23,7 +23,7 @@ public class BeanConnexion implements Serializable {
             ds = (DataSource) ic.lookup(adresse);
         } catch (NamingException ex) {
             System.err.print("Erreur provenant du fichier beanConnexion : " + ex.getMessage() + "\n");
-            Logger.getLogger(BeanConnexion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnexionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ds;
     }

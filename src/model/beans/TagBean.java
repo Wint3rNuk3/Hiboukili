@@ -30,7 +30,7 @@ public class TagBean {
             + " WHERE r.idOuvrage = ?";
     
     
-    public List<Tag> findAll(BeanConnexion bc) {
+    public List<Tag> findAll(ConnexionBean bc) {
         List<Tag> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -59,7 +59,7 @@ public class TagBean {
 
     }
     
-    public Tag findById(BeanConnexion bc, Long id) {
+    public Tag findById(ConnexionBean bc, Long id) {
         Tag item = null;
 
         // le nom de méthode commence par une majuscule,
@@ -85,7 +85,7 @@ public class TagBean {
         return item; 
     }
     
-    public List<Tag> findByOuvrage(BeanConnexion bc, Long idOuvrage) {
+    public List<Tag> findByOuvrage(ConnexionBean bc, Long idOuvrage) {
         List<Tag> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,

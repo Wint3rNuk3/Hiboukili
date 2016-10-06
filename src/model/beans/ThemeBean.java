@@ -30,7 +30,7 @@ public class ThemeBean {
             + " WHERE th.idOuvrage = ?";
 
     
-    public List<Theme> findAll(BeanConnexion bc) {
+    public List<Theme> findAll(ConnexionBean bc) {
         List<Theme> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -59,7 +59,7 @@ public class ThemeBean {
 
     }
     
-    public Theme findById(BeanConnexion bc, Long id) {
+    public Theme findById(ConnexionBean bc, Long id) {
         Theme item = null;
 
         // le nom de méthode commence par une majuscule,
@@ -85,7 +85,7 @@ public class ThemeBean {
         return item; 
     }
     
-    public List<Theme> findByOuvrage(BeanConnexion bc, Long idOuvrage) {
+    public List<Theme> findByOuvrage(ConnexionBean bc, Long idOuvrage) {
         List<Theme> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,

@@ -1,10 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
+
 /**
  * Enregistre les différentes info. relatives au statut de l'entreprise.
  *
  */
-public class StatutEntreprise {
+public class StatutEntreprise implements Serializable{
 
     /**
      * Séquentiel de la table StatutEntreprise généré automatiquement par la

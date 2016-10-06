@@ -1,11 +1,12 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * Enregistre les différetes info. relatives au genre d'un ouvrage.
  */
-public class Genre {
+public class Genre implements Serializable{
 
     /**
      * Séquentiel de la table Genre généré automatiquement par la BDD.

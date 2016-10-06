@@ -9,14 +9,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 
-public class BeanUpdateBDD implements Serializable {
+public class UpdateBDDBean implements Serializable {
 
-    public BeanUpdateBDD() {
+    public UpdateBDDBean() {
 
     }
 
     public int creeCompteDsBdd(DataSource ds,
-            BeanConnexion bc, String nom, String prenom, String date, String tel, String mail, String mdp) {
+            ConnexionBean bc, String nom, String prenom, String date, String tel, String mail, String mdp) {
 
         int i = 0;
 
@@ -65,7 +65,7 @@ public class BeanUpdateBDD implements Serializable {
 
 ////////////////////////////////////////////////////////////////////////////////
     public int creeAdresse(DataSource ds,
-            BeanConnexion bc, int idPays, String numero, String voie, String codePostal, String ville, String complement) {
+            ConnexionBean bc, int idPays, String numero, String voie, String codePostal, String ville, String complement) {
 
         int j = 0;
         ds = bc.MaConnexion();
@@ -109,7 +109,7 @@ public class BeanUpdateBDD implements Serializable {
         return j;//renvoie l'id adresse
     }
 
-    public void updateDernieresFacturations(DataSource ds, BeanConnexion bc, int i1, int j2) {
+    public void updateDernieresFacturations(DataSource ds, ConnexionBean bc, int i1, int j2) {
         ds = bc.MaConnexion();
         //enregistre les id utilisateur et adresse ds la table dernieresFacturations        
         try (Connection c = ds.getConnection()) {

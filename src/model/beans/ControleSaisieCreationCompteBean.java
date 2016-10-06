@@ -3,9 +3,9 @@ package model.beans;
 
 import java.io.Serializable;
 
-public class BeanControleSaisieCreationCompte implements Serializable {
+public class ControleSaisieCreationCompteBean implements Serializable {
 
-    public BeanControleSaisieCreationCompte() {
+    public ControleSaisieCreationCompteBean() {
 
     }
 

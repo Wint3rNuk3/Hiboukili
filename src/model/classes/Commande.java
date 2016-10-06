@@ -1,5 +1,6 @@
 package model.classes;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
@@ -7,7 +8,7 @@ import java.sql.Date;
  *
  * @see Ouvrage
  */
-public class Commande {
+public class Commande implements Serializable{
     
     /**
      * Séquentiel de la table Commande généré automatiquement par la BDD.

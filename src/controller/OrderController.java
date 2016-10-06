@@ -31,12 +31,12 @@ public class OrderController extends HttpServlet {
             bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
-
+        EditionBean eb = new EditionBean();
         if ("panier".equals(request.getParameter("section"))) {
             ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
             if (cart == null) {
                 cart = new ShoppingCartBean();
-                
+                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
                 session.setAttribute("cart", cart);
 
             }
@@ -50,7 +50,7 @@ public class OrderController extends HttpServlet {
             if (cart == null) {
                 cart = new ShoppingCartBean();
                 session.setAttribute("cart", cart);
-
+                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
             }
             request.setAttribute("panierVide", cart.isEmpty());
             request.setAttribute("panier", cart.list());

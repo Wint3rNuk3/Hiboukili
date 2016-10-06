@@ -41,14 +41,15 @@ public class ShoppingCartController extends HttpServlet {
         final Map<String, Edition> cartMap = new HashMap<>();
         EditionBean eb = new EditionBean();
 
-        
+        //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"), 2);
+        //cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"), 2);
         
         
         if (cart == null) {
             // Si l'utilisateur n'a pas de panier, le creer.
             cart = new ShoppingCartBean(bc, cartMap);
-            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"), 2);
-            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"), 2);
+            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
@@ -61,6 +62,7 @@ public class ShoppingCartController extends HttpServlet {
         System.out.println(cart.list());
 
         if (request.getParameter("add") != null) {
+            System.out.println(request.getParameter("add"));
             cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
             session.setAttribute("cart", cart);
             //ajouter le prix dans le shopping cart
@@ -93,6 +95,9 @@ public class ShoppingCartController extends HttpServlet {
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
         }
+//        if(request.getParameter("qty") != null) {
+//            cart.getMap().get(request.getParameter("isbnSur")).change(Integer.parseInt(request.getParameter("qty")));
+//        }
 
         // à l'arrache pour le moment
         if (request.getParameter("save") != null) {

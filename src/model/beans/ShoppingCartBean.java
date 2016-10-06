@@ -94,6 +94,10 @@ public class ShoppingCartBean implements Serializable {
     public void setBc(ConnexionBean bc) {
         this.bc = bc;
     }
+    
+    public Map<String, Edition> getMap(){
+        return map;
+    }
 
     public void setMap(Map<String, Edition> map) {
         this.map = map;

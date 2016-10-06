@@ -9,7 +9,7 @@ import model.classes.Edition;
 
 public class ShoppingCartBean implements Serializable {
 
-    BeanConnexion bc;
+    ConnexionBean bc;
     Map<String, Edition> map;
 
     public ShoppingCartBean() {
@@ -17,7 +17,7 @@ public class ShoppingCartBean implements Serializable {
         //this.mapBean = new HashMap();
     }
 
-    public ShoppingCartBean(BeanConnexion bc, Map<String, Edition> map) {
+    public ShoppingCartBean(ConnexionBean bc, Map<String, Edition> map) {
         this.map = map;
         this.bc = bc;
         //this.mapBean = new HashMap();
@@ -94,7 +94,7 @@ public class ShoppingCartBean implements Serializable {
         // validation du panier...
     }
 
-    public void setBc(BeanConnexion bc) {
+    public void setBc(ConnexionBean bc) {
         this.bc = bc;
     }
 

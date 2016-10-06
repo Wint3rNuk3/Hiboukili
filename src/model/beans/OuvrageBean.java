@@ -29,7 +29,7 @@ public class OuvrageBean {
             + " FROM Ouvrage"
             + " WHERE idOuvrage = ?";
     
-    public List<Ouvrage> findAll(BeanConnexion bc) {
+    public List<Ouvrage> findAll(ConnexionBean bc) {
         List<Ouvrage> ouvrages = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -86,7 +86,7 @@ public class OuvrageBean {
 
     }
     
-    public Ouvrage findById(BeanConnexion bc, Long id) {
+    public Ouvrage findById(ConnexionBean bc, Long id) {
         Ouvrage item = null;
         
         // le nom de méthode commence par une majuscule,

@@ -24,7 +24,7 @@ public class LangueBean {
             + " FROM Langue"
             + " WHERE idLangue = ?";
 
-    public List<Langue> findAll(BeanConnexion bc) {
+    public List<Langue> findAll(ConnexionBean bc) {
         List<Langue> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,
@@ -53,7 +53,7 @@ public class LangueBean {
 
     }
 
-    public Langue findById(BeanConnexion bc, Long id) {
+    public Langue findById(ConnexionBean bc, Long id) {
         Langue item = null;
 
         // le nom de méthode commence par une majuscule,

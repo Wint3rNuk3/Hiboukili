@@ -26,7 +26,7 @@ public class RubriqueBean {
             + " JOIN MiseEnRubrique AS mer on r.idRubrique = mer.idRubrique"
             + " WHERE mer.idOuvrage = ?";
     
-    public List<Rubrique> findAll(BeanConnexion bc) {
+    public List<Rubrique> findAll(ConnexionBean bc) {
         List<Rubrique> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -58,7 +58,7 @@ public class RubriqueBean {
 
     }
     
-    public List<Rubrique> findByOuvrage(BeanConnexion bc, Long idOuvrage) {
+    public List<Rubrique> findByOuvrage(ConnexionBean bc, Long idOuvrage) {
         List<Rubrique> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,

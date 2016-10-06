@@ -31,7 +31,7 @@ public class AuteurBean {
             + " WHERE co.idOuvrage = ?";
     
     
-    public List<Auteur> findAll(BeanConnexion bc) {
+    public List<Auteur> findAll(ConnexionBean bc) {
         List<Auteur> list = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -63,7 +63,7 @@ public class AuteurBean {
 
     }
     
-    public Auteur findById(BeanConnexion bc, Long id) {
+    public Auteur findById(ConnexionBean bc, Long id) {
         Auteur item = null;
 
         // le nom de méthode commence par une majuscule,
@@ -93,7 +93,7 @@ public class AuteurBean {
         return item; 
     }
     
-    public List<Auteur> findCoAuteursByOuvrage(BeanConnexion bc, Long idOuvrage) {
+    public List<Auteur> findCoAuteursByOuvrage(ConnexionBean bc, Long idOuvrage) {
         List<Auteur> list = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,

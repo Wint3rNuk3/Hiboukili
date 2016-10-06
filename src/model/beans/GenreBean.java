@@ -30,7 +30,7 @@ public class GenreBean {
             + " JOIN IndexGenre AS i on i.idGenre = g.idGenre"
             + " WHERE i.idOuvrage = ?";
     
-    public List<Genre> findAll(BeanConnexion bc) {
+    public List<Genre> findAll(ConnexionBean bc) {
         List<Genre> genres = new ArrayList<>();
         
         // le nom de méthode commence par une majuscule,
@@ -58,7 +58,7 @@ public class GenreBean {
         return genres;
     }
     
-    public Genre findById(BeanConnexion bc, Long id) {
+    public Genre findById(ConnexionBean bc, Long id) {
         Genre genre = null;
 
         // le nom de méthode commence par une majuscule,
@@ -85,7 +85,7 @@ public class GenreBean {
         return genre; 
     }
     
-    public List<Genre> findByOuvrage(BeanConnexion bc, Long idOuvrage) {
+    public List<Genre> findByOuvrage(ConnexionBean bc, Long idOuvrage) {
         List<Genre> genres = new ArrayList<>();
 
         // le nom de méthode commence par une majuscule,

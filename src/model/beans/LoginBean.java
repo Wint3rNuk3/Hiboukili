@@ -9,13 +9,13 @@ import javax.sql.DataSource;
 import model.classes.StatutUtilisateur;
 import model.classes.Utilisateur;
 
-public class BeanLogin implements Serializable {
+public class LoginBean implements Serializable {
 
-    public BeanLogin() {
+    public LoginBean() {
 
     }
 
-    public Utilisateur checkLogin(DataSource ds, BeanConnexion bc, String login, String mdp) {
+    public Utilisateur checkLogin(DataSource ds, ConnexionBean bc, String login, String mdp) {
 
         ds = bc.MaConnexion();//connexion
         try (Connection c = ds.getConnection()) {

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.beans.BeanConnexion;
+import model.beans.ConnexionBean;
 import model.beans.EditionBean;
 import model.beans.ShoppingCartBean;
 import model.classes.Edition;
@@ -27,9 +27,9 @@ public class ShoppingCartController extends HttpServlet {
         // vérifié si un beanConnexion est enregistre ds la session; si non, le cree
         System.out.println("test Eric");
         HttpSession session = request.getSession();
-        BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
+        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
         if (bc == null) {
-            bc = new BeanConnexion();
+            bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
         // fin copié/collé

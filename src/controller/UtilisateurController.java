@@ -10,11 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import model.beans.BeanConnexion;
-import model.beans.BeanControleSaisieCreationCompte;
-import model.beans.BeanListePays;
-import model.beans.BeanLogin;
-import model.beans.BeanUpdateBDD;
+import model.beans.ConnexionBean;
+import model.beans.ControleSaisieCreationCompteBean;
+import model.beans.ListePaysBean;
+import model.beans.LoginBean;
+import model.beans.UpdateBDDBean;
 import model.classes.Utilisateur;
 
 @WebServlet(name = "UtilisateurController", urlPatterns = {"/UtilisateurController"})
@@ -42,26 +42,26 @@ public class UtilisateurController extends HttpServlet {
         String[] messageErreur = null;
         int i1 = 0;//id Utilisateur
         int j2 = 0;//id Adresse
-        BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
-        BeanListePays blp = (BeanListePays) session.getAttribute("sessionBeanListePays");
-        BeanControleSaisieCreationCompte bcscc
-                = (BeanControleSaisieCreationCompte) request.getAttribute("BeanControleSaisieCreationCompte");
-        BeanUpdateBDD buBdd = (BeanUpdateBDD) session.getAttribute("BeanUpdateBDD");
+        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
+        ListePaysBean blp = (ListePaysBean) session.getAttribute("sessionBeanListePays");
+        ControleSaisieCreationCompteBean bcscc
+                = (ControleSaisieCreationCompteBean) request.getAttribute("BeanControleSaisieCreationCompte");
+        UpdateBDDBean buBdd = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
 
 /////////       
         //cree une session de connexion si non existante        
         if (bc == null) {
-            bc = new BeanConnexion();
+            bc = new ConnexionBean();
         }
 
         //cree une session pour generer la liste des pays ds le combobox si non existante
         if (blp == null) {
-            blp = new BeanListePays();
+            blp = new ListePaysBean();
         }
 
         //cree une session pour le controle des saisies si non existante
         if (bcscc == null) {
-            bcscc = new BeanControleSaisieCreationCompte();
+            bcscc = new ControleSaisieCreationCompteBean();
         }
 
 ///////
@@ -108,13 +108,13 @@ public class UtilisateurController extends HttpServlet {
 
                 //prepare la connexion au pool de connexion
                 if (bc == null) {
-                    bc = new BeanConnexion();
+                    bc = new ConnexionBean();
                     session.setAttribute("sessionConnexion", bc);
                 }
 
                 //prepare l'enregistrement des infos ds la bdd
                 if (buBdd == null) {
-                    buBdd = new BeanUpdateBDD();
+                    buBdd = new UpdateBDDBean();
                 }
 
                 ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
@@ -180,14 +180,14 @@ public class UtilisateurController extends HttpServlet {
 
             //prepare la connexion au pool de connexion
             if (bc == null) {
-                bc = new BeanConnexion();
+                bc = new ConnexionBean();
                 session.setAttribute("sessionConnexion", bc);
             }
 
             //prepare l'enregistrement des infos ds la bdd
-            buBdd = (BeanUpdateBDD) session.getAttribute("BeanUpdateBDD");
+            buBdd = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
             if (buBdd == null) {
-                buBdd = new BeanUpdateBDD();
+                buBdd = new UpdateBDDBean();
 
                 ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
 
@@ -235,16 +235,16 @@ public class UtilisateurController extends HttpServlet {
             if (request.getParameter("validerBT") != null) {
 
                 //verifie si un beanLogin est enregistre ds la session; si non, le cree
-                BeanLogin bl = (BeanLogin) session.getAttribute("sessionLogin");
+                LoginBean bl = (LoginBean) session.getAttribute("sessionLogin");
                 if (bl == null) {
-                    bl = new BeanLogin();
+                    bl = new LoginBean();
                     session.setAttribute("sessionLogin", bl);
                 }
 
                 //verifie si un beanConnexion est enregistre ds la session; si non, le cree            
-                bc = (BeanConnexion) session.getAttribute("sessionConnexion");
+                bc = (ConnexionBean) session.getAttribute("sessionConnexion");
                 if (bc == null) {
-                    bc = new BeanConnexion();
+                    bc = new ConnexionBean();
                     session.setAttribute("sessionConnexion", bc);
                 }
 

@@ -24,7 +24,7 @@ public class EditionBean {
             + " couverture, titre, stock"
             + " FROM Edition";
 
-    public List<Edition> findAll(BeanConnexion bc) {
+    public List<Edition> findAll(ConnexionBean bc) {
         List<Edition> list = new ArrayList();
 
         // le nom de méthode commence par une majuscule,
@@ -52,7 +52,7 @@ public class EditionBean {
             + " WHERE isbn=?";
 
     
-    public Edition findByIsbn(BeanConnexion bc, String isbn){
+    public Edition findByIsbn(ConnexionBean bc, String isbn){
         Edition edition = new Edition();
         
         // le nom de méthode commence par une majuscule,
@@ -105,7 +105,7 @@ public class EditionBean {
         return edition;
     }
 
-    private Edition map(ResultSet rs, BeanConnexion bc) throws SQLException {
+    private Edition map(ResultSet rs, ConnexionBean bc) throws SQLException {
         Edition edition = new Edition();
 
         Long idEdition = rs.getLong("idEdition");
@@ -144,7 +144,7 @@ public class EditionBean {
         return edition;
     }
 
-    private List<Edition> list(ResultSet rs, BeanConnexion bc) throws SQLException {
+    private List<Edition> list(ResultSet rs, ConnexionBean bc) throws SQLException {
         List<Edition> list = new ArrayList();
         
         while (rs.next()) {
@@ -154,7 +154,7 @@ public class EditionBean {
         return list;
     }
 
-    private Edition one(ResultSet rs, BeanConnexion bc) throws SQLException {
+    private Edition one(ResultSet rs, ConnexionBean bc) throws SQLException {
         if(rs.next()) {
             return map(rs, bc);
         }

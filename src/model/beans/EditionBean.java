@@ -96,6 +96,9 @@ public class EditionBean {
                 // recuperer les taxes.
                 List<Taxe> taxes = new TaxeBean().findByEdition(bc, idEdition);
                 edition.setTaxes(taxes);
+                
+                // mettre à jour le prix.
+                edition.initPrix();
             }
             
         } catch (SQLException ex) {

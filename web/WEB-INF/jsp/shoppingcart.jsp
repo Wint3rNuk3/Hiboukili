@@ -41,9 +41,6 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            
-
-                            <%--${cart.list()}--%>
                             <c:choose>
                                 <c:when test="${empty cart}">
                                     <div class="row">
@@ -75,7 +72,7 @@
                                             </div>
                                             <div class="col-xs-6">
                                                 <div class="col-xs-4 text-right" style="margin-top:10px;">
-                                                    <h6><strong>${ e.prixHt } <span class="text-muted">x</span></strong></h6>
+                                                    <h6><strong>${ e.prixHt } HT <span class="text-muted">x</span></strong></h6>
                                                 </div>
                                                 <div class="col-xs-4" style="margin-top:10px;">
                                                     <input type="text" class="form-control input-sm" value="${e.cartQty}">
@@ -114,7 +111,7 @@
                         <div class="panel-footer">
                             <div class="row text-center">
                                 <div class="col-xs-9">
-                                    <h4 class="text-right">Total <strong>€${prix}</strong></h4>
+                                    <h4 class="text-right">Total <strong>${prixTotal} €</strong></h4>
                                 </div>
                                 <div class="col-xs-3">
                                     <button type="button" class="btn btn-success btn-block" style="margin-bottom:4px; white-space: normal;">

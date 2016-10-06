@@ -25,7 +25,6 @@ public class ShoppingCartController extends HttpServlet {
 
         // début copié/collé
         // vérifié si un beanConnexion est enregistre ds la session; si non, le cree
-       
         HttpSession session = request.getSession();
         BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
         if (bc == null) {
@@ -36,9 +35,10 @@ public class ShoppingCartController extends HttpServlet {
 
         // get le panier à partir de la session.
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+        // get le prix le cas echeant
+        String prixTotal;
 
         final Map<String, Edition> cartMap = new HashMap<>();
-        String prix = null;
 
         EditionBean eb = new EditionBean();
 //        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
@@ -50,6 +50,8 @@ public class ShoppingCartController extends HttpServlet {
             cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
             cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
             session.setAttribute("cart", cart);
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
         } else {
             //cart.setMap(cartMap);
             //session.setAttribute("cart", cart);
@@ -60,38 +62,36 @@ public class ShoppingCartController extends HttpServlet {
 
         if (request.getParameter("add") != null) {
             cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
-            
-            
-            
-            //ajouter le prix dans le shopping cart
-            
-            prix = cart.prix(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
-            session.setAttribute("prix", prix);
             session.setAttribute("cart", cart);
+            //ajouter le prix dans le shopping cart
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
         }
         if (request.getParameter("inc") != null) {
-            cart.inc(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("add")));
-            prix = cart.prix(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("inc")));
-            session.setAttribute("prix", prix);
+            cart.inc(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("inc")));
             session.setAttribute("cart", cart);
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
+            
         }
         if (request.getParameter("dec") != null) {
-            cart.dec(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("add")));
-            prix = cart.prix(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("dec")));
-            session.setAttribute("prix", prix);
+            cart.dec(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("dec")));
             session.setAttribute("cart", cart);
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
         }
         if (request.getParameter("del") != null) {
             cart.del(request.getParameter("del"));
-            prix = cart.prix(request.getParameter("del"), eb.findByIsbn(bc, request.getParameter("del")));
-            session.setAttribute("prix", prix);
             session.setAttribute("cart", cart);
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
+           
         }
         if (request.getParameter("clean") != null) {
             cart.clean();
-            prix = cart.prix(request.getParameter("clean"), eb.findByIsbn(bc, request.getParameter("clean")));
-            session.setAttribute("prix", prix);
             session.setAttribute("cart", cart);
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
         }
 
         // à l'arrache pour le moment

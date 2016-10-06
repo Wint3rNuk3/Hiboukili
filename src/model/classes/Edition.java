@@ -1,9 +1,13 @@
 package model.classes;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Enregistre les différentes info. relatives à l'édition d'un ouvrage.
@@ -13,7 +17,7 @@ import java.util.List;
 public class Edition implements Serializable {
 
     private Long id;
-    
+
     /**
      * Isbn : numero unique identifiant l'édition d'un ouvrage. (chaque édition
      * différente d'un même ouvrage aura un isbn différent) l'isbn est composé
@@ -49,13 +53,12 @@ public class Edition implements Serializable {
      * @see StatutEdition
      * @see StatutEditionDAO
      */
-    
     /**
      * Quantité physique disponible.
      */
     private int cartQty;
-    
-    
+    private String prix;
+
     private StatutEdition statut;
     /**
      * Ouvrage auquel se réfère l'édition.
@@ -77,19 +80,17 @@ public class Edition implements Serializable {
      * @see Taxe
      */
     private List<Taxe> taxes;
-    
-    
+
     private List<Promotion> promotions;
 
     //private Editeur editeur;
-
     /**
      * Constructeur de la classe; accès sans utiliser de paramètres.
      */
     public Edition() {
     }
-    
-    public Edition(String isbn, int qty){
+
+    public Edition(String isbn, int qty) {
         this.isbn = isbn;
         this.cartQty = qty;
     }
@@ -143,7 +144,7 @@ public class Edition implements Serializable {
      *
      * @return Prix hors taxes (float).
      */
-    public Float getPrixHt() {
+    public final Float getPrixHt() {
         return prixHt;
     }
 
@@ -222,10 +223,7 @@ public class Edition implements Serializable {
     public void change(int qty) {
         this.cartQty += qty;
     }
-    
-    
-    
-    
+
     /**
      * Retourne le statut de l'édition.
      *
@@ -305,6 +303,7 @@ public class Edition implements Serializable {
 //    public void setEditeur(Editeur editeur){
 //        this.editeur = editeur;
 //    }
+
     /**
      * Retourne la/les taxe(s).
      *
@@ -315,16 +314,14 @@ public class Edition implements Serializable {
      */
 
     /**
-     * Met à jour la/les taxe(s).
-     *Utilisation d'une collection pour enregistrer toutes les taxes affectées
-     * à une édition.
+     * Met à jour la/les taxe(s). Utilisation d'une collection pour enregistrer
+     * toutes les taxes affectées à une édition.
+     *
      * @param taxes Nouveau montant de taxe.
      *
      * @see Taxe
      */
-
-    
-     public List<Taxe> getTaxes() {
+    public final List<Taxe> getTaxes() {
         return taxes;
     }
 
@@ -339,7 +336,7 @@ public class Edition implements Serializable {
 
         this.taxes.add(taxe);
     }
-    
+
     public List<Promotion> getPromotions() {
         return promotions;
     }
@@ -347,7 +344,7 @@ public class Edition implements Serializable {
     public void setPromotions(List<Promotion> promotions) {
         this.promotions = promotions;
     }
-    
+
     public void addPromotion(Promotion promotion) {
         if (this.promotions == null) {
             this.promotions = new ArrayList<>();
@@ -355,8 +352,21 @@ public class Edition implements Serializable {
 
         this.promotions.add(promotion);
     }
-    
-    
+
+    public void initPrix() {
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
+        otherSymbols.setDecimalSeparator('.');
+        otherSymbols.setGroupingSeparator(',');
+        DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+        df.setRoundingMode(RoundingMode.HALF_UP);
+        this.prix = df.format((this.getPrixHt() + ((this.getTaxes().iterator().next().getValeur() / 100) * this.getPrixHt())));
+    }
+
+    public String getPrix() {
+        System.out.println(this.prix);
+        return this.prix;
+    }
+
     @Override
     public String toString() {
         return "Edition{"
@@ -369,10 +379,8 @@ public class Edition implements Serializable {
                 + ", statut=" + statut
                 + ", ouvrage=" + ouvrage
                 + ", langue=" + langue
-                + ", taxes=" + taxes 
-                + ", cartQty="+ cartQty + '}';
+                + ", taxes=" + taxes
+                + ", cartQty=" + cartQty + '}';
     }
-    
-    
 
 }

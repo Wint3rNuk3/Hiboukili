@@ -34,6 +34,8 @@ public class UtilisateurController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        String url= null;
         response.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = request.getSession();
@@ -65,9 +67,10 @@ public class UtilisateurController extends HttpServlet {
         }
 
 ///////
-        String url = "/WEB-INF/jsp/creationCompte.jsp";//CREATION DE COMPTE
-        //String url = "/WEB-INF/pageLogin.jsp";//LOGIN
+//            url = "/WEB-INF/jsp/creationCompte.jsp";//CREATION DE COMPTE
 
+            url = "/WEB-INF/jsp/pageLogin.jsp";//LOGIN
+            
         //configure la requete pour la gestion du message d'erreur en bas du formulaire de creation de compte 
         request.setAttribute("erreurSaisie", "ok");
 

@@ -24,7 +24,8 @@ public class ShoppingCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         // début copié/collé
-        // vérifié si un beanConnexion est enregistre ds la session; si non, le cree 
+        // vérifié si un beanConnexion est enregistre ds la session; si non, le cree
+        System.out.println("test Eric");
         HttpSession session = request.getSession();
         BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
         if (bc == null) {

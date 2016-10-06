@@ -14,8 +14,8 @@
     </head>
     <body>
         <h1>Infos Adresse </h1>
-
-        <form action ="Controller" method="GET">
+        <%System.out.println("test");%>
+        <form action ="UtilisateurController" method="GET">
             Numéro</br>
             <input type ="text" name="numAdresseTI"><br/><br/>
 
@@ -32,7 +32,7 @@
         <Select name ="paysSL"><%--nomme le Combobox ici et non pas ds option !!! --%>
             <c:forEach var="i" items="${liste}"><%--recupere les valeurs de la map(cad les objets ClassePays
  - le nom va changer - avec les proprietes idPays et libelle)--%>
-                <OPTION value = "${i.idPays}" >"${i.libelle}"</OPTION>
+                <OPTION value = "${i.id}" >"${i.libelle}"</OPTION>
 
             </c:forEach>
         

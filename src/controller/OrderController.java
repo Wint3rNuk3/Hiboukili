@@ -36,11 +36,12 @@ public class OrderController extends HttpServlet {
             ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
             if (cart == null) {
                 cart = new ShoppingCartBean();
+                
                 session.setAttribute("cart", cart);
 
             }
 
-            // url = "/WEB-INF/jsp/RecapOrder.jsp";
+            
             request.setAttribute("panierVide", cart.isEmpty());
             request.setAttribute("panier", cart.list());
 
@@ -56,6 +57,17 @@ public class OrderController extends HttpServlet {
             
             
             System.out.println(">>>>>>>>>>>>"+ cart.list().size());
+        }
+        
+        if("commande".equals(request.getParameter("section"))){
+            if(request.getParameter("modif")!= null){
+                url="/WEB-INF/jsp/shoppingcart.jsp";
+                
+            }
+            
+            if(request.getParameter("valid")!= null){
+                url="/WEB-INF/jsp/finalOrder.jsp";
+            }
         }
 
         //controller pour les boutons "modifier" et " valider"

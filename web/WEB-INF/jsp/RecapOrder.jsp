@@ -107,8 +107,10 @@
             </div>
             <p align="center">
             <input type='submit' value='Modifier' name='modif'/>
+            
 
             <input type="submit" value="Valider" name="valid"/>
+            
             </p>
         </form>
     </body>

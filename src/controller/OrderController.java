@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.beans.BeanConnexion;
+import model.beans.ShoppingCartBean;
 
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
@@ -17,10 +20,21 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        
+        
+        
+        
+        HttpSession session = request.getSession();
+        BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
+        if (bc == null) {
+            bc = new BeanConnexion();
+            session.setAttribute("sessionConnexion", bc);
+        }
         String url="/WEB-INF/jsp/RecapOrder.jsp";
+        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
         
         
-          
+        
         
         
         

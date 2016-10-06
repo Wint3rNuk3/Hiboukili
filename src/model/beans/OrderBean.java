@@ -15,13 +15,7 @@ public class OrderBean implements Serializable {
     }
     
     //comportement
-    public void afficherRecap(){
-        
-    }
     
-    public void afficherCommande(){
-        
-    }
     
     public void modifier(){
         

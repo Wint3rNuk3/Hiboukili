@@ -32,20 +32,20 @@ public class OrderController extends HttpServlet {
             session.setAttribute("sessionConnexion", bc);
         }
         EditionBean eb = new EditionBean();
-        if ("panier".equals(request.getParameter("section"))) {
-            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-            if (cart == null) {
-                cart = new ShoppingCartBean();
-                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-                session.setAttribute("cart", cart);
-
-            }
-
-            
-            request.setAttribute("panierVide", cart.isEmpty());
-            request.setAttribute("panier", cart.list());
-
-        } else {
+//        if ("panier".equals(request.getParameter("section"))) {
+//            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+//            if (cart == null) {
+//                cart = new ShoppingCartBean();
+//                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+//                session.setAttribute("cart", cart);
+//
+//            }
+//
+//            
+//            request.setAttribute("panierVide", cart.isEmpty());
+//            request.setAttribute("panier", cart.list());
+//
+//        } else {
             ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
             if (cart == null) {
                 cart = new ShoppingCartBean();
@@ -57,18 +57,18 @@ public class OrderController extends HttpServlet {
             
             
             System.out.println(">>>>>>>>>>>>"+ cart.list().size());
-        }
         
-        if("commande".equals(request.getParameter("section"))){
-            if(request.getParameter("modif")!= null){
-                url="/WEB-INF/jsp/shoppingcart.jsp";
-                
-            }
-            
-            if(request.getParameter("valid")!= null){
-                url="/WEB-INF/jsp/finalOrder.jsp";
-            }
-        }
+        
+//        if("commande".equals(request.getParameter("section"))){
+//            if(request.getParameter("modif")!= null){
+//                url="/WEB-INF/jsp/shoppingcart.jsp";
+//                
+//            }
+//            
+//            if(request.getParameter("valid")!= null){
+//                url="/WEB-INF/jsp/finalOrder.jsp";
+//            }
+//        }
 
         //controller pour les boutons "modifier" et " valider"
         request.getRequestDispatcher(url).include(request, response);

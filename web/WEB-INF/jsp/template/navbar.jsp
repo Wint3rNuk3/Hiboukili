@@ -13,6 +13,8 @@
         <img alt="Brand" src="images/icon.png">
     </jsp:attribute>
     <jsp:body>
+        
+        
 
         <ul class="nav navbar-nav">
             <li>
@@ -47,7 +49,7 @@
         <div class="nav navbar-nav navbar-right">
             <c:url value="shoppingcart" var="url" />
             
-            <a class="btn navbar-btn" href="${ url }">
+            <a class="btn navbar-btn" href="#cartModal" data-toggle="modal" data-target="#cartModal">
                 <i class="glyphicon glyphicon-shopping-cart"></i>
             </a>
             <c:choose>

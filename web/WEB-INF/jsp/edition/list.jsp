@@ -63,7 +63,8 @@
         <div class="media-right col-md-2 col-sm-2  col-xs-2">
             <div class="pull-right btn-group btn-group-vertical" role="group" aria-label="...">
                 
-                <a role="button" class="btn btn-success">
+                <a role="button" class="btn btn-success" href="#cartModal" data-toggle="modal" data-target="#cartModal">
+                    <!-- insert some href="shoppingcart?inc=dollar{e.isbn}" kind of -->
                     <i class="glyphicon glyphicon-shopping-cart"> </i>
                 </a>
                 

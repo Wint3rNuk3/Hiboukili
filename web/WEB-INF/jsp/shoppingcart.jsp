@@ -22,25 +22,24 @@
 
     <body style="margin-top: 20px;">
         <jsp:useBean class="model.beans.ShoppingCartBean" id="cart" scope="session" />
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-8">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
+            <div class="row modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="panel panel-info modal-content">
+                        <div class="panel-heading modal-header">
                             <div class="panel-title">
                                 <div class="row">
                                     <div class="col-xs-6">
-                                        <h5><span class="glyphicon glyphicon-shopping-cart"></span> Panier d'achats</h5>
+                                        <h5 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span> Panier d'achats</h5>
                                     </div>
                                     <div class="col-xs-6">
-                                        <button type="button" class="btn btn-primary btn-sm btn-block">
+                                        <button type="button" class="btn btn-primary btn-sm btn-block" type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                             <span class="glyphicon glyphicon-share-alt"></span> Continuer les achats
                                         </button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body modal-body">
                             <c:choose>
                                 <c:when test="${empty cart}">
                                     <div class="row">
@@ -109,7 +108,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="panel-footer">
+                        <div class="panel-footer modal-footer">
                             <div class="row text-center">
                                 <div class="col-xs-9">
                                     <h4 class="text-right">Total <strong>${prixTotal} €</strong></h4>
@@ -124,6 +123,5 @@
                     </div>
                 </div>
             </div>
-        </div>
     </body>
 </html>

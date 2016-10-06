@@ -16,6 +16,8 @@
     <jsp:attribute name="scripts">
     </jsp:attribute>
 
+    
+    
     <jsp:body>
         <div class="col-lg-12">
             
@@ -40,6 +42,8 @@
             <hr>
 
             <c:import url="edition/list.jsp"/>
+            
+            <c:import url="../jsp/shoppingcart.jsp"/>
 
         </div>
     </jsp:body>

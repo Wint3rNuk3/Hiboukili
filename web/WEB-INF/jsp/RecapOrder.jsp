@@ -48,16 +48,31 @@
                             </thead>
                             <c:choose> 
                                 <c:when test="${empty cart}">
-
-                                    <h1> Panier vide !</h1>
-
+                                     <div class="row">
+                                        <div class="col-xs-2">
+                                        </div>
+                                        <div class="col-xs-4">
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="col-xs-4">
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <span>Panier vide !</span>
+                                            </div>
+                                            <div class="col-xs-2">          
+                                            </div>
+                                            <div class="col-xs-2">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
                                 </c:when>
                                 <c:otherwise>
                                     <c:forEach items="${cart.list()}" var="e">
                                         <tr>
-                                            <td class="col-md-9"><em>les liaisons dangereuses</em></h4></td>
-                                            <td class="col-md-1 text-center">£16.30</td>
-                                            <td class="col-md-1 text-center">1</td>
+                                            <td class="col-md-9"><em>${e.isbn}</em></h4></td>
+                                            <td class="col-md-1 text-center">${e.prixHt}</td>
+                                            <td class="col-md-1 text-center">${e.cartQty}</td>
                                         </tr>
 
 

@@ -1,8 +1,8 @@
-
 package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -19,31 +19,37 @@ import model.classes.Edition;
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
 
-    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        
-        
-        
-        
+        String url="/WEB-INF/jsp/RecapOrder.jsp";
         HttpSession session = request.getSession();
         BeanConnexion bc = (BeanConnexion) session.getAttribute("sessionConnexion");
         if (bc == null) {
             bc = new BeanConnexion();
             session.setAttribute("sessionConnexion", bc);
         }
-        String url="/WEB-INF/jsp/RecapOrder.jsp";
-        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
         
+        if("panier".equals(request.getParameter("section"))){
+          ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+          if( cart == null){
+              url="";
+              
+          }
+          
+          url="/WEB-INF/jsp/RecapOrder.jsp";
+          request.setAttribute("panier", cart.isEmpty());
+          request.setAttribute("panier", cart.list());
+          
+          
+        }
         
-        
-        
-        
+        //controller pour les boutons "modifier" et " valider"
+ 
+
         request.getRequestDispatcher(url).include(request, response);
-        
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

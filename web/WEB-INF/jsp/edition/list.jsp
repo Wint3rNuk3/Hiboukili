@@ -15,7 +15,7 @@
     nbPage="${ nbPage }" 
     perPage="${ perPage }" 
     paginationUrl="" 
-    itemClass="col-md-12 col-sm-12 col-xs-12 media thumbnail" 
+    itemClass="col-md-12 col-sm-12 col-xs-12 media thumbnail edition-item" 
     listClass="media-list">
     <jsp:body>
         

@@ -21,7 +21,6 @@ public class BeanConnexion implements Serializable {
         try {
             ic = new InitialContext();
             ds = (DataSource) ic.lookup(adresse);
-            System.out.println(ds.toString());
         } catch (NamingException ex) {
             System.err.print("Erreur provenant du fichier beanConnexion : " + ex.getMessage() + "\n");
             Logger.getLogger(BeanConnexion.class.getName()).log(Level.SEVERE, null, ex);

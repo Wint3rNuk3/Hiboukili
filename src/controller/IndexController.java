@@ -10,9 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.BeanConnexion;
 import model.beans.EditionBean;
-import model.beans.RubriqueBean;
 import model.classes.Edition;
-import model.classes.Rubrique;
 
 @WebServlet(name = "IndexController", urlPatterns = {""})
 public class IndexController extends HttpServlet {
@@ -103,10 +101,9 @@ public class IndexController extends HttpServlet {
         // on transmet la liste des editions a afficher.
         request.setAttribute(EDITIONS_ATTRIBUTE, displayed);
         
-        // charger la liste des rubriques ?
-        
-        List<Rubrique> rubriques = new RubriqueBean().findAll(bc);
-        request.setAttribute("rubriques", rubriques);
+        // la liste des rubriques est chargée depuis le MenuFilter.
+//        List<Rubrique> rubriques = new RubriqueBean().findAll(bc);
+//        request.setAttribute("rubriques", rubriques);
         
         // charger la liste des themes ?
         

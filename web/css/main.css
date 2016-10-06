@@ -4,19 +4,19 @@
    Author's custom styles
    ========================================================================== */
 
+body{
+    /*background-image: url("../images/fond-5.jpg");*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-top: 51px; 
+}
 
+img.edition{
+    width: 100px;
+    height: 80px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+.edition-item{
+    background: rgba(255,255,255,0.9);
+}
 

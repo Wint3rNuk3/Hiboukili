@@ -17,28 +17,30 @@
     </jsp:attribute>
 
     <jsp:body>
+        <div class="col-lg-12">
+            
+            <div class="text-center">
 
-        <div class="row text-center">
+                <!-- formulaire de recherche -->
+                <form class="form-inline">
 
-            <!-- formulaire de recherche -->
-            <form class="form-inline">
-
-                <div class="form-group">
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="recherche" placeholder="Votre recherche">
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-default" >
-                                <i class="glyphicon glyphicon-search"> </i>
-                            </button>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="recherche" placeholder="Votre recherche">
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-default" >
+                                    <i class="glyphicon glyphicon-search"> </i>
+                                </button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
+
+            <hr>
+
+            <c:import url="edition/list.jsp"/>
+
         </div>
-
-        <hr>
-
-        <c:import url="edition/list.jsp"/>
-
     </jsp:body>
 </t:template>

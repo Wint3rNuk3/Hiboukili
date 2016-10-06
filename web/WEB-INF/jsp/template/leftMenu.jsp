@@ -12,7 +12,10 @@
     <c:forEach var="rubrique" items="${ rubriques }">
         
     <li>
-        <a href="#"><c:out value="${ rubrique.libelle }"></c:out></a>
+        <c:url value="rubrique" var="url">
+            <c:param name="rubrique" value="${ rubrique.id }" />
+        </c:url>
+        <a href="${ url }"><c:out value="${ rubrique.libelle }"></c:out></a>
     </li>
         
     </c:forEach>

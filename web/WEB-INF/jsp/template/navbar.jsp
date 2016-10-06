@@ -15,6 +15,12 @@
     <jsp:body>
 
         <ul class="nav navbar-nav">
+            <li>
+                <a href="#" id="menu-toggle"> 
+                    <i class="glyphicon glyphicon-chevron-left"></i>
+                </a>
+            </li>
+            
             <li class="active">
                 <a href="#">
                     Link 
@@ -40,13 +46,14 @@
 
         <div class="nav navbar-nav navbar-right">
             <c:url value="shoppingcart" var="url" />
-            <a class="btn btn-default navbar-btn" href="${ url }">
+            
+            <a class="btn navbar-btn" href="${ url }">
                 <i class="glyphicon glyphicon-shopping-cart"></i>
             </a>
             <c:choose>
 
                 <c:when test="${ utilisateur != null }">
-                    <button class="btn btn-default navbar-btn dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
+                    <button class="btn navbar-btn dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
                         <i class="glyphicon glyphicon-user"></i>
                     </button>
                     <ul class="dropdown-menu">
@@ -62,7 +69,7 @@
 
                 <c:otherwise>
                     <c:url value="UtilisateurController" var="url" />
-                    <a class="btn btn-default navbar-btn" href="${ url }"> 
+                    <a class="btn navbar-btn" href="${ url }"> 
                         <i class="glyphicon glyphicon-log-in"></i>
                         Se connecter
                     </a>

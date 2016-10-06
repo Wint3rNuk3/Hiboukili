@@ -32,7 +32,7 @@
 
         <%-- Ajout des styles specifiques a la page. --%>
         <jsp:invoke fragment="styles"/>
-
+        
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
             <script>window.html5 || document.write('<script src="js/vendor/html5shiv.js"><\/script>')</script>
@@ -58,34 +58,52 @@
                 - le menu de gauche ().
                 - l'affichage au centre.
         --%>
-        <section class="container-fluid">
-
-            <div class="row">
+        <section id="wrapper">
                 
                 <%-- left-nav --%>
-                <div class="col-md-3 col-sm-3 col-xs-3">
+                <div id="sidebar-wrapper">
+                    
+                    <ul class="sidebar-nav">
+                        <li class="sidebar-brand">
+                            <span> Rubriques </span>
+                        </li>
+
+                        <c:forEach var="rubrique" items="${ rubriques }">
+
+                        <li>
+                            <c:url value="rubrique" var="url">
+                                <c:param name="rubrique" value="${ rubrique.id }" />
+                            </c:url>
+                            <a href="${ url }"><c:out value="${ rubrique.libelle }"></c:out></a>
+                        </li>
+
+                        </c:forEach>
+                    </ul>
+                    
                     <%-- 
                         Importation de la jsp contenant le menu de gauche 
                     --%>
-                    <c:import url="${ baseDIR }template/leftMenu.jsp"/>
+                    <%--<jsp:include page="/shoppingcart" />--%>
+                    <%--<c:import url="${ baseDIR }template/leftMenu.jsp"/>--%>
+                    <%--<jsp:include page="/rubrique" />--%>
 
-                    <%-- Fin left-nav --%>
+                <%-- Fin left-nav --%>
                 </div>
 
                 <%-- Colonne centrale --%>
-                <div class="col-md-9 col-sm-9 col-xs-9">
-
-                <jsp:doBody />
+                <div id="page-content-wrapper">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <jsp:doBody />
+                        </div>
+                    </div>
                 
                 <%-- Fin colonne centrale --%>
                 </div>
 
-            <%-- Fin row --%>
-            </div>
-
             <%-- Importation de la jsp contenant le footer --%>
-            <c:import url="${ baseDIR }template/footer.jsp"/>
-
+            <%--<c:import url="${ baseDIR }template/footer.jsp"/>--%>
+            
             <%-- fin section container --%>
         </section>        
 

@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.BeanConnexion;
-import model.beans.RubriqueBean;
-import model.classes.Rubrique;
 
-@WebServlet(name = "RubriqueController", urlPatterns = {"/rubrique"})
-public class RubriqueController extends HttpServlet {
+@WebServlet(name = "RechercheController", urlPatterns = {"/recherche"})
+public class RechercheController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,24 +31,9 @@ public class RubriqueController extends HttpServlet {
             session.setAttribute("sessionConnexion", bc);
         }
         
-        Rubrique rubrique = null;
         
-        if(request.getParameter("rubrique") != null) {
-            Long id = Long.parseLong(request.getParameter("rubrique"));
-            rubrique = new RubriqueBean().findById(bc, id);
-        }
         
-        if(rubrique == null) {
-            // send error
-            // redirect to referer
-            request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
-        }
         
-        request.setAttribute("rubrique", rubrique);
-        
-//        request.getDispatcherType() == DispatcherType.INCLUDE
-//        request.setAttribute("type", request.getDispatcherType());
-        request.getRequestDispatcher("/WEB-INF/jsp/rubrique/view.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

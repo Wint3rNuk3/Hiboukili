@@ -28,12 +28,12 @@ public class OrderController extends HttpServlet {
         String url = "/WEB-INF/jsp/RecapOrder.jsp";
         
         
-        //appel du pool de connexion 
-        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
-        if (bc == null) {
-            bc = new ConnexionBean();
-            session.setAttribute("sessionConnexion", bc);
-        }
+//        //appel du pool de connexion 
+//        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
+//        if (bc == null) {
+//            bc = new ConnexionBean();
+//            session.setAttribute("sessionConnexion", bc);
+//        }
         //nouvelle objet EditionBean
         EditionBean eb = new EditionBean();
 //        if ("panier".equals(request.getParameter("section"))) {
@@ -57,7 +57,7 @@ public class OrderController extends HttpServlet {
             if (cart == null) {
                 cart = new ShoppingCartBean();
                 session.setAttribute("cart", cart);
-                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+//                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
             }
             request.setAttribute("panierVide", cart.isEmpty());
             request.setAttribute("panier", cart.list());

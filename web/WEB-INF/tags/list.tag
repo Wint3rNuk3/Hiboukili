@@ -4,7 +4,7 @@
 <%@attribute name="list" required="true" type="java.util.List"%>
 <%@attribute name="page" required="true"%>
 <%@attribute name="nbPage" required="true"%>
-<%@attribute name="perPage" required="true"%>
+<%@attribute name="perPage" %>
 <%@attribute name="var" required="true" rtexprvalue="false"%>
 
 <%@attribute name="paginationUrl" required="true"%>
@@ -12,6 +12,7 @@
 <%@attribute name="listClass"%>
 <%@attribute name="itemClass"%>
 
+<c:set var="perPage" value="${(empty perPage) ? list.size() : perPage}"/>
 <c:set var="listClass" value="${(empty listClass) ? 'list-group' : listClass}"/>
 <c:set var="itemClass" value="${(empty listClass) ? 'list-group-item' : itemClass}"/>
 

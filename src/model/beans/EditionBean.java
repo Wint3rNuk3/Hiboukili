@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
+import model.classes.Editeur;
 import model.classes.Edition;
 import model.classes.Langue;
 import model.classes.Ouvrage;
@@ -19,13 +20,13 @@ import model.classes.Taxe;
 public class EditionBean {
 
     private static final String SQL_FIND_ALL = "SELECT"
-            + " idEdition, isbn, idOuvrage, idLangue,"
+            + " idEdition, isbn, idOuvrage, idEditeur, idLangue,"
             + " idStatutEdition, datePubli, prixHt,"
             + " couverture, titre, stock"
             + " FROM Edition";
     
     private static final String SQL_FIND_BY_RUBRIQUE = "SELECT"
-            + " e.idEdition, e.isbn, e.idOuvrage, e.idLangue,"
+            + " e.idEdition, e.isbn, e.idOuvrage, e.idEditeur, e.idLangue,"
             + " e.idStatutEdition, e.datePubli, e.prixHt,"
             + " e.couverture, e.titre, e.stock"
             + " FROM Edition as e"
@@ -74,7 +75,7 @@ public class EditionBean {
     }
 
     private static final String SQL_FIND_BY_ISBN = "SELECT"
-            + " idEdition, isbn, idOuvrage, idLangue,"
+            + " idEdition, isbn, idOuvrage, idEditeur, idLangue,"
             + " idStatutEdition, datePubli, prixHt,"
             + " couverture, titre, stock"
             + " FROM Edition"
@@ -114,6 +115,7 @@ public class EditionBean {
 
         Long idEdition = rs.getLong("idEdition");
         Long idOuvrage = rs.getLong("idOuvrage");
+        Long idEditeur = rs.getLong("idEditeur");
         Long idLangue = rs.getLong("idLangue");
         Long idStatut = rs.getLong("idStatutEdition");
 
@@ -124,6 +126,10 @@ public class EditionBean {
         edition.setCouverture(rs.getString("couverture"));
         edition.setTitre(rs.getString("titre"));
         edition.setStock(rs.getInt("stock"));
+        
+        // recuperer l'editeur.
+        Editeur editeur = new EditeurBean().findById(bc, idEditeur);
+        edition.setEditeur(editeur);
 
         // recuperer l'ouvrage.
         Ouvrage ouvrage = new OuvrageBean().findById(bc, idOuvrage);

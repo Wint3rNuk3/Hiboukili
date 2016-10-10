@@ -18,15 +18,13 @@
             </div>
             <div class="panel-body">
                 <c:out value="${ rubrique }" />
+                
+                <c:out value="${editions.size()}" />
+                
             </div>
             
-            <jsp:include page="../edition/list.jsp" flush="true">
-                
+            <jsp:include page="../edition/list.jsp">
                 <jsp:param name="editions" value="${editions}"/>
-                <jsp:param name="page" value="1"/>
-                <jsp:param name="nbPage" value="1"/>
-                <jsp:param name="paginationUrl" value=""/>
-                
             </jsp:include>
             
         </div>

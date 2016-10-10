@@ -58,6 +58,8 @@ public class Edition implements Serializable {
      */
     private int cartQty;
     private String prix;
+    
+    private Editeur editeur;
 
     private StatutEdition statut;
     /**
@@ -376,6 +378,14 @@ public class Edition implements Serializable {
         return this.prix;
     }
 
+    public void setEditeur(Editeur editeur) {
+        this.editeur = editeur;
+    }
+
+    public Editeur getEditeur() {
+        return editeur;
+    }
+    
     @Override
     public String toString() {
         return "Edition{"

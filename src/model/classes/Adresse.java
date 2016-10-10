@@ -1,7 +1,24 @@
 package model.classes;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import model.beans.ConnexionBean;
 
 /**
  * Enregistre les différents éléments d'une adresse.
@@ -9,6 +26,10 @@ import java.util.Objects;
  * @see Utilisateur
  */
 public class Adresse implements Serializable{
+    
+    ArrayList adresse;
+    HashMap<String, ArrayList<Adresse>> map;
+    
     
     /**
      * Séquentiel de la table Adresse généré automatiquement par la BDD.
@@ -44,8 +65,21 @@ public class Adresse implements Serializable{
     /**
      * Constructeur de la classe; accès sans utiliser de paramètres.
      */
-    public Adresse() {
+    public Adresse(){
+        this.map= new HashMap();
+        this.adresse = new ArrayList();
     }
+    public Adresse(String numero, String voie, String cp, String ville, String complement) {
+        this.numero = numero;
+        this.voie = voie;
+        this.cp= cp;
+        this.ville=ville;
+        this.complement=complement;
+        
+        
+    }
+    
+    
 
     /**
      * Retourne l'id (généré par la BDD).
@@ -198,6 +232,74 @@ public class Adresse implements Serializable{
         int hash = 7;
         hash = 61 * hash + Objects.hashCode(this.id);
         return hash;
+    }
+    
+    public void recupererAdresse(ConnexionBean bc){
+        int i = 0;
+
+        DataSource ds = bc.MaConnexion();
+        
+        
+        try (Connection c = ds.getConnection();){
+        
+
+            String query = "SELECT numero, voie, codePostal, ville, complement FROM ADRESSE";
+            Statement stmt = c.createStatement();
+            
+            ResultSet rs= stmt.executeQuery(query);
+            // S2 ResultSet rs_SubItemType = stmt.executeQuery(query);
+            
+           // Solution 1
+            while(rs.next()){
+                adresse.add(rs.getString("numero")
+                        + rs.getString("voie")
+                        + rs.getString("codePostal")
+                        + rs.getString("ville")
+                        + rs.getString("complement"));
+            }
+            
+           map.put("Adresse", adresse);
+            
+            System.out.println("Contenu foutu Map :"+map);
+            
+            //SOlution 2 
+//            ResultSetMetaData metaData = rs_SubItemType.getMetaData();
+//            int colCount = metaData.getColumnCount();
+//            Map<String, Object>columns = new HashMap<String, Object>();
+//            while(rs_SubItemType.next()){
+//                
+//                for(int i =1; i<= colCount; i++){
+//                    columns.put(metaData.getColumnLabel(i), rs_SubItemType.getObject(i));
+//                }
+//                
+//                adresse.add(columns);
+//            }
+//           
+//            
+//            System.out.println(columns);  
+//
+//           //S2 rs_SubItemType.close();
+                rs.close();
+            stmt.close();
+//            
+        } catch (SQLException ex) {
+            System.err.println("Erreur dans Adresse" + ex.getMessage());
+        }
+
+        ds = bc.MaConnexion();
+        
+        System.out.println(map);
+ 
+    }
+    
+    public Collection<ArrayList<Adresse>> list() {
+        return map.values();
+    }
+    public int size() {
+        return map.size();
+    }
+    public boolean isEmpty() { 
+        return map.isEmpty();
     }
     
 }

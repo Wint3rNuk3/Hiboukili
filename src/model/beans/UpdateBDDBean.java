@@ -62,7 +62,7 @@ public class UpdateBDDBean implements Serializable {
 
 ////////////////////////////////////////////////////////////////////////////////
     public int creeAdresse(DataSource ds,
-            ConnexionBean bc, int idPays, String numero, String voie, String codePostal, String ville, String complement) {
+            ConnexionBean bc, int idPays, int idStatutAdresse, String numero, String voie, String codePostal, String ville, String complement) {
 
         int j = 0;
         ds = bc.MaConnexion();
@@ -74,7 +74,7 @@ public class UpdateBDDBean implements Serializable {
             PreparedStatement ps = c.prepareStatement(update);
 
             ps.setInt(1, idPays);
-            ps.setInt(2, 1);
+            ps.setInt(2, idStatutAdresse);//////////////////////// ICI ///////////////////////////////
             ps.setString(3, numero);
             ps.setString(4, voie);
             ps.setString(5, codePostal);
@@ -151,9 +151,10 @@ public class UpdateBDDBean implements Serializable {
             ps.setString(1, numero);
             ps.setString(2, voie);
             ps.setString(3, cp);
-            ps.setString(4, ville);
+            ps.setString(4, ville);            
             ps.setString(5, comp);          
-            ps.setLong(6, idPays);            
+            ps.setLong(6, idPays);     
+            System.out.println("myIdADRESSE / "+idAdresse);//-----------------------
             ps.setLong(7, idAdresse);
                         
             ps.executeUpdate();

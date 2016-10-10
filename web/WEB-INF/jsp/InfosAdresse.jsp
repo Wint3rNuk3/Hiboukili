@@ -38,11 +38,11 @@
 (condition valable uniquement pour la modification d'adresse, pas pour la creation), alors selectionner
 ce pays a l'affichage --%>
                     <c:if test="${i.libelle==recupPaysAdresse}" var="test">
-                        <OPTION value = "${i.id}" selected>"${i.libelle}"</OPTION>
+                        <OPTION value = "${i.id}" selected>${i.libelle}</OPTION>
                     </c:if>
 <%-- sinon ajouter le pays a la liste --%>
                     <c:if test="${i.libelle!=recupPaysAdresse}" var="test">
-                        <OPTION value = "${i.id}" >"${i.libelle}"</OPTION>
+                        <OPTION value = "${i.id}" >${i.libelle}</OPTION>
                     </c:if>
                         
                 </c:forEach>

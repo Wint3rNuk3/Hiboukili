@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.beans.AdressesBean;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
 import model.beans.ShoppingCartBean;
@@ -67,17 +68,17 @@ public class OrderController extends HttpServlet {
         //section FInal Order
         //if("finalOrder".equals(request.getParameter("section"))){
             if(request.getParameter("valid")!= null){
-                Adresse adresse=(Adresse) session.getAttribute("adresse");
-                if(adresse==null){
-                    adresse=new Adresse();
-                    session.setAttribute("adresse", adresse);
+                AdressesBean adresses=(AdressesBean) session.getAttribute("adresses");
+                if(adresses==null){
+                    adresses=new AdressesBean();
+                    session.setAttribute("adresse", adresses);
                     
                 }
-                request.setAttribute("adresseVide", adresse.isEmpty());
-                request.setAttribute("adresse", adresse.list());
+                request.setAttribute("adresseVide", adresses.isEmpty());
+                request.setAttribute("adresse", adresses.list());
                 
-                adresse.recupererAdresse(bc);
-                System.out.println("Adresse :"+adresse.list().size());
+                adresses.recupererAdresse(bc);
+                System.out.println("Adresse :"+adresses.list().size());
                 
                 url="/WEB-INF/jsp/finalOrder.jsp";
             }

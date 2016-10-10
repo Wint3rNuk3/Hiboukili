@@ -19,7 +19,7 @@ import model.classes.Rubrique;
 @WebFilter(filterName = "MenuFilter", urlPatterns = {"/*"})
 public class MenuFilter implements Filter {
     
-    private static final boolean debug = true;
+    private static final boolean debug = false;
 
     // The filter configuration object we are associated with.  If
     // this value is null, this filter instance is not currently

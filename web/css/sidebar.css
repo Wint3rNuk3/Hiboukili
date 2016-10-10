@@ -26,7 +26,7 @@
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 250px;
+    left: 249px;
     width: 0;
     height: 100%;
     margin-left: -250px;
@@ -57,7 +57,7 @@
 /* Sidebar Styles */
 
 #sidebar-wrapper {
-    border-right: solid black 1px;
+    border-right: solid #23527c 1px;
 }
 
 .sidebar-nav {
@@ -70,6 +70,7 @@
 }
 
 .sidebar-nav li {
+    color: #23527c;
     text-indent: 20px;
     line-height: 40px;
     border-left: solid #23527c 0;

@@ -43,7 +43,8 @@
 
             <c:import url="edition/list.jsp"/>
             
-            <c:import url="../jsp/shoppingcart.jsp"/>
+            <%-- attention ton code rajoute 20px de margin top au body ! --%>
+            <%--<c:import url="../jsp/shoppingcart.jsp"/>--%>
 
         </div>
     </jsp:body>

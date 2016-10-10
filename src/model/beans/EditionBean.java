@@ -67,40 +67,11 @@ public class EditionBean {
             //String executedQuery = rs.getStatement().toString();
             //System.out.println(executedQuery);
             
-            while (rs.next()) {
-                Long idEdition = rs.getLong("idEdition");
-                Long idOuvrage = rs.getLong("idOuvrage");
-                Long idLangue = rs.getLong("idLangue");
-                Long idStatut = rs.getLong("idStatutEdition");
-                
-                edition.setId(idEdition);
-                edition.setIsbn(rs.getString("isbn"));
-                edition.setDatePublication(rs.getDate("datePubli"));
-                edition.setPrixHt(rs.getFloat("prixHt"));
-                edition.setCouverture(rs.getString("couverture"));
-                edition.setTitre(rs.getString("titre"));
-                edition.setStock(rs.getInt("stock"));
-                
-                // recuperer l'ouvrage.
-                Ouvrage ouvrage = new OuvrageBean().findById(bc, idOuvrage);
-                edition.setOuvrage(ouvrage);
-                
-                // recuperer la langue.
-                Langue langue = new LangueBean().findById(bc, idLangue);
-                edition.setLangue(langue);
-                
-                // recupere le statut edition.
-                StatutEdition findById = new StatutEditionBean().findById(bc, idStatut);
-                edition.setStatut(findById);
-                
-                // recuperer les taxes.
-                List<Taxe> taxes = new TaxeBean().findByEdition(bc, idEdition);
-                edition.setTaxes(taxes);
+            edition = one(rs, bc);
                 
                 // mettre à jour le prix.
                 // on ne veut afficher le prix ttc seulement lors de l'affichage de la commande ou du panier ?
 //                edition.initPrix();
-            }
             
         } catch (SQLException ex) {
             Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);

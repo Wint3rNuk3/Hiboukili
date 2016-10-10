@@ -17,6 +17,34 @@
             </div>
             <div class="panel-body">
                 
+                <p>
+                    Résumé : 
+                    <c:out value="${ edition.ouvrage.resume }"/>
+                </p>
+
+                <p>
+                    Statut : 
+                    <c:out value="${ edition.statut.libelle }"/>
+                </p>
+
+                <p>
+                    Auteur : 
+                    <c:out value="${ edition.ouvrage.auteur.nom }"/>
+                </p>
+
+                <p>
+                    Quantité : 
+                    <c:out value="${ edition.stock }"/>
+                </p>
+
+                <c:if test="${ !edition.promotions.isEmpty() }">
+                    <p>
+                        promos : 
+                        <c:forEach varStatus="status" var="promotion" items="${ edition.promotions }">
+                            <span class="label label-default">-<c:out value="${ promotion.reduction }"/>%</span>
+                        </c:forEach>
+                    </p>
+                </c:if>
             </div>
             <div class="panel-footer">
                 

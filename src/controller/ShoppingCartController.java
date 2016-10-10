@@ -54,6 +54,8 @@ public class ShoppingCartController extends HttpServlet {
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
         } else {
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
             //cart.setMap(cartMap);
             //session.setAttribute("cart", cart);
         }

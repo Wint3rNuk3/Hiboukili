@@ -39,6 +39,10 @@ public class Promotion implements Serializable{
      * Commentaires relatifs à la promotion.
      */
     private String commentaire;
+    /**
+     * Valeur appliquée en %age.
+     */
+    private float valeur;
 
     /**
      * Constructeur de la classe; accès sans utiliser de paramètres.
@@ -101,6 +105,16 @@ public class Promotion implements Serializable{
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
     }
+
+    public float getValeur() {
+        return valeur;
+    }
+
+    public void setValeur(float valeur) {
+        this.valeur = valeur;
+    }
+    
+    
 
     @Override
     public String toString() {

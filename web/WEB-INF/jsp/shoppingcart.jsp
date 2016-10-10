@@ -20,7 +20,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
 
-    <body style="margin-top: 20px;">
+    <body>
         <jsp:useBean class="model.beans.ShoppingCartBean" id="cart" scope="session" />
             <div class="row modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
                 <div class="modal-dialog modal-lg">

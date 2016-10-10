@@ -14,7 +14,9 @@ import model.beans.ConnexionBean;
 import model.beans.ControleSaisieCreationCompteBean;
 import model.beans.ListePaysBean;
 import model.beans.LoginBean;
+import model.beans.RecupInfosUtilisateurBean;
 import model.beans.UpdateBDDBean;
+import model.classes.Adresse;
 import model.classes.Utilisateur;
 
 @WebServlet(name = "UtilisateurController", urlPatterns = {"/UtilisateurController"})
@@ -34,26 +36,30 @@ public class UtilisateurController extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String url= null;
+
         response.setContentType("text/html;charset=UTF-8");
 
         HttpSession session = request.getSession();
 
         DataSource ds = null;
         String[] messageErreur = null;
+        String url = null;
         int i1 = 0;//id Utilisateur
         int j2 = 0;//id Adresse
-        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
+        ConnexionBean cB = (ConnexionBean) session.getAttribute("sessionConnexion");
         ListePaysBean blp = (ListePaysBean) session.getAttribute("sessionBeanListePays");
         ControleSaisieCreationCompteBean bcscc
                 = (ControleSaisieCreationCompteBean) request.getAttribute("BeanControleSaisieCreationCompte");
-        UpdateBDDBean buBdd = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
+        UpdateBDDBean uBddB = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
+        RecupInfosUtilisateurBean riub = (RecupInfosUtilisateurBean) session.getAttribute("RecupInfosUtilisateurBean()");
 
+        Cookie cookieLoginReussi = getMyCookies(request.getCookies(), "cookieLoginReussi");
+        Cookie cookieLoginRate = getMyCookies(request.getCookies(), "cookieLoginRate");
+        Cookie sync = getMyCookies(request.getCookies(), "sync");
 /////////       
         //cree une session de connexion si non existante        
-        if (bc == null) {
-            bc = new ConnexionBean();
+        if (cB == null) {
+            cB = new ConnexionBean();
         }
 
         //cree une session pour generer la liste des pays ds le combobox si non existante
@@ -66,11 +72,12 @@ public class UtilisateurController extends HttpServlet {
             bcscc = new ControleSaisieCreationCompteBean();
         }
 
-///////
 //            url = "/WEB-INF/jsp/creationCompte.jsp";//CREATION DE COMPTE
+////////////////////////////////////////////////////////////////////////////////
+//                        CREATION COMPTE - SECTION UTILISATEUR
+////////////////////////////////////////////////////////////////////////////////
+        url = "/WEB-INF/jsp/pageLogin.jsp";//LOGIN
 
-            url = "/WEB-INF/jsp/pageLogin.jsp";//LOGIN
-            
         //configure la requete pour la gestion du message d'erreur en bas du formulaire de creation de compte 
         request.setAttribute("erreurSaisie", "ok");
 
@@ -110,23 +117,21 @@ public class UtilisateurController extends HttpServlet {
             } else {
 
                 //prepare la connexion au pool de connexion
-                if (bc == null) {
-                    bc = new ConnexionBean();
-                    session.setAttribute("sessionConnexion", bc);
+                if (cB == null) {
+                    cB = new ConnexionBean();
+                    session.setAttribute("sessionConnexion", cB);
                 }
 
                 //prepare l'enregistrement des infos ds la bdd
-                if (buBdd == null) {
-                    buBdd = new UpdateBDDBean();
+                if (uBddB == null) {
+                    uBddB = new UpdateBDDBean();
                 }
 
-                ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
+                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
 
                 //envoie les saisies pour qu'elles soient enregistrees ds la bdd et
                 //recupere l'idUtilisateur renvoye par la bdd ds i1
-                
-
-                i1 = buBdd.creeCompteDsBdd(ds, bc, request.getParameter("nomTI"),
+                i1 = uBddB.creeCompteDsBdd(ds, cB, request.getParameter("nomTI"),
                         request.getParameter("prenomTI"),
                         request.getParameter("dobTI"),
                         request.getParameter("telTI"),
@@ -134,19 +139,20 @@ public class UtilisateurController extends HttpServlet {
                         request.getParameter("mdpTI"));
                 url = "/WEB-INF/jsp/infosAdresse.jsp";
 
-                            System.out.println("test 1");
-                
-                
                 session.setAttribute("recupInt1", i1);//enregistre l'id utilisateur ds une requete
             }
         }
+
 ////////////////////////////////////////////////////////////////////////////////
+//                        CREATION COMPTE - SECTION ADRESSE
+////////////////////////////////////////////////////////////////////////////////        
         //recupere la liste des pays et l'enregistre ds la requete liste
-        blp.getListFromBdd(ds, bc);
+        blp.getListFromBdd(ds, cB);
         request.setAttribute("liste", blp.returnMapValues());
 
         //lorsqu'on appuie sur le bouton valider adresse du formulaire d'adresse
-        if (request.getParameter("validerAdresseBT") != null) {
+        if (request.getParameter("validerAdresseBT") != null && sync.getValue() == null) {
+            System.out.println("sync value ----- " + sync.getValue());
 
             //recupere la "value"  <OPTION value = "${i.idPays}" >"${i.libelle}"</OPTION> 
             //donc l'idPays et nom pas le libelle
@@ -159,17 +165,20 @@ public class UtilisateurController extends HttpServlet {
             String saisieNumAdresse = request.getParameter("numAdresseTI");
             request.setAttribute("recupNumAdresse", request.getParameter("numAdresseTI"));
 
-            String saisieRueAdresse = request.getParameter("rueTI");
-            request.setAttribute("recupRueAdresse", request.getParameter("rueTI"));
+            String saisieVoieAdresse = request.getParameter("voieTI");
+            request.setAttribute("recupVoieAdresse", request.getParameter("voieTI"));
 
             String saisieCpAdresse = request.getParameter("cpTI");
-            request.setAttribute("recupcpAdresse", request.getParameter("cpTI"));
+            request.setAttribute("recupCpAdresse", request.getParameter("cpTI"));
 
             String saisieVilleAdresse = request.getParameter("villeTI");
             request.setAttribute("recupVilleAdresse", request.getParameter("villeTI"));
 
             String saisieInfosCompAdresse = request.getParameter("infosCompTI");
             request.setAttribute("recupInfosCompAdresse", request.getParameter("infosCompTI"));
+
+            String saisiePaysAdresse = request.getParameter("paysSL");
+            request.setAttribute("recupPaysAdresse", request.getParameter("paysSL"));
 
             messageErreur = bcscc.checkInfoAdresse();//Controles a implementer plus tard
 
@@ -182,29 +191,29 @@ public class UtilisateurController extends HttpServlet {
             }
 
             //prepare la connexion au pool de connexion
-            if (bc == null) {
-                bc = new ConnexionBean();
-                session.setAttribute("sessionConnexion", bc);
+            if (cB == null) {
+                cB = new ConnexionBean();
+                session.setAttribute("sessionConnexion", cB);
             }
 
             //prepare l'enregistrement des infos ds la bdd
-            buBdd = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
-            if (buBdd == null) {
-                buBdd = new UpdateBDDBean();
+            uBddB = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
+            if (uBddB == null) {
+                uBddB = new UpdateBDDBean();
 
-                ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
+                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
 
                 //envoie les saisies pour qu'elles soient enregistrees ds la bdd et
                 //recupere l'idAdresse renvoye par la bdd ds j2                
-                j2 = buBdd.creeAdresse(ds, bc, idPays, saisieNumAdresse,
-                        saisieRueAdresse,
+                j2 = uBddB.creeAdresse(ds, cB, idPays, saisieNumAdresse,
+                        saisieVoieAdresse,
                         saisieCpAdresse,
                         saisieVilleAdresse,
                         saisieInfosCompAdresse);
 
                 i1 = (int) session.getAttribute("recupInt1");//recupere l'id Utilisateur
                 //envoie les id utilisateur et adresse pour l'enregistrement ds la table dernieresFacturations
-                buBdd.updateDernieresFacturations(ds, bc, i1, j2);
+                uBddB.updateDernieresFacturations(ds, cB, i1, j2);
 
                 url = "/WEB-INF/jsp/bienvenue.jsp";
             }
@@ -214,10 +223,10 @@ public class UtilisateurController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
 //                                      LOGIN
 ////////////////////////////////////////////////////////////////////////////////           
-        //String url = "/WEB-INF/jsp/pageLogin.jsp";
         //initialisation des cookies
-        Cookie cookieLoginReussi = getMyCookies(request.getCookies(), "cookieLoginReussi");
-        Cookie cookieLoginRate = getMyCookies(request.getCookies(), "cookieLoginRate");
+//        Cookie cookieLoginReussi = getMyCookies(request.getCookies(), "cookieLoginReussi");
+//        Cookie cookieLoginRate = getMyCookies(request.getCookies(), "cookieLoginRate");
+//        Cookie sync = getMyCookies(request.getCookies(), "sync");
         //initialisation des requetes
         request.setAttribute("msgLogin", "");//message d'erreur rouge apparaissant au bas du formulaire lorsque login ou mdp faux
         //request.setAttribute("recupLogin", "");//recupere le login saisi ds le champ Login
@@ -245,16 +254,16 @@ public class UtilisateurController extends HttpServlet {
                 }
 
                 //verifie si un beanConnexion est enregistre ds la session; si non, le cree            
-                bc = (ConnexionBean) session.getAttribute("sessionConnexion");
-                if (bc == null) {
-                    bc = new ConnexionBean();
-                    session.setAttribute("sessionConnexion", bc);
+                cB = (ConnexionBean) session.getAttribute("sessionConnexion");
+                if (cB == null) {
+                    cB = new ConnexionBean();
+                    session.setAttribute("sessionConnexion", cB);
                 }
 
-                ds = bc.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
+                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
 
                 //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
-                Utilisateur uti = bl.checkLogin(ds, bc, request.getParameter("loginTI"), request.getParameter("mdpTI"));
+                Utilisateur uti = bl.checkLogin(ds, cB, request.getParameter("loginTI"), request.getParameter("mdpTI"));
 
                 //recupere le login saisi ds le champ Login
                 request.setAttribute("recupLogin", request.getParameter("loginTI"));
@@ -264,6 +273,15 @@ public class UtilisateurController extends HttpServlet {
                     url = "/WEB-INF/jsp/compteDesactive.jsp";//renvoie a la page desactive
                 } else if (uti != null && uti.getStatut().getCode().trim().equals("OK")) {//si le couple login/mdp est exact avec un statut valide
 
+                    //------------- PB -----------------------------
+                    if (sync == null) {
+
+                        sync = new Cookie("sync", uti.getId().toString());
+                        sync.setMaxAge(24 * 60 * 60);
+                        response.addCookie(sync);
+                    }
+
+                    //------------- PB -----------------------------
                     url = "/WEB-INF/jsp/bienvenue.jsp";//renvoie a la page de bienvenue
 
                     //enregistre l'objet ds la session
@@ -299,14 +317,197 @@ public class UtilisateurController extends HttpServlet {
         }
 
         //gestion du bouton deconnecter page de bienvenue
-        if (request.getParameter("deconnecterBT") != null) {
-            cookieLoginReussi.setMaxAge(0);//supprime le cookie de login reussi
+        if ("deconnexion".equals(request.getParameter("section"))) {
+            cookieLoginReussi.setMaxAge(0);//supprime le cookie de login reussi    
             response.addCookie(cookieLoginReussi);
+            sync.setMaxAge(0);//supprime le cookie de login reussi
+            response.addCookie(sync);
+
             session.setAttribute("utilisateur", null);//supprime l'objet utilisateur de la session
 
             url = "/WEB-INF/jsp/pageLogin.jsp";//renvoie a la page du formulaire de login
 
         }
+
+////////////////////////////////////////////////////////////////////////////////
+//                        MODIFICATION COMPTE - SECTION UTILISATEUR
+////////////////////////////////////////////////////////////////////////////////
+        if ("modifierInfosPerso".equals(request.getParameter("section"))) {
+
+            if (riub == null) {
+                riub = new RecupInfosUtilisateurBean();
+            }
+
+            if (cB == null) {
+                cB = new ConnexionBean();
+            }
+            //a partir de l'idUtilisateur (enregistree dans le cookie sync), on recupere les infos utilisateur
+            Utilisateur u = riub.recupInfosUtilisateur(ds, cB, Long.valueOf(sync.getValue()));
+
+            //on enregistre les infos utilisateur ds la session qui permettra ensuite la lecture des infos
+            //ds la jsp et fera ainsi apparaitre les infos utilisateur directmeent ds les champs
+            session.setAttribute("recupNomCompte", u.getNom());
+            session.setAttribute("recupPrenomCompte", u.getPrenom());
+            session.setAttribute("recupDobCompte", u.getDateNaissance());
+            session.setAttribute("recupTelCompte", u.getTelephone());
+
+            //appelle la page de creation de compte
+            url = "/WEB-INF/jsp/creationCompte.jsp";
+        }
+
+        //si on clique sur le bouton modifier 
+        if (request.getParameter("modifCompteBT") != null) {
+            //enregistre les infos contenues ds les champs  ds des variables et ds des requetes
+            String saisieNom = request.getParameter("nomTI");
+            request.setAttribute("recupNomCompte", request.getParameter("nomTI"));
+
+            String saisiePrenom = request.getParameter("prenomTI");
+            request.setAttribute("recupPrenomCompte", request.getParameter("prenomTI"));
+
+            String saisieTel = request.getParameter("telTI");
+            request.setAttribute("recupTelCompte", request.getParameter("telTI"));
+
+            if (uBddB == null) {
+                uBddB = new UpdateBDDBean();
+            }
+
+            if (cB == null) {
+                cB = new ConnexionBean();
+            }
+            //met a jour les infos utilisateur ds la BDD
+            uBddB.MajInfosUtilisateur(cB, ds, saisieNom, saisiePrenom, saisieTel, Long.valueOf(sync.getValue()));
+        }
+
+////////////////////////////////////////////////////////////////////////////////
+//                        MODIFICATION COMPTE - SECTION ADRRESSE
+////////////////////////////////////////////////////////////////////////////////   
+        if ("modifierAdresse".equals(request.getParameter("section"))) {
+            url = "/WEB-INF/jsp/infosAdresse.jsp";
+
+            if (cB == null) {
+                cB = new ConnexionBean();
+            }
+
+            if (riub == null) {
+                riub = new RecupInfosUtilisateurBean();
+            }
+            //recupere les infos Adresse de l'utilisateur depuis la BDD
+            Adresse a = riub.recupInfosAdresse(ds, cB, Long.valueOf(sync.getValue()));//sync = cookie de l'identifiant de l'utilisateur
+            session.setAttribute("recupIdPays", a.getPays().getId());
+            session.setAttribute("recupIdAdresse", a.getId());
+            session.setAttribute("recupNumAdresse", a.getNumero());
+            session.setAttribute("recupVoieAdresse", a.getVoie());
+            session.setAttribute("recupCpAdresse", a.getCp());
+            session.setAttribute("recupVilleAdresse", a.getVille());
+            session.setAttribute("recupInfosCompAdresse", a.getComplement());
+            session.setAttribute("recupPaysAdresse", a.getPays().getLibelle());
+
+        }
+        //lorsqu'on clique sur le bouton modifier l'adresse
+        if (request.getParameter("modifierAdresseBT") != null && sync.getValue() != null) {
+            if (uBddB == null) {
+                uBddB = new UpdateBDDBean();
+            }
+            //recupere les infos depuis les champs de texte et le coombobox pays et les envoie ds le bean UpdateBDD pour mettre a jour la BDD
+            uBddB.MajInfosAdresse(cB, ds,
+                    request.getParameter("numAdresseTI"),
+                    request.getParameter("voieTI"),
+                    request.getParameter("cpTI"),
+                    request.getParameter("villeTI"),
+                    request.getParameter("infosCompTI"),
+                    Long.valueOf(request.getParameter("paysSL")),
+                    (Long) session.getAttribute("recupIdAdresse"));
+        }
+
+////////////////////////////////////////////////////////////////////////////////
+//                        AJOUT NOUVELLE ADRRESSE
+////////////////////////////////////////////////////////////////////////////////  
+        if ("ajouterAdresse".equals(request.getParameter("section"))) {
+            request.setAttribute("recupNumAdresse", null);
+            request.setAttribute("recupVoieAdresse", null);
+            request.setAttribute("recupCpAdresse", null);
+            request.setAttribute("recupVilleAdresse", null);
+            request.setAttribute("recupInfosCompAdresse", null);
+
+            url = "/WEB-INF/jsp/infosAdresse.jsp";//renvoie a la page de bienvenue    
+        }
+//------------------------------------------------------------------------------
+            //recupere la liste des pays et l'enregistre ds la requete liste
+            blp.getListFromBdd(ds, cB);
+            request.setAttribute("liste", blp.returnMapValues());
+
+            //lorsqu'on appuie sur le bouton valider adresse du formulaire d'adresse
+            if (request.getParameter("validerAdresseBT") != null) {
+
+                //recupere la "value"  <OPTION value = "${i.idPays}" >"${i.libelle}"</OPTION> 
+                //donc l'idPays et nom pas le libelle
+                int idPays = Integer.valueOf(request.getParameter("paysSL"));
+
+                int idStatutAdresse = 2;
+                request.setAttribute("idStatutAdresse", 2);//toujours DESactive a la creation de compte
+
+                //enregistre toutes les saisies ds une variable et ds une requete
+                String saisieNumAdresse = request.getParameter("numAdresseTI");
+                request.setAttribute("recupNumAdresse", request.getParameter("numAdresseTI"));
+
+                String saisieVoieAdresse = request.getParameter("voieTI");
+                request.setAttribute("recupVoieAdresse", request.getParameter("voieTI"));
+
+                String saisieCpAdresse = request.getParameter("cpTI");
+                request.setAttribute("recupCpAdresse", request.getParameter("cpTI"));
+
+                String saisieVilleAdresse = request.getParameter("villeTI");
+                request.setAttribute("recupVilleAdresse", request.getParameter("villeTI"));
+
+                String saisieInfosCompAdresse = request.getParameter("infosCompTI");
+                request.setAttribute("recupInfosCompAdresse", request.getParameter("infosCompTI"));
+
+                String saisiePaysAdresse = request.getParameter("paysSL");
+                request.setAttribute("recupPaysAdresse", request.getParameter("paysSL"));
+
+                messageErreur = bcscc.checkInfoAdresse();//Controles a implementer plus tard
+
+                if (messageErreur != null) {
+                    request.setAttribute("erreurSaisie", messageErreur[0]);
+                    //section vide pour l'instant
+                } else {
+
+                    //enregistrement des infos ds la bdd
+                }
+
+                //prepare la connexion au pool de connexion
+                if (cB == null) {
+                    cB = new ConnexionBean();
+                    session.setAttribute("sessionConnexion", cB);
+                }
+
+                //prepare l'enregistrement des infos ds la bdd
+                uBddB = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
+                if (uBddB == null) {
+                    uBddB = new UpdateBDDBean();
+
+                    ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
+
+                    //envoie les saisies pour qu'elles soient enregistrees ds la bdd et
+                    //recupere l'idAdresse renvoye par la bdd ds j2                
+                    j2 = uBddB.creeAdresse(ds, cB, idPays, saisieNumAdresse,
+                            saisieVoieAdresse,
+                            saisieCpAdresse,
+                            saisieVilleAdresse,
+                            saisieInfosCompAdresse);
+
+                    String sss = sync.getValue();
+                    i1 = Integer.valueOf(sss);//recupere l'id Utilisateur
+                    //envoie les id utilisateur et adresse pour l'enregistrement ds la table dernieresFacturations
+                    uBddB.updateDernieresFacturations(ds, cB, i1, j2);
+
+                    url = "/WEB-INF/jsp/bienvenue.jsp";
+                }
+
+            }
+
+//------------------------------------------------------------------------------            
+        
 
         request.getRequestDispatcher(url).include(request, response);
     }

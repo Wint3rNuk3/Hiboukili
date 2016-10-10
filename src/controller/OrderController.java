@@ -63,6 +63,9 @@ public class OrderController extends HttpServlet {
 
         //section FInal Order
         if (request.getParameter("valid") != null) {
+            
+            // commande
+            
             //adresse
             AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
             if (adresses == null) {

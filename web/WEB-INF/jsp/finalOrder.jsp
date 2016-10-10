@@ -44,7 +44,8 @@
                         <c:otherwise>
                             <select name="adresse">
                             <c:forEach items="${adresse}" var="a">
-                            <option value="adresse1">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>  
+                            <option value="adresse1">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
+                            <option value="adresse2">52 avenues des Galeres 45869 CodeVille, troisieme synapse à gauche</option> 
                             </select> 
                             </c:forEach>
                         </c:otherwise>
@@ -67,7 +68,8 @@
                         <c:otherwise>
                             <select name="adresse">
                             <c:forEach items="${adresse}" var="a">
-                            <option value="adresse1">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option> 
+                            <option value="adresse1">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
+                            <option value="adresse2">52 avenues des Galeres 45869 CodeVille, troisieme synapse à gauche</option> 
                             </select> 
                             </c:forEach>
                         </c:otherwise>

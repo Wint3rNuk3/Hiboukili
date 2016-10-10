@@ -28,11 +28,13 @@ public class OrderBean implements Serializable {
     }
     
     
+    
+    
     public void create(ShoppingCartBean cart, ConnexionBean bc){
         //methode pour afficher les info general de la commande a partir du panier de l'utilisateur
 
         cart.getCartPrice();
-        cart.qtyTotalCart();
+        //cart.qtyTotalCart();
         recupererStatutCommande(bc);
         
         
@@ -68,13 +70,14 @@ public class OrderBean implements Serializable {
     
     
     
-    public void recupererStatutCommande(ConnexionBean bc) {
+    public String recupererStatutCommande(ConnexionBean bc) {
         int i = 0;
+        String statCommande = null;
 
         DataSource ds = bc.MaConnexion();
 
         try (Connection c = ds.getConnection();) {
-            String statCommande = null;
+            
             String query = "SELECT libelle FROM StatutCommande WHERE code = 'cp1'";
             Statement stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -90,7 +93,9 @@ public class OrderBean implements Serializable {
         }
 
         ds = bc.MaConnexion();
-
+        
+        
+        return statCommande;
        
     }
 

@@ -351,6 +351,8 @@ public class Edition implements Serializable {
         this.promotions.add(promotion);
     }
 
+    // NoSuchElementException : si l'edition n'a pas de taxe.
+    // Il faut aussi calculer les reductions ?
     public void initPrix() {
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
         otherSymbols.setDecimalSeparator('.');

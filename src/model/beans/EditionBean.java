@@ -98,7 +98,8 @@ public class EditionBean {
                 edition.setTaxes(taxes);
                 
                 // mettre à jour le prix.
-                edition.initPrix();
+                // on ne veut afficher le prix ttc seulement lors de l'affichage de la commande ou du panier ?
+//                edition.initPrix();
             }
             
         } catch (SQLException ex) {

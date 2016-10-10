@@ -23,7 +23,7 @@
         <%@ variable alias="current" name-from-attribute="var" scope="NESTED" %>
         <c:set var="current" value="${ item }" />
         
-        <li class="${ itemClass }">
+        <li class="${ itemClass } clearfix">
             
             <jsp:doBody />
 

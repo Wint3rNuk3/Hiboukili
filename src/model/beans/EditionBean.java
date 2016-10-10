@@ -23,6 +23,14 @@ public class EditionBean {
             + " idStatutEdition, datePubli, prixHt,"
             + " couverture, titre, stock"
             + " FROM Edition";
+    
+    private static final String SQL_FIND_BY_RUBRIQUE = "SELECT"
+            + " e.idEdition, e.isbn, e.idOuvrage, e.idLangue,"
+            + " e.idStatutEdition, e.datePubli, e.prixHt,"
+            + " e.couverture, e.titre, e.stock"
+            + " FROM Edition as e"
+            + " JOIN MiseEnRubrique AS mer ON mer.idOuvrage = e.idOuvrage"
+            + " WHERE mer.idRubrique = ?";
 
     public List<Edition> findAll(ConnexionBean bc) {
         List<Edition> list = new ArrayList();
@@ -33,6 +41,27 @@ public class EditionBean {
         try (Connection c = ds.getConnection()) {
 
             PreparedStatement ps = c.prepareStatement(SQL_FIND_ALL);
+            ResultSet rs = ps.executeQuery();
+
+            list = list(rs, bc);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
+    public List<Edition> findByRubrique(ConnexionBean bc, Long idRubrique) {
+        List<Edition> list = new ArrayList();
+
+        DataSource ds = bc.MaConnexion();
+        try (Connection c = ds.getConnection()) {
+
+            PreparedStatement ps = c.prepareStatement(SQL_FIND_BY_RUBRIQUE);
+            
+            ps.setLong(1, idRubrique);
+            
             ResultSet rs = ps.executeQuery();
 
             list = list(rs, bc);

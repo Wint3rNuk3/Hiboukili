@@ -77,7 +77,7 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("adresseVide", adresses.isEmpty());
                 request.setAttribute("adresse", adresses.list());
                 
-                adresses.recupererAdresse(bc);
+                //adresses.recupererAdresse(bc);
                 System.out.println("Adresse :"+adresses.list().size());
                 
                 url="/WEB-INF/jsp/finalOrder.jsp";

@@ -14,7 +14,8 @@ import model.classes.Adresse;
 public class AdressesBean {
     
     ArrayList adresses;
-    HashMap<String, ArrayList<Adresse>> map;
+    //HashMap<String, ArrayList<Adresse>> map;
+    HashMap<String, Adresse>map;
 
     public AdressesBean() {
         this.map= new HashMap();
@@ -32,24 +33,29 @@ public class AdressesBean {
 
             String query = "SELECT numero, voie, codePostal, ville, complement FROM ADRESSE";
             Statement stmt = c.createStatement();
+            Adresse adresse = new Adresse();
             
             ResultSet rs= stmt.executeQuery(query);
             // S2 ResultSet rs_SubItemType = stmt.executeQuery(query);
             
-           // Solution 1
             while(rs.next()){
-                adresses.add(rs.getString("numero")
-                        + rs.getString("voie")
-                        + rs.getString("codePostal")
-                        + rs.getString("ville")
-                        + rs.getString("complement"));
-//                map.put("Adresse", rs.getObject("numero", ArrayList<adresse>));
-                       
+                map.put("Adresse" , new Adresse(rs.getString("numero"),rs.getString("voie"),rs.getString("codePostal"),rs.getString("ville"),rs.getString("complement")));
+                
             }
+           // Solution 1
+//            while(rs.next()){
+//                adresses.add(rs.getString("numero")
+//                        + rs.getString("voie")
+//                        + rs.getString("codePostal")
+//                        + rs.getString("ville")
+//                        + rs.getString("complement"));
+//
+//                       
+//            }
+//            
+//          map.put("Adresse", adresses);
             
-          // map.put("Adresse", adresse);
-            
-            //System.out.println("Contenu foutu Map :"+map);
+            System.out.println("Contenu :"+map);
             
             //SOlution 2 
 //            ResultSetMetaData metaData = rs_SubItemType.getMetaData();
@@ -81,8 +87,9 @@ public class AdressesBean {
  
     }
     
-    public Collection<ArrayList<Adresse>> list() {
+    public Collection<Adresse> list() {
         return map.values();
+        
     }
     public int size() {
         return map.size();

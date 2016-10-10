@@ -61,10 +61,10 @@ public class ShoppingCartController extends HttpServlet {
         }
         
         
-        System.out.println(cart.list());
+        //System.out.println(cart.list());
 
         if (request.getParameter("add") != null) {
-            System.out.println(request.getParameter("add"));
+            //System.out.println(request.getParameter("add"));
             cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
             session.setAttribute("cart", cart);
             //ajouter le prix dans le shopping cart

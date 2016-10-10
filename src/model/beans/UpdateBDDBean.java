@@ -1,4 +1,3 @@
-
 package model.beans;
 
 import java.io.Serializable;
@@ -34,8 +33,6 @@ public class UpdateBDDBean implements Serializable {
             Date d = Date.valueOf(date);
             ps.setDate(4, d);
             ps.setString(5, tel);
-
-            //ps.setDate(4, getCurrentDate());
             ps.setString(6, mail);
             ps.setString(7, mdp);
 
@@ -46,7 +43,7 @@ public class UpdateBDDBean implements Serializable {
         }
 
         ds = bc.MaConnexion();
-        
+
         //recupere l'id utilisateur
         try (Connection c = ds.getConnection()) {
             String query = "select max(idUtilisateur) from Utilisateur";//dernier idUtilisateur enregistre
@@ -70,13 +67,13 @@ public class UpdateBDDBean implements Serializable {
         int j = 0;
         ds = bc.MaConnexion();
         //enregistre les donnees adresse ds la bdd        
-        try (Connection c = ds.getConnection()) {            
+        try (Connection c = ds.getConnection()) {
             String update = "INSERT INTO Adresse(idPays, idStatutAdresse,  numero, voie, codePostal, ville, complement) "
                     + "VALUES ( ? , ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement ps = c.prepareStatement(update);
 
-            ps.setInt(1, idPays);            
+            ps.setInt(1, idPays);
             ps.setInt(2, 1);
             ps.setString(3, numero);
             ps.setString(4, voie);
@@ -104,7 +101,6 @@ public class UpdateBDDBean implements Serializable {
         } catch (SQLException exp) {
             System.err.println("Erreur dans BeanUpdateBDD 4 - " + exp.getMessage());
         }
-//--------------------------
 
         return j;//renvoie l'id adresse
     }
@@ -123,6 +119,47 @@ public class UpdateBDDBean implements Serializable {
 
         } catch (SQLException exp) {
             System.err.println("Erreur dans BeanUpdateBDD 4 - " + exp.getMessage());
+        }
+    }
+
+    //met a jour la BDD ds la table utilisateur
+    public void MajInfosUtilisateur(ConnexionBean cb, DataSource ds, String nom, String prenom, String telephone, Long idUtilisateur) {
+        ds = cb.MaConnexion();
+        try (Connection c = ds.getConnection()) {
+            String update = "UPDATE Utilisateur SET nom= ?, prenom= ?, telephone = ? WHERE idUtilisateur= ?";
+            PreparedStatement ps = c.prepareStatement(update);
+
+            ps.setString(1, nom);
+            ps.setString(2, prenom);
+            ps.setString(3, telephone);
+            ps.setLong(4, idUtilisateur);
+
+            ps.executeUpdate();
+
+        } catch (SQLException exc) {
+            System.err.println("Erreur dans BeanUpdateBDD 5 - " + exc.getMessage());
+        }
+    }
+    //met a jour la BDD ds la table Adresse
+    public void MajInfosAdresse(ConnexionBean cb, DataSource ds, String numero, String voie, 
+            String cp, String ville, String comp, Long idPays, Long idAdresse) {
+
+        ds = cb.MaConnexion();
+        try (Connection c = ds.getConnection()) {
+            String update = "UPDATE Adresse SET numero= ?, voie= ?, codePostal = ?, ville = ?, complement = ?, idPays = ? WHERE idAdresse= ?";
+            PreparedStatement ps = c.prepareStatement(update);
+            ps.setString(1, numero);
+            ps.setString(2, voie);
+            ps.setString(3, cp);
+            ps.setString(4, ville);
+            ps.setString(5, comp);          
+            ps.setLong(6, idPays);            
+            ps.setLong(7, idAdresse);
+                        
+            ps.executeUpdate();
+            
+        } catch (SQLException exce) {
+            System.err.println("Erreur dans BeanUpdateBDD 6 - " + exce.getMessage());
         }
     }
 }

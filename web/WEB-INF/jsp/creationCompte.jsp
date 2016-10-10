@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : creationCompte
     Created on : 6 oct. 2016, 09:13:48
@@ -12,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Creation d'un nouveau compte !</h1>
+        <h1>Données Personnelles !</h1>
         <form action = "UtilisateurController" method ="GET" />
 
         Nom<br/>
@@ -23,16 +24,25 @@
         <input type ="text" name ="dobTI" value ="${recupDobCompte}" required ></br></br>
 
         Numéro de téléphone<br/>
-        <input type ="text" name ="telTI" value ="${recuptelCompte}" ></br></br>
+        <input type ="text" name ="telTI" value ="${recupTelCompte}" ></br></br>
 
+        <%-- composants pour la creation de compte--%>
+        <c:if test="${recupNomCompte==null}">
 
-        Adresse mail<br/>
-        <input type ="text" name ="mailTI" value ="${recupMailCompte}" required ></br></br>        
-        Mot de passe<br/>
-        <input type ="password" name ="mdpTI" required ></br></br>
-        Confirmation</br> du mot de passe<br/>
-        <input type ="password" name ="confMdpTI" required ></br></br>
-        <input type ="submit" name = "creerCompteBT" value ="Créez votre compte"></br></br>
+            Adresse mail<br/>
+            <input type ="text" name ="mailTI" value ="${recupMailCompte}" required ></br></br>        
+            Mot de passe<br/>
+            <input type ="password" name ="mdpTI" required ></br></br>
+            Confirmation</br> du mot de passe<br/>
+            <input type ="password" name ="confMdpTI" required ></br></br>
+            <input type ="submit" name = "creerCompteBT" value ="Créez votre compte"></br></br>
+
+        </c:if>
+
+        <%-- composants pour la modification de compte--%>
+        <c:if test="${recupNomCompte!=null}">
+            <input type ="submit" name = "modifCompteBT" value ="Modifier"></br></br>
+        </c:if>
         <font color="red">${erreurSaisie}</font>
     </form>
 </body>

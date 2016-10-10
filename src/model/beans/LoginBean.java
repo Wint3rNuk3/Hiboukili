@@ -21,7 +21,8 @@ public class LoginBean implements Serializable {
         try (Connection c = ds.getConnection()) {
             //requete
             //String query = "select mail, mot_de_passe from Utilisateur where mail = ? and mot_de_passe = ?";
-            String query = "select u.idStatutUtilisateur, "
+            String query = "select idUtilisateur, "
+                    + "u.idStatutUtilisateur, "
                     + "nom, "
                     + "prenom, "
                     + "date_naissance, "
@@ -51,6 +52,7 @@ public class LoginBean implements Serializable {
                 
                 //recupere les infos de l'objet Utilisateur
                 Utilisateur u = new Utilisateur();
+                u.setId(rs.getLong("idUtilisateur"));
                 u.setNom(rs.getString("nom"));
                 u.setPrenom(rs.getString("prenom"));
                 u.setDateNaissance(rs.getDate("date_naissance"));

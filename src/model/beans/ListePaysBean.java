@@ -10,13 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.TreeMap;
 import javax.sql.DataSource;
 
 public class ListePaysBean implements Serializable{
     
-    HashMap map = null;
+    TreeMap map = null;
     public ListePaysBean(){
-        map = new HashMap();
+        map = new TreeMap();
     }
     
     public void setMap(String key, String value){
@@ -31,7 +32,7 @@ public class ListePaysBean implements Serializable{
         return map.keySet();
     }
         
-        public HashMap returnHashMap(){
+        public TreeMap returnHashMap(){
         return map;
     }        
 

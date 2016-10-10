@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,7 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ConnexionBean;
+import model.beans.EditionBean;
 import model.beans.RubriqueBean;
+import model.classes.Edition;
 import model.classes.Rubrique;
 
 @WebServlet(name = "RubriqueController", urlPatterns = {"/rubrique"})
@@ -47,6 +50,12 @@ public class RubriqueController extends HttpServlet {
         }
         
         request.setAttribute("rubrique", rubrique);
+        
+        // on va chercher la liste des editions rattaché a cette rubrique.
+        List<Edition> editions = new EditionBean().findByRubrique(bc, rubrique.getId());
+        
+        System.out.println(editions);
+        request.setAttribute("editions", editions);
         
 //        request.getDispatcherType() == DispatcherType.INCLUDE
 //        request.setAttribute("type", request.getDispatcherType());

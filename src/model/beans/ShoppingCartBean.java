@@ -36,9 +36,9 @@ public class ShoppingCartBean implements Serializable {
     public void add(String isbn, Edition e, int qty) {
         if (map.containsKey(isbn)) {
             Edition ed = map.get(isbn);
-            System.out.println(ed.getCartQty());
+            //System.out.println(ed.getCartQty());
             ed.change(qty);
-            System.out.println(ed.getCartQty());
+            //System.out.println(ed.getCartQty());
             if (ed.getCartQty() < 1) {
                 del(isbn);
             }
@@ -105,7 +105,11 @@ public class ShoppingCartBean implements Serializable {
 
     public String getCartPrice() {
         Float prixTotal = 0F;
-        for (Edition e : this.list()) prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+        for (Edition e : this.list()){
+            e.initPrix();
+            //System.out.println("Done!");
+            prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+        }
         
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
         otherSymbols.setDecimalSeparator('.');
@@ -113,7 +117,7 @@ public class ShoppingCartBean implements Serializable {
         DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
         df.setRoundingMode(RoundingMode.HALF_UP);
         
-        System.out.println(df.format(prixTotal));
+        //System.out.println(df.format(prixTotal));
         return df.format(prixTotal);
     }
 }

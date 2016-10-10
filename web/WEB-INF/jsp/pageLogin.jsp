@@ -15,6 +15,7 @@
             <input type ="password" name = "mdpTI" value = "" /><br/> <br/> 
             <input type ="submit" name = "validerBT" value = "Valider" /><br/> <br/> 
         </form>
+            <a href ="UtilisateurController?section=versNouveauCompte">Créer un nouveau compte</a></br></br>
         <font Color = "red">${msgLogin}</font>
     </body>
 </html>

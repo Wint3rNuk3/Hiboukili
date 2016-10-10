@@ -46,6 +46,7 @@
                     </p>
                 </c:if>
             </div>
+                
             <div class="panel-footer">
                 
             </div>

@@ -19,9 +19,16 @@
             <div class="panel-body">
                 <c:out value="${ rubrique }" />
             </div>
-            <div class="panel-footer">
+            
+            <jsp:include page="../edition/list.jsp" flush="true">
                 
-            </div>
+                <jsp:param name="editions" value="${editions}"/>
+                <jsp:param name="page" value="1"/>
+                <jsp:param name="nbPage" value="1"/>
+                <jsp:param name="paginationUrl" value=""/>
+                
+            </jsp:include>
+            
         </div>
     </jsp:body>
     

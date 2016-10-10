@@ -41,9 +41,7 @@ public class EditionController extends HttpServlet {
         
         if(request.getParameter("isbn") != null){
             Edition edition = new EditionBean().findByIsbn(bc, request.getParameter("isbn"));
-            System.out.println(request.getParameter("isbn"));
             request.setAttribute("edition", edition);
-            System.out.println(edition);
             // on fait suivre à la jsp de visualisation.
             getServletContext()
                     .getRequestDispatcher(VIEW_ROUTE)

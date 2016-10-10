@@ -53,8 +53,6 @@ public class RubriqueController extends HttpServlet {
         
         // on va chercher la liste des editions rattaché a cette rubrique.
         List<Edition> editions = new EditionBean().findByRubrique(bc, rubrique.getId());
-        
-        System.out.println(editions);
         request.setAttribute("editions", editions);
         
 //        request.getDispatcherType() == DispatcherType.INCLUDE

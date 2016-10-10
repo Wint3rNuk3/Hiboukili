@@ -17,7 +17,7 @@ import model.classes.Edition;
 @WebServlet(name = "shoppingCartController", urlPatterns = {"/shoppingcart"})
 public class ShoppingCartController extends HttpServlet {
 
-    private static final String SHOPPINGCART_ROUTE = "/WEB-INF/jsp/shoppingcart.jsp";
+    private static final String SHOPPINGCART_ROUTE = "";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,6 +40,8 @@ public class ShoppingCartController extends HttpServlet {
         String prixTotal;
         final Map<String, Edition> cartMap = new HashMap<>();
         EditionBean eb = new EditionBean();
+        boolean modalOpen = false;
+        
 
         //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"), 2);
         //cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"), 2);
@@ -53,9 +55,11 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            session.setAttribute("modalOpen", modalOpen);
         } else {
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            session.setAttribute("modalOpen", modalOpen);
             //cart.setMap(cartMap);
             //session.setAttribute("cart", cart);
         }
@@ -70,12 +74,16 @@ public class ShoppingCartController extends HttpServlet {
             //ajouter le prix dans le shopping cart
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
         }
         if (request.getParameter("inc") != null) {
             cart.inc(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("inc")));
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
             
         }
         if (request.getParameter("dec") != null) {
@@ -83,12 +91,16 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
         }
         if (request.getParameter("del") != null) {
             cart.del(request.getParameter("del"));
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
            
         }
         if (request.getParameter("clean") != null) {
@@ -96,6 +108,8 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
         }
 //        if(request.getParameter("qty") != null) {
 //            cart.getMap().get(request.getParameter("isbnSur")).change(Integer.parseInt(request.getParameter("qty")));

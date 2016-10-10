@@ -19,6 +19,7 @@ public class RecupInfosUtilisateurBean implements Serializable {
     public Utilisateur recupInfosUtilisateur(DataSource ds, ConnexionBean cB, Long idUtilisateur) {
         ds = cB.MaConnexion();
         try (Connection c = ds.getConnection();) {
+
             String query = "select nom, prenom, date_naissance, telephone from Utilisateur where idUtilisateur = ? ";
             PreparedStatement ps = c.prepareStatement(query);
             ps.setLong(1, idUtilisateur);
@@ -43,14 +44,17 @@ public class RecupInfosUtilisateurBean implements Serializable {
     public Adresse recupInfosAdresse(DataSource ds, ConnexionBean cB, Long idUtilisateur) {
 
         ds = cB.MaConnexion();
+                System.out.println("sync dans Bean 1 : "+idUtilisateur);//-------------------------------
+
         try (Connection c = ds.getConnection()) {
+                    System.out.println("sync dans Bean 2 : "+idUtilisateur);//-------------------------------
 
             String query = "select a.idAdresse, numero, voie, codePostal, ville, complement, p.idPays, libelle from DernieresFacturations as df "
                     
                     + "join Adresse as a "
                     + "on df.idAdresse = a.idAdresse "
                     + "join Utilisateur as u "
-                    + "on df.idUtilisateur = u.idStatutUtilisateur "
+                    + "on df.idUtilisateur = u.idUtilisateur "
                     + "join pays as p "
                     + "on p.idPays = a.idPays "
                     + "where u.idUtilisateur = ?";

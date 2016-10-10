@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import javax.sql.DataSource;
 import model.classes.Commande;
 
 
@@ -27,9 +28,16 @@ public class OrderBean implements Serializable {
     }
     
     
-    public void create(int qty, float prixTotal, Commande statutCommande){
+    public void create(ShoppingCartBean cart, ConnexionBean bc){
         //methode pour afficher les info general de la commande a partir du panier de l'utilisateur
+
+        cart.getCartPrice();
+        cart.qtyTotalCart();
+        recupererStatutCommande(bc);
+        
+        
     }
+    
     
     public void create(){
         /* Cree la commande avec  : 
@@ -49,7 +57,7 @@ public class OrderBean implements Serializable {
         // - idAdresseFacturation ( la meme)
         // - id Utilisateur ( recuperer le login user )
         // - numero commande ( gestion sql newid()
-        // - dateCommande
+        // - dateCommande ( demaner au controller de recuperer la date courante)
         //envoyer tout ca Insert into commande.
         
     }
@@ -58,9 +66,34 @@ public class OrderBean implements Serializable {
         // retour au panier
     }
     
-    public void recupererStatutCommande(){
-        
+    
+    
+    public void recupererStatutCommande(ConnexionBean bc) {
+        int i = 0;
+
+        DataSource ds = bc.MaConnexion();
+
+        try (Connection c = ds.getConnection();) {
+            String statCommande = null;
+            String query = "SELECT libelle FROM StatutCommande WHERE code = 'cp1'";
+            Statement stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            
+            while(rs.next()){
+            statCommande = (rs.getString("libelle"));
+            }
+            rs.close();
+            stmt.close();
+            
+        } catch (SQLException ex) {
+            System.err.println("Erreur dans Statut commande" + ex.getMessage());
+        }
+
+        ds = bc.MaConnexion();
+
+       
     }
+
 
     public void recupererUtilisateur(){
         
@@ -77,7 +110,7 @@ public class OrderBean implements Serializable {
     }
     public void clean() {
         map.clear();
-        //apres la validation final : cleane map
+        //apres la validation final : clean map
     }
     
    

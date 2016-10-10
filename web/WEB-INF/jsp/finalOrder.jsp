@@ -59,12 +59,19 @@
                 <legend>Adresse de livraison</legend><br/>
                 <br/>
                 <br/>
-                <select name="adresse">
-                    <option value="adresse1">1 rue edgar Poe</option>
-                    <otpion value="adresse2">33 rue des poulet 75019 paris</option>
-                        <option value="adresse3">78 avenue des chats 45856 chatville</option>
-                        <option value="adresse4">45 rue des galeres 78546 codeVille</option>
-                </select>
+                <c:choose>
+                    <c:when test="${empty adresse}">
+                        Adresse vide !
+                        
+                    </c:when>
+                        <c:otherwise>
+                            <select name="adresse">
+                            <c:forEach items="${adresse}" var="a">
+                            <option value="adresse1">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option> 
+                            </select> 
+                            </c:forEach>
+                        </c:otherwise>
+                </c:choose>
             </fieldset>
             <br/>
             <div align="right">
@@ -72,7 +79,7 @@
             </div>
             <br/>
             <br/>
-            <input type="submit" value ="Valider" name="valid" title="finalisez votre commande"/>
+            <input type="submit" value ="Valider" name="finaliser" title="finalisez votre commande"/>
             <br/>
             <br/>
             <input type="submit" value="Retour" name="retour" title="retournez au récapitulatif de votre commande"/>

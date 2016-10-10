@@ -24,68 +24,74 @@ public class OrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         //creation session
         HttpSession session = request.getSession();
         //url page par defaut 
         String url = "/WEB-INF/jsp/RecapOrder.jsp";
-        
+
         //appel du pool de connexion 
         ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
         if (bc == null) {
             bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
-        
+
         //Section Recap Order
         EditionBean eb = new EditionBean();
 
-            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-            //test : si le panier est nul en crée un . 
-            if (cart == null) {
-                cart = new ShoppingCartBean();
-                session.setAttribute("cart", cart);
-                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-            }
+        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+        //test : si le panier est nul en crée un . 
+        if (cart == null) {
+            cart = new ShoppingCartBean();
+            session.setAttribute("cart", cart);
             cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-            request.setAttribute("panierVide", cart.isEmpty());
-            request.setAttribute("panier", cart.list());
-            
-            //test 
+        }
+        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+        request.setAttribute("panierVide", cart.isEmpty());
+        request.setAttribute("panier", cart.list());
+
+        //test 
 //            System.out.println(">>>>>>>>>>>>"+ cart.list().size());
-        
-        
+        if (request.getParameter("valid") != null) {
+            url = "/WEB-INF/jsp/finalOrder.jsp";
+        }
 
-        if(request.getParameter("valid") != null){
-            url="/WEB-INF/jsp/finalOrder.jsp";
+        if (request.getParameter("modif") != null) {
+            url = "/WEB-INF/jsp/shoppingcart.jsp";
         }
-        
-        if(request.getParameter("modif") != null){
-            url="/WEB-INF/jsp/shoppingcart.jsp";
-        }
-        
-        
+
         //section FInal Order
-        //if("finalOrder".equals(request.getParameter("section"))){
-            if(request.getParameter("valid")!= null){
-                AdressesBean adresses=(AdressesBean) session.getAttribute("adresses");
-                if(adresses==null){
-                    adresses=new AdressesBean();
-                    session.setAttribute("adresse", adresses);
-                    
-                }
-                request.setAttribute("adresseVide", adresses.isEmpty());
-                request.setAttribute("adresse", adresses.list());
-                
-                adresses.recupererAdresse(bc);
-                System.out.println("Adresse :"+adresses.list().size());
-                
-                url="/WEB-INF/jsp/finalOrder.jsp";
-            }
-       // }
-        
+        if (request.getParameter("valid") != null) {
+            //adresse
+            AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
+            if (adresses == null) {
+                adresses = new AdressesBean();
+                session.setAttribute("adresse", adresses);
 
-        
+            }
+            request.setAttribute("adresseVide", adresses.isEmpty());
+            request.setAttribute("adresse", adresses.list());
+
+            adresses.recupererAdresse(bc);
+            System.out.println("Adresse :" + adresses.list().size());
+
+            url = "/WEB-INF/jsp/finalOrder.jsp";
+
+            //bouton
+            if (request.getParameter("ajout") != null) {
+                url = "/WEB-INF/jsp/InfosAdresse.jsp";
+            }
+
+            if (request.getParameter("finaliser") != null) {
+                url = "/WEB-INF/jsp/FormPaiement.jsp";
+            }
+
+            if (request.getParameter("retour") != null) {
+                url = "/WEB-INF/jsp/RecapOrder.jsp";
+            }
+
+        }
         request.getRequestDispatcher(url).include(request, response);
 
     }

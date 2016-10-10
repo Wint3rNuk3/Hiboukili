@@ -6,6 +6,7 @@
 
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <%@attribute name="title" required="true" description="Title"%>
 <%@attribute name="styles" fragment="true" %>
@@ -78,6 +79,27 @@
                         </li>
 
                         </c:forEach>
+                    </ul>
+                    
+                    <ul class="sidebar-nav">
+                        
+                        <li class="sidebar-brand">
+                            <a role="button" data-toggle="collapse" href="#themes" aria-expanded="false">
+                                Themes <span class="caret"></span>
+                            </a>
+                        </li>
+                        
+                        <ul id="themes" class="collapse list-unstyled">
+
+                        <c:forEach var="theme" items="${ themes }">
+                            <li>
+                                <c:url value="theme" var="url">
+                                    <c:param name="rubrique" value="${ theme.id }" />
+                                </c:url>
+                                <a href="${ url }"><c:out value="${ theme.libelle }"></c:out></a>
+                            </li>
+                        </c:forEach>
+                        </ul>
                     </ul>
                     
                     <%-- 

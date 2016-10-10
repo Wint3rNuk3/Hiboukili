@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import javax.servlet.DispatcherType;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -14,7 +15,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import model.beans.ConnexionBean;
 import model.beans.RubriqueBean;
+import model.beans.ThemeBean;
 import model.classes.Rubrique;
+import model.classes.Theme;
 
 @WebFilter(filterName = "MenuFilter", urlPatterns = {"/*"})
 public class MenuFilter implements Filter {
@@ -36,11 +39,20 @@ public class MenuFilter implements Filter {
             log("MenuFilter:DoBeforeProcessing");
         }
         
+        if(request.getDispatcherType() == DispatcherType.INCLUDE) {
+            // do nothing if it's an include
+            return;
+        }
+        
         ConnexionBean bc = new ConnexionBean();
         
         // nous chargons la liste des rubriques, utilisée dans le menu de gauche.
         List<Rubrique> rubriques = new RubriqueBean().findAll(bc);
         request.setAttribute("rubriques", rubriques);
+        
+        // nous chargeons la liste des themes, utilisée dans le menu.
+        List<Theme> themes = new ThemeBean().findAll(bc);
+        request.setAttribute("themes", themes);
         
     }    
     

@@ -45,7 +45,7 @@ public class ThemeBean {
             while (rs.next()) {
                 Theme item = new Theme();
                 
-                item.setId(rs.getLong("idTag"));
+                item.setId(rs.getLong("idTheme"));
                 item.setLibelle(rs.getString("libelle"));
                 
                 list.add(item);
@@ -76,7 +76,7 @@ public class ThemeBean {
             if (rs.next()) {
                 item = new Theme();
                 item.setId(rs.getLong("idTheme"));
-                item.setLibelle(rs.getString("Libelle"));
+                item.setLibelle(rs.getString("libelle"));
             }
         } catch (SQLException ex) {
             LOG.log(Level.SEVERE, null, ex);

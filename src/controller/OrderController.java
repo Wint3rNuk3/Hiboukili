@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import model.beans.AdressesBean;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
 import model.beans.ShoppingCartBean;
+import model.classes.Adresse;
 import model.classes.Edition;
 
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
@@ -22,43 +24,30 @@ public class OrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
         //creation session
         HttpSession session = request.getSession();
         //url page par defaut 
         String url = "/WEB-INF/jsp/RecapOrder.jsp";
         
+        //appel du pool de connexion 
+        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
+        if (bc == null) {
+            bc = new ConnexionBean();
+            session.setAttribute("sessionConnexion", bc);
+        }
         
-//        //appel du pool de connexion 
-//        ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
-//        if (bc == null) {
-//            bc = new ConnexionBean();
-//            session.setAttribute("sessionConnexion", bc);
-//        }
-        //nouvelle objet EditionBean
+        //Section Recap Order
         EditionBean eb = new EditionBean();
-//        if ("panier".equals(request.getParameter("section"))) {
-//            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-//            if (cart == null) {
-//                cart = new ShoppingCartBean();
-//                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-//                session.setAttribute("cart", cart);
-//
-//            }
-//
-//            
-//            request.setAttribute("panierVide", cart.isEmpty());
-//            request.setAttribute("panier", cart.list());
-//
-//        } else {
-        
-        //recuperation de la session panier 
+
             ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
             //test : si le panier est nul en crée un . 
             if (cart == null) {
                 cart = new ShoppingCartBean();
                 session.setAttribute("cart", cart);
-//                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
             }
+            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
             request.setAttribute("panierVide", cart.isEmpty());
             request.setAttribute("panier", cart.list());
             
@@ -66,17 +55,7 @@ public class OrderController extends HttpServlet {
 //            System.out.println(">>>>>>>>>>>>"+ cart.list().size());
         
         
-//        if("commande".equals(request.getParameter("section"))){
-//            if(request.getParameter("modif")!= null){
-//                url="/WEB-INF/jsp/shoppingcart.jsp";
-//                
-//            }
-//            
-//            if(request.getParameter("valid")!= null){
-//                url="/WEB-INF/jsp/finalOrder.jsp";
-//            }
-//        }
-            
+
         if(request.getParameter("valid") != null){
             url="/WEB-INF/jsp/finalOrder.jsp";
         }
@@ -84,8 +63,29 @@ public class OrderController extends HttpServlet {
         if(request.getParameter("modif") != null){
             url="/WEB-INF/jsp/shoppingcart.jsp";
         }
+        
+        
+        //section FInal Order
+        //if("finalOrder".equals(request.getParameter("section"))){
+            if(request.getParameter("valid")!= null){
+                AdressesBean adresses=(AdressesBean) session.getAttribute("adresses");
+                if(adresses==null){
+                    adresses=new AdressesBean();
+                    session.setAttribute("adresse", adresses);
+                    
+                }
+                request.setAttribute("adresseVide", adresses.isEmpty());
+                request.setAttribute("adresse", adresses.list());
+                
+                adresses.recupererAdresse(bc);
+                System.out.println("Adresse :"+adresses.list().size());
+                
+                url="/WEB-INF/jsp/finalOrder.jsp";
+            }
+       // }
+        
 
-        //controller pour les boutons "modifier" et " valider"
+        
         request.getRequestDispatcher(url).include(request, response);
 
     }

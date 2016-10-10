@@ -1,7 +1,24 @@
 package model.classes;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import model.beans.ConnexionBean;
 
 /**
  * Enregistre les différents éléments d'une adresse.
@@ -9,7 +26,7 @@ import java.util.Objects;
  * @see Utilisateur
  */
 public class Adresse implements Serializable{
-    
+ 
     /**
      * Séquentiel de la table Adresse généré automatiquement par la BDD.
      */
@@ -44,8 +61,20 @@ public class Adresse implements Serializable{
     /**
      * Constructeur de la classe; accès sans utiliser de paramètres.
      */
-    public Adresse() {
+    public Adresse(){
+        
     }
+    public Adresse(String numero, String voie, String cp, String ville, String complement) {
+        this.numero = numero;
+        this.voie = voie;
+        this.cp= cp;
+        this.ville=ville;
+        this.complement=complement;
+        
+        
+    }
+    
+    
 
     /**
      * Retourne l'id (généré par la BDD).
@@ -199,5 +228,5 @@ public class Adresse implements Serializable{
         hash = 61 * hash + Objects.hashCode(this.id);
         return hash;
     }
-    
+  
 }

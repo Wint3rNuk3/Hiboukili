@@ -44,7 +44,7 @@
                         <c:otherwise>
                             <select name="adresse">
                             <c:forEach items="${adresse}" var="a">
-                            <option value="adresse1">${adresse}</option>  
+                            <option value="adresse1">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>  
                             </select> 
                             </c:forEach>
                         </c:otherwise>

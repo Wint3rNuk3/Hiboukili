@@ -29,6 +29,11 @@
             <h4 class="">
                 <c:out value="${ item.ouvrage.titre }"/>
             </h4>
+            
+            <p>
+                Editeur : 
+                <c:out value="${ item.editeur.libelle }"/>
+            </p>
 
             <p>
                 Résumé : 

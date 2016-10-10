@@ -71,7 +71,8 @@ public class OrderController extends HttpServlet {
 		"'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE);
             System.out.println(f);
             // commande
-            
+            //arraylist qui regroupe les infos de la vue et du controller !
+            // 
             
             //adresse
             AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");

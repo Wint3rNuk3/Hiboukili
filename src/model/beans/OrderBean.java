@@ -88,17 +88,7 @@ public class OrderBean implements Serializable {
 
         ds = bc.MaConnexion();
 
-        //recuperer la hasmap commande 
-        //appel de la methode create 2 
-        //Insert into commande
-        //sauvegarder la commande en base de donnée : 
-        //pour cela il faut add la map avec : 
-        // - idAdresseLivraison ( choix de l'utilisateur dans la combo) 
-        // - idAdresseFacturation ( la meme)
-        // - id Utilisateur ( recuperer le login user )
-        // - numero commande ( gestion sql newid()
-        // - dateCommande ( demaner au controller de recuperer la date courante)
-        //envoyer tout ca Insert into commande.
+        
     }
 
     public void modifier() {

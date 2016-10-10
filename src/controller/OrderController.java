@@ -2,8 +2,11 @@ package controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,8 +66,12 @@ public class OrderController extends HttpServlet {
 
         //section FInal Order
         if (request.getParameter("valid") != null) {
-            
+            //date 
+            SimpleDateFormat f=new SimpleDateFormat( 
+		"'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE);
+            System.out.println(f);
             // commande
+            
             
             //adresse
             AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
@@ -80,6 +87,7 @@ public class OrderController extends HttpServlet {
             System.out.println("Adresse :" + adresses.list().size());
 
             url = "/WEB-INF/jsp/finalOrder.jsp";
+            
 
             //bouton
             if (request.getParameter("ajout") != null) {

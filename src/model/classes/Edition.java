@@ -359,7 +359,11 @@ public class Edition implements Serializable {
         otherSymbols.setGroupingSeparator(',');
         DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
         df.setRoundingMode(RoundingMode.HALF_UP);
-        this.prix = df.format((this.getPrixHt() + ((this.getTaxes().iterator().next().getValeur() / 100) * this.getPrixHt())));
+        if(this.getTaxes().iterator().hasNext()){
+            this.prix = df.format((this.getPrixHt() + ((this.getTaxes().iterator().next().getValeur() / 100) * this.getPrixHt())));
+        } else {
+            this.prix = df.format(this.getPrixHt());
+        }
     }
 
     public String getPrix() {

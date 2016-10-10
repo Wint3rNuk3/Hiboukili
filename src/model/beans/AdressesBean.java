@@ -27,13 +27,13 @@ public class AdressesBean {
             + " FROM Adresse"
             + " WHERE idAdresse = ?";
 
-    //ArrayList adresses;
+    ArrayList adresses;
     //HashMap<String, ArrayList<Adresse>> map;
-    HashMap<String, Adresse> map;
+    //HashMap<String, Adresse> map;
     
     public AdressesBean() {
-        this.map = new HashMap();
-        //this.adresses = new ArrayList();
+        //this.map = new HashMap();
+        this.adresses = new ArrayList();
     }
     
     public List<Adresse> findAll(ConnexionBean bc) {
@@ -128,13 +128,13 @@ public class AdressesBean {
 
             String query = "SELECT numero, voie, codePostal, ville, complement FROM ADRESSE";
             Statement stmt = c.createStatement();
-            Adresse adresse = new Adresse();
+            
 
             ResultSet rs = stmt.executeQuery(query);
             
 
             while (rs.next()) {
-                map.put("Adresse", new Adresse(rs.getString("numero"), rs.getString("voie"), rs.getString("codePostal"), rs.getString("ville"), rs.getString("complement")));
+                adresses.add(new Adresse(rs.getString("numero"), rs.getString("voie"), rs.getString("codePostal"), rs.getString("ville"), rs.getString("complement")));
 
             }
            // Solution 1
@@ -150,7 +150,7 @@ public class AdressesBean {
 //            
 //          map.put("Adresse", adresses);
 
-            System.out.println("Contenu :" + map);
+           // System.out.println("Contenu :" + map);
 
            
             rs.close();
@@ -166,16 +166,16 @@ public class AdressesBean {
     }
 
     public Collection<Adresse> list() {
-        return map.values();
+        return adresses;
 
     }
 
     public int size() {
-        return map.size();
+        return adresses.size();
     }
 
     public boolean isEmpty() {
-        return map.isEmpty();
+        return adresses.isEmpty();
     }
 
 }

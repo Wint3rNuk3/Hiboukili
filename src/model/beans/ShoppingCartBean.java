@@ -105,7 +105,11 @@ public class ShoppingCartBean implements Serializable {
 
     public String getCartPrice() {
         Float prixTotal = 0F;
-        for (Edition e : this.list()) prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+        for (Edition e : this.list()){
+            e.initPrix();
+            System.out.println("Done!");
+            prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+        }
         
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
         otherSymbols.setDecimalSeparator('.');

@@ -359,15 +359,20 @@ public class Edition implements Serializable {
         otherSymbols.setGroupingSeparator(',');
         DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
         df.setRoundingMode(RoundingMode.HALF_UP);
+        float prixTemp;
         if(this.getTaxes().iterator().hasNext()){
-            this.prix = df.format((this.getPrixHt() + ((this.getTaxes().iterator().next().getValeur() / 100) * this.getPrixHt())));
+            prixTemp = this.getPrixHt() + ((this.getTaxes().iterator().next().getValeur() / 100) * this.getPrixHt());
         } else {
-            this.prix = df.format(this.getPrixHt());
+            prixTemp = this.getPrixHt();
         }
+        if(this.getPromotions().iterator().hasNext()){
+            prixTemp = prixTemp - ((this.getPromotions().iterator().next().getValeur() / 100) * prixTemp);
+        }
+        
+        this.prix = df.format(prixTemp);
     }
 
     public String getPrix() {
-        System.out.println(this.prix);
         return this.prix;
     }
 

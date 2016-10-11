@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -26,6 +27,17 @@ import model.classes.Utilisateur;
 
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
+    
+     private Cookie getMyCookies(Cookie[] tab, String name) {
+        if (tab != null) {
+            for (Cookie c : tab) {
+                if (c.getName().equals(name)) {
+                    return c;
+                }
+            }
+        }
+        return null;
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -67,19 +79,27 @@ public class OrderController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
             
         if ("finalOrder".equals(request.getParameter("section"))) {
+            int i1 = 2;//id Utilisateur
+            Cookie sync = getMyCookies(request.getCookies(), "sync");
+            if (sync == null) {
+                    sync = new Cookie("sync", Integer.toString(i1));
+                    sync.setMaxAge(24 * 60 * 60);
+                    response.addCookie(sync);
+                }
+            
 
-              OrderBean orderTotal = (OrderBean) session.getAttribute("CommandeRecap");
-              //PanierTotal panierTotal = (PanierTotal) session.getAttribute("PanierTotal");
-              PanierTotal panierTotal = new PanierTotal();
-              if(orderTotal == null){
-                  orderTotal = new OrderBean();
-                  session.setAttribute("CommandeRecap", orderTotal);
-                  //orderTotal.recupererUtilisateur();
-                  orderTotal.createPanierTotal(bc,panierTotal.getQtyTotal(), panierTotal.getPrixTotal(), panierTotal.getStatutCommande(bc));
-              }
-              orderTotal.createPanierTotal(bc,3, 50, "En cours de validation");
-              request.setAttribute("commandeVide", orderTotal.isEmpty());
-              request.setAttribute("commande", orderTotal.list());
+//              OrderBean orderTotal = (OrderBean) session.getAttribute("CommandeRecap");
+//              //PanierTotal panierTotal = (PanierTotal) session.getAttribute("PanierTotal");
+//              PanierTotal panierTotal = new PanierTotal();
+//              if(orderTotal == null){
+//                  orderTotal = new OrderBean();
+//                  session.setAttribute("CommandeRecap", orderTotal);
+//                  //orderTotal.recupererUtilisateur();
+//                  orderTotal.createPanierTotal(bc,panierTotal.getQtyTotal(), panierTotal.getPrixTotal(), panierTotal.getStatutCommande(bc));
+//              }
+//              orderTotal.createPanierTotal(bc,3, 50, "En cours de validation");
+//              request.setAttribute("commandeVide", orderTotal.isEmpty());
+//              request.setAttribute("commande", orderTotal.list());
               
               
             // afficher la commande generale 
@@ -112,13 +132,14 @@ public class OrderController extends HttpServlet {
             }
             
             OrderBean order = (OrderBean) session.getAttribute("orderBDD");
-            if (request.getParameter("final") != null) {
+            if (request.getParameter("final") != null && sync.getValue() != null) {
                 if(order == null){
                     order = new OrderBean();
                 }
                 
+                
                 order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")), 
-                    Long.valueOf(request.getParameter("adresseLivraison")));
+                    Long.valueOf(request.getParameter("adresseLivraison")), Long.valueOf(sync.getValue()));
                 
                 url = "/WEB-INF/jsp/FormPaiement.jsp";
             }

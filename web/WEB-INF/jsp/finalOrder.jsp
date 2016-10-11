@@ -178,7 +178,7 @@
                             <input type='submit' name='doIt' value='Valider'>
                             <input type="hidden" name="section" value="finalOrder" />
                             <input type="hidden" name="final" value="" />
-                        <a href="OrderController?section=finalOrder&final">Valider</a>
+                        <%--<a href="OrderController?section=finalOrder&final">Valider</a>--%>
 
                         <br/>
                         <br/>

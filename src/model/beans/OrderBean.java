@@ -53,7 +53,7 @@ public class OrderBean implements Serializable {
          - date commande*/
     }
 
-    public void save(ConnexionBean bc, Long idAdresseFacturation, Long idAdresseLivraison) {
+    public void save(ConnexionBean bc, Long idAdresseFacturation, Long idAdresseLivraison, Long idUtilisateur) {
         int i = 0;
 
         DataSource ds = bc.MaConnexion();
@@ -76,7 +76,7 @@ public class OrderBean implements Serializable {
             String query = "DECLARE @guid varchar(50);"
                     + " SET @guid= NEWID();"
                     + " INSERT INTO Commande(idAdresseFacturation, idAdresseLivraison, idUtilisateur, numero, dateCommande)"
-                    + " SELECT ?,?,1,@guid, cast(convert(char(8), GETDATE(), 112) as int)"
+                    + " SELECT ?,?,?,@guid, cast(convert(char(8), GETDATE(), 112) as int)"
                     + " FROM Utilisateur AS a"
                     + " INNER JOIN   DernieresFacturations AS b"
                     + " ON a.IdUtilisateur=b.IdUtilisateur"
@@ -86,7 +86,7 @@ public class OrderBean implements Serializable {
 
             stmt.setLong(1, idAdresseFacturation);
             stmt.setLong(2, idAdresseLivraison);
-            //stmt.setLong(3, idUtilisateur);
+            stmt.setLong(3, idUtilisateur);
 
             ResultSet res = stmt.executeQuery();
 

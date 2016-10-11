@@ -26,6 +26,14 @@
             <jsp:include page="../edition/list.jsp">
                 <jsp:param name="editions" value="${editions}"/>
             </jsp:include>
+                <!-- je le mets là en attendant pour que ça fonctionne partout, 
+                je sais que ça serait mieux d'en faire une page à part pour le
+                moment, mais j'ai peur de tout casser en essayant de retirer
+                la modale -->
+                <!-- note, quand on clique sur le bouton d'achat correspondant à une edition
+                dans une rubrique, on retourne sur la page de l'index (qui est la même que celle de shopping cart)
+                assez normal en fait... vu le bidouillage. -->
+                <c:import url="../../jsp/shoppingcart.jsp"/>
             
         </div>
     </jsp:body>

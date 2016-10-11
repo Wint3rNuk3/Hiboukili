@@ -92,14 +92,14 @@ public class IndexController extends HttpServlet {
                 page = nbPage;
             }
         }
-        
+        boolean modalOpen = false;
+        session.setAttribute("modalOpen", modalOpen);
         if (request.getParameter("add") != null) {
             //System.out.println(request.getParameter("add"));
             ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
             String prixTotal;
             final Map<String, Edition> cartMap = new HashMap<>();
             EditionBean eb = new EditionBean();
-            boolean modalOpen = false;
             cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")), 1);
             session.setAttribute("cart", cart);
             //ajouter le prix dans le shopping cart

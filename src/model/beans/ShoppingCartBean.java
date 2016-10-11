@@ -49,18 +49,13 @@ public class ShoppingCartBean implements Serializable {
     // la methode add ne fonctionne pas correctement, à voir.
     public void add(String isbn, Edition e, int qty) {
         if (map.containsKey(isbn)) {
-            e.change(qty);
-            System.out.println("l'objet temp est le suivant : "+e);
-            System.out.println("l'objet d'origine dans la map est le suivant : "+map.get(isbn));
-            map.replace(isbn, e);
-            System.out.println("l'objet final dans la map est le suivant : "+map.get(isbn));
-            if (e.getCartQty() < 1) {
+            map.get(isbn).change(qty);
+            if (map.get(isbn).getCartQty() < 1) {
                 del(isbn);
             }
         } else {
             e.change(qty);
             map.put(isbn, e);
-            System.out.println(map.toString());
         }
     }
 

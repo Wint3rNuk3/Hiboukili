@@ -42,41 +42,24 @@ public class ShoppingCartController extends HttpServlet {
         EditionBean eb = new EditionBean();
         boolean modalOpen = false;
 
-        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
-        session.setAttribute("cart", cart);
-        prixTotal = cart.getCartPrice();
-        session.setAttribute("prixTotal", prixTotal);
+//        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+//        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+//        session.setAttribute("cart", cart);
+//        prixTotal = cart.getCartPrice();
+//        session.setAttribute("prixTotal", prixTotal);
         session.setAttribute("modalOpen", modalOpen);
-        
-//        if (cart == null) {
-//            // Si l'utilisateur n'a pas de panier, le creer.
-//            cart = new ShoppingCartBean(bc, cartMap);
-//            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-//            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+
+//        //System.out.println(cart.list());
+//        if (request.getParameter("add") != null) {
+//            //System.out.println(request.getParameter("add"));
+//            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
 //            session.setAttribute("cart", cart);
+//            //ajouter le prix dans le shopping cart
 //            prixTotal = cart.getCartPrice();
 //            session.setAttribute("prixTotal", prixTotal);
+//            modalOpen = true;
 //            session.setAttribute("modalOpen", modalOpen);
-//        } else {
-//            //prixTotal = cart.getCartPrice();
-//            //session.setAttribute("prixTotal", prixTotal);
-//            session.setAttribute("modalOpen", modalOpen);
-//            //cart.setMap(cartMap);
-//            //session.setAttribute("cart", cart);
 //        }
-
-        //System.out.println(cart.list());
-        if (request.getParameter("add") != null) {
-            //System.out.println(request.getParameter("add"));
-            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
-            session.setAttribute("cart", cart);
-            //ajouter le prix dans le shopping cart
-            prixTotal = cart.getCartPrice();
-            session.setAttribute("prixTotal", prixTotal);
-            modalOpen = true;
-            session.setAttribute("modalOpen", modalOpen);
-        }
         if (request.getParameter("inc") != null) {
             cart.inc(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("inc")));
             session.setAttribute("cart", cart);

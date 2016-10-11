@@ -100,7 +100,7 @@ public class IndexController extends HttpServlet {
             final Map<String, Edition> cartMap = new HashMap<>();
             EditionBean eb = new EditionBean();
             boolean modalOpen = false;
-            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
+            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")), 1);
             session.setAttribute("cart", cart);
             //ajouter le prix dans le shopping cart
             prixTotal = cart.getCartPrice();

@@ -21,7 +21,7 @@ public class Commande implements Serializable{
     /**
      * Date de commande
      */
-    private Date dateCommande;
+    private int dateCommande;
     /**
      * Informations relatives au client effectuant la commande.
      *
@@ -89,7 +89,7 @@ public class Commande implements Serializable{
      *
      * @return Date de commande (Date).
      */
-    public Date getDateCommande() {
+    public int getDateCommande() {
         return dateCommande;
     }
 
@@ -98,7 +98,7 @@ public class Commande implements Serializable{
      *
      * @param dateCommande Nouvelle date de commande.
      */
-    public void setDateCommande(Date dateCommande) {
+    public void setDateCommande(int dateCommande) {
         this.dateCommande = dateCommande;
     }
 

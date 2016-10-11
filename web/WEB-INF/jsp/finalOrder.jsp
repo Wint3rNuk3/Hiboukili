@@ -20,13 +20,17 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
+                                    <h1>
                                     <strong>Hibookili</strong>
+                                    </h1>
                                     <br> 
                                 </address>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                 <p>
+                                <h5>
                                     <em>Date: 6 Octobre 2016</em>
+                                </h5>
                                 </p>
 
                             </div>
@@ -100,33 +104,9 @@
                         </table>
 
 
-
-
-                        <%-- <form action="OrderController" method="Get">
-
-            <h1 align="center">COMMANDE</h1>
-            <h3>INFORMATIONS GENERALES</h3>
-            <fieldset>
-                <table>
-                    <tr>
-                        <th>date</th>
-                        <th>total d'articles</th>
-                        <th>Prix total TTC</th>
-                        <th>Statut Commande</th>    
-                    </tr>
-                    <tr>
-                        <%--rempalcer les valeurs en durs par les valeurs recuperer via le panier/session grace EL--%>
-                        <%--  <td>01/10/2016</td>
-                          <td>5</td>
-                          <td>50 euros</td>
-                          <td>En cours de validation</td>
-                      </tr>  
-                  </table>
-              </fieldset>--%>
-                        <%--ADREEEESSSSSSSSSSSSSSSSSSSSSSEEEEEEEEEEEEEEEEEEEE--%>
                         <br/>      
                         <br/>
-                        <h4>CHOIX ADRESSE</h4>
+                        <h5>CHOIX ADRESSE</h5>
                         <fieldSet>
                             <legend>Adresse de facturation</legend><br/>
                             <br/>
@@ -139,7 +119,7 @@
                                 <c:otherwise>
                                     <select name="adresseFacturation">
                                         <c:forEach items="${adresse}" var="a">
-                                            <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
+                                            <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville}</option>
                                         </c:forEach>
                                     </select> 
                                 </c:otherwise>
@@ -163,7 +143,7 @@
                                 <c:otherwise>
                                     <select name="adresseLivraison">
                                         <c:forEach items="${adresse}" var="a">
-                                            <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
+                                            <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville}</option>
                                         </c:forEach>
                                     </select> 
                                 </c:otherwise>

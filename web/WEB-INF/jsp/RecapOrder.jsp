@@ -6,7 +6,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        
+
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -23,13 +23,17 @@
                         <div class="row">
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
+                                    <h1>
                                     <strong>Hibookili</strong>
+                                    </h1>
                                     <br> 
                                 </address>
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                 <p>
+                                <h5>
                                     <em>Date: 6 Octobre 2016</em>
+                                </h5>
                                 </p>
 
                             </div>
@@ -45,10 +49,10 @@
                                     <th class="text-center">Quantité</th>
                                 </tr>
                             </thead>
-                            
+
                             <c:choose> 
                                 <c:when test="${empty cart}">
-                                     <div class="row">
+                                    <div class="row">
                                         <div class="col-xs-2">
                                         </div>
                                         <div class="col-xs-4">
@@ -102,17 +106,17 @@
 
                         </table>
 
+
+                        <p align="center">
+                            <a href="shoppingcart.jsp">Modifier</a>   
+                            <%--<input type='submit' value='Modifier' name='modif'/>--%>
+
+                            <a href="OrderController?section=finalOrder">Valider</a>
+                            <%--<input type="submit" value="Valider" name="valid"/>--%>
                     </div>
                 </div>
             </div>
-            <p align="center">
-            <a href="shoppingcart.jsp">Modifier</a>   
-            <%--<input type='submit' value='Modifier' name='modif'/>--%>
-            
-            <a href="OrderController?section=finalOrder">Valider</a>
-            <%--<input type="submit" value="Valider" name="valid"/>--%>
-            
-            </p>
-        </form>
-    </body>
+        </p>
+    </form>
+</body>
 </html>

@@ -84,7 +84,7 @@
                                                 <h6><strong>${ e.prixHt } HT <span class="text-muted">x</span></strong></h6>
                                             </div>
                                             <div class="col-xs-4" style="margin-top:10px;">
-                                                <!--<div name="isbnSur" value="dollar{e.isbn}">--><input type="text" class="form-control input-sm" name="qty" value="${e.cartQty}"><!--</div>-->
+                                                <form action="${pageContext.request.contextPath}/shoppingcart?set=${e.isbn}" method="post"><input type="text" class="form-control input-sm" name="qty" value="${e.cartQty}"></form>
                                             </div>
                                             <div class="col-xs-2" style="margin-top:5px;">
                                                 <a type="button" class="btn btn-success btn-xs" id="inc" href="shoppingcart?inc=${e.isbn}" style="font-size:10px; width:18px; height:18px;" data-backdrop="static">+</a>
@@ -111,7 +111,7 @@
                                     <h6 class="text-right">Changements dans le panier ?</h6>
                                 </div>
                                 <div class="col-xs-3">
-                                    <a type="button" class="btn btn-default btn-sm btn-block" href="shoppingcart" style="margin-bottom:4px; white-space: normal;">
+                                    <a type="button" class="btn btn-default btn-sm btn-block" id="refresh" href="shoppingcart?refresh=true" style="margin-bottom:4px; white-space: normal;">
                                         Mettre à jour le panier
                                     </a>
                                 </div>

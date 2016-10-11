@@ -6,8 +6,10 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import model.classes.Edition;
 
 public class ShoppingCartBean implements Serializable {
@@ -30,20 +32,35 @@ public class ShoppingCartBean implements Serializable {
 
     public void create(String isbn, Edition e, int qty) {
         add(isbn, e, qty);
-        //map.get(isbn).setStock(map.get(isbn).getStock() - qty);
     }
 
+//    public void add(String isbn, Edition e, int qty) {
+//        if (map.containsKey(isbn)) {
+//            e.change(qty);
+//           if (e.getCartQty() < 1) {
+//               del(isbn);
+//            }
+//        } else {
+//            e.change(qty);
+//            map.put(isbn, e);
+//        }
+//    }
+    // faire la modification du stock à la commande
+    // la methode add ne fonctionne pas correctement, à voir.
     public void add(String isbn, Edition e, int qty) {
         if (map.containsKey(isbn)) {
-            Edition ed = map.get(isbn);
-            //System.out.println(ed.getCartQty());
-            ed.change(qty);
-            //System.out.println(ed.getCartQty());
-            if (ed.getCartQty() < 1) {
+            e.change(qty);
+            System.out.println("l'objet temp est le suivant : "+e);
+            System.out.println("l'objet d'origine dans la map est le suivant : "+map.get(isbn));
+            map.replace(isbn, e);
+            System.out.println("l'objet final dans la map est le suivant : "+map.get(isbn));
+            if (e.getCartQty() < 1) {
                 del(isbn);
             }
         } else {
+            e.change(qty);
             map.put(isbn, e);
+            System.out.println(map.toString());
         }
     }
 
@@ -57,11 +74,9 @@ public class ShoppingCartBean implements Serializable {
 
     public void dec(String isbn, Edition e, int qty) {
         add(isbn, e, -qty);
-        //map.get(isbn).setStock(map.get(isbn).getStock() + qty);
     }
 
     public void del(String isbn) {
-        //map.get(isbn).setStock(0);
         map.remove(isbn);
     }
 
@@ -94,8 +109,8 @@ public class ShoppingCartBean implements Serializable {
     public void setBc(ConnexionBean bc) {
         this.bc = bc;
     }
-    
-    public Map<String, Edition> getMap(){
+
+    public Map<String, Edition> getMap() {
         return map;
     }
 
@@ -105,18 +120,21 @@ public class ShoppingCartBean implements Serializable {
 
     public String getCartPrice() {
         Float prixTotal = 0F;
-        for (Edition e : this.list()){
-            e.initPrix();
-            //System.out.println("Done!");
-            prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+        if (!(this.list().isEmpty())) {
+            for (Edition e : this.list()) {
+                if (e.getPrixHt() != null) {
+                    e.initPrix();
+                    prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+                }
+            }
         }
-        
+
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
         otherSymbols.setDecimalSeparator('.');
         otherSymbols.setGroupingSeparator(',');
         DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
         df.setRoundingMode(RoundingMode.HALF_UP);
-        
+
         //System.out.println(df.format(prixTotal));
         return df.format(prixTotal);
     }

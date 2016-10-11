@@ -35,38 +35,38 @@ public class ShoppingCartController extends HttpServlet {
 
         // get le panier à partir de la session.
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-        
+
         // trucs dont on va avoir besoin
         String prixTotal;
         final Map<String, Edition> cartMap = new HashMap<>();
         EditionBean eb = new EditionBean();
         boolean modalOpen = false;
-        
 
-        //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"), 2);
-        //cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"), 2);
+        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+        session.setAttribute("cart", cart);
+        prixTotal = cart.getCartPrice();
+        session.setAttribute("prixTotal", prixTotal);
+        session.setAttribute("modalOpen", modalOpen);
         
-        
-        if (cart == null) {
-            // Si l'utilisateur n'a pas de panier, le creer.
-            cart = new ShoppingCartBean(bc, cartMap);
-            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
-            session.setAttribute("cart", cart);
-            prixTotal = cart.getCartPrice();
-            session.setAttribute("prixTotal", prixTotal);
-            session.setAttribute("modalOpen", modalOpen);
-        } else {
-            prixTotal = cart.getCartPrice();
-            session.setAttribute("prixTotal", prixTotal);
-            session.setAttribute("modalOpen", modalOpen);
-            //cart.setMap(cartMap);
-            //session.setAttribute("cart", cart);
-        }
-        
-        
+//        if (cart == null) {
+//            // Si l'utilisateur n'a pas de panier, le creer.
+//            cart = new ShoppingCartBean(bc, cartMap);
+//            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+//            cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
+//            session.setAttribute("cart", cart);
+//            prixTotal = cart.getCartPrice();
+//            session.setAttribute("prixTotal", prixTotal);
+//            session.setAttribute("modalOpen", modalOpen);
+//        } else {
+//            //prixTotal = cart.getCartPrice();
+//            //session.setAttribute("prixTotal", prixTotal);
+//            session.setAttribute("modalOpen", modalOpen);
+//            //cart.setMap(cartMap);
+//            //session.setAttribute("cart", cart);
+//        }
+
         //System.out.println(cart.list());
-
         if (request.getParameter("add") != null) {
             //System.out.println(request.getParameter("add"));
             cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
@@ -84,7 +84,7 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("prixTotal", prixTotal);
             modalOpen = true;
             session.setAttribute("modalOpen", modalOpen);
-            
+
         }
         if (request.getParameter("dec") != null) {
             cart.dec(request.getParameter("dec"), eb.findByIsbn(bc, request.getParameter("dec")));
@@ -101,7 +101,41 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("prixTotal", prixTotal);
             modalOpen = true;
             session.setAttribute("modalOpen", modalOpen);
-           
+
+        }
+        if (request.getParameter("set") != null) {
+//            session.setAttribute("cart", cart);
+//            prixTotal = cart.getCartPrice();
+//            session.setAttribute("prixTotal", prixTotal);
+//            modalOpen = true;
+//            session.setAttribute("modalOpen", modalOpen);
+
+            if (Integer.parseInt(request.getParameter("qty")) <= 0) {
+                cart.del(request.getParameter("set"));
+                session.setAttribute("cart", cart);
+                prixTotal = cart.getCartPrice();
+                session.setAttribute("prixTotal", prixTotal);
+                modalOpen = true;
+                session.setAttribute("modalOpen", modalOpen);
+            } else if (Integer.parseInt(request.getParameter("qty")) < eb.findByIsbn(bc, request.getParameter("set")).getCartQty()) {
+                cart.dec(request.getParameter("set"), eb.findByIsbn(bc, request.getParameter("set")), Integer.parseInt(request.getParameter("qty")));
+                session.setAttribute("cart", cart);
+                prixTotal = cart.getCartPrice();
+                session.setAttribute("prixTotal", prixTotal);
+                modalOpen = true;
+                session.setAttribute("modalOpen", modalOpen);
+            } else if (Integer.parseInt(request.getParameter("qty")) == eb.findByIsbn(bc, request.getParameter("set")).getCartQty()) {
+                modalOpen = true;
+                session.setAttribute("modalOpen", modalOpen);
+            } else {
+                cart.add(request.getParameter("set"), eb.findByIsbn(bc, request.getParameter("set")), Integer.parseInt(request.getParameter("qty")));
+                session.setAttribute("cart", cart);
+                prixTotal = cart.getCartPrice();
+                session.setAttribute("prixTotal", prixTotal);
+                modalOpen = true;
+                session.setAttribute("modalOpen", modalOpen);
+            }
+
         }
         if (request.getParameter("clean") != null) {
             cart.clean();
@@ -111,9 +145,10 @@ public class ShoppingCartController extends HttpServlet {
             modalOpen = true;
             session.setAttribute("modalOpen", modalOpen);
         }
-//        if(request.getParameter("qty") != null) {
-//            cart.getMap().get(request.getParameter("isbnSur")).change(Integer.parseInt(request.getParameter("qty")));
-//        }
+        if (request.getParameter("refresh") != null) {
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
+        }
 
         // à l'arrache pour le moment
         if (request.getParameter("save") != null) {
@@ -124,7 +159,7 @@ public class ShoppingCartController extends HttpServlet {
             // tu le sais toi ? moi non.
             // moi non plus alors...fait le au feeling ! 
         }
-        
+
         request.getRequestDispatcher(SHOPPINGCART_ROUTE).include(request, response);
 
     }

@@ -68,10 +68,14 @@
         <div class="pull-right col-md-2 col-sm-2  col-xs-2">
             <div class="btn-group btn-group-vertical" role="group" aria-label="...">
                 
-                <a role="button" class="btn btn-success" href="#cartModal" data-toggle="modal" data-target="#cartModal">
-                    <!-- insert some href="shoppingcart?inc=dollar{e.isbn}" kind of -->
-                    <i class="glyphicon glyphicon-shopping-cart"> </i>
+                <a id="add" class="btn btn-success" style="padding:0;" href="shoppingcart?add=${item.isbn}">
+                    <button role="button" class="btn btn-success" style="border:none;" data-toggle="modal" data-target="#cartModal">
+                        <i class="glyphicon glyphicon-shopping-cart"> </i>
+                    </button>
                 </a>
+                    <!-- insert some href="shoppingcart?add=dollar{e.isbn}" kind of -->
+                    
+                
                 
                 <c:url value="edition" var="url">
                     <c:param name="isbn" value="${ item.isbn }" />

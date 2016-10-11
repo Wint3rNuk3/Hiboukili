@@ -53,9 +53,9 @@ public class Edition implements Serializable {
      * @see StatutEdition
      * @see StatutEditionDAO
      */
-    /**
-     * Quantité physique disponible.
-     */
+    
+    
+    
     private int cartQty;
     private String prix;
     
@@ -361,14 +361,16 @@ public class Edition implements Serializable {
         otherSymbols.setGroupingSeparator(',');
         DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
         df.setRoundingMode(RoundingMode.HALF_UP);
-        float prixTemp;
-        if(this.getTaxes().iterator().hasNext()){
-            prixTemp = this.getPrixHt() + ((this.getTaxes().iterator().next().getValeur() / 100) * this.getPrixHt());
-        } else {
-            prixTemp = this.getPrixHt();
+        float prixTemp = this.getPrixHt();
+        
+        if(!(this.getTaxes().isEmpty())){
+            for(Taxe taxe : this.getTaxes())
+                prixTemp += ((taxe.getValeur() / 100) * this.getPrixHt());
         }
-        if(this.getPromotions().iterator().hasNext()){
-            prixTemp = prixTemp - ((this.getPromotions().iterator().next().getValeur() / 100) * prixTemp);
+        
+        if(!(this.getPromotions().isEmpty())){
+            for(Promotion promo : this.getPromotions())
+                prixTemp -= ((promo.getValeur() / 100) * prixTemp);
         }
         
         this.prix = df.format(prixTemp);

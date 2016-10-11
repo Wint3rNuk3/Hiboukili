@@ -1,7 +1,9 @@
 package controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
+import model.beans.ShoppingCartBean;
 import model.classes.Edition;
 
 @WebServlet(name = "IndexController", urlPatterns = {""})
@@ -88,6 +91,22 @@ public class IndexController extends HttpServlet {
                 // allons a la derniere page.
                 page = nbPage;
             }
+        }
+        
+        if (request.getParameter("add") != null) {
+            //System.out.println(request.getParameter("add"));
+            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+            String prixTotal;
+            final Map<String, Edition> cartMap = new HashMap<>();
+            EditionBean eb = new EditionBean();
+            boolean modalOpen = false;
+            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
+            session.setAttribute("cart", cart);
+            //ajouter le prix dans le shopping cart
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
         }
         
         // on transmet la valeur en attribute pour l'utiliser dans la jsp.

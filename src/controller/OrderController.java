@@ -21,6 +21,7 @@ import model.beans.OrderBean;
 import model.beans.ShoppingCartBean;
 import model.classes.Adresse;
 import model.classes.Edition;
+import model.classes.PanierTotal;
 import model.classes.Utilisateur;
 
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
@@ -67,13 +68,26 @@ public class OrderController extends HttpServlet {
             
         if ("finalOrder".equals(request.getParameter("section"))) {
 
- 
+              OrderBean orderTotal = (OrderBean) session.getAttribute("CommandeRecap");
+              //PanierTotal panierTotal = (PanierTotal) session.getAttribute("PanierTotal");
+              PanierTotal panierTotal = new PanierTotal();
+              if(orderTotal == null){
+                  orderTotal = new OrderBean();
+                  session.setAttribute("CommandeRecap", orderTotal);
+                  //orderTotal.recupererUtilisateur();
+                  orderTotal.createPanierTotal(bc,panierTotal.getQtyTotal(), panierTotal.getPrixTotal(), panierTotal.getStatutCommande(bc));
+              }
+              orderTotal.createPanierTotal(bc,3, 50, "En cours de validation");
+              request.setAttribute("commandeVide", orderTotal.isEmpty());
+              request.setAttribute("commande", orderTotal.list());
+              
+              
             // afficher la commande generale 
-            //   - créer une "commande" avec les elements : quantite totale, nbr d'article, date et statut commande
+            //   - créer une "commande" avec les elements : quantite totale, nbr d'article et statut commande
             // recuperer depuis 
             //   - deux methodes du beanPanier
             //   - methode BeanCommande : statut commande
-            //    -- date depuis controller 
+             
             // du coup : methode créer dans commande normal .
            
 
@@ -103,9 +117,6 @@ public class OrderController extends HttpServlet {
                     order = new OrderBean();
                 }
                 
-                
-                
-
                 order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")), 
                     Long.valueOf(request.getParameter("adresseLivraison")));
                 

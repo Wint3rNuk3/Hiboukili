@@ -163,4 +163,21 @@ public class UpdateBDDBean implements Serializable {
             System.err.println("Erreur dans BeanUpdateBDD 6 - " + exce.getMessage());
         }
     }
+    
+    public void defautAdresse(DataSource ds, ConnexionBean cB, int idStatutAdresse, Long idAdresse){
+        ds =cB.MaConnexion();
+        try(Connection c = ds.getConnection()){
+            String update = "update Adresse set idStatutAdresse = ? where idAdresse = ?";
+            PreparedStatement ps = c.prepareStatement(update);
+            ps.setInt(1, idStatutAdresse);
+            ps.setLong(2, idAdresse);
+            
+            ps.executeUpdate();
+            
+        }catch(SQLException excep){
+            System.err.println("Erreur dans BeanUpdateBDD 7 - " + excep.getMessage());
+            
+        }
+        
+    }
 }

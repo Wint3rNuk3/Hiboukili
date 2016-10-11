@@ -129,8 +129,7 @@ public class UtilisateurController extends HttpServlet {
                     uBddB = new UpdateBDDBean();
                 }
 
-                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
-
+//                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
                 //envoie les saisies pour qu'elles soient enregistrees ds la bdd et
                 //recupere l'idUtilisateur renvoye par la bdd ds i1
                 i1 = uBddB.creeCompteDsBdd(ds, cB,
@@ -281,8 +280,7 @@ public class UtilisateurController extends HttpServlet {
                     session.setAttribute("sessionConnexion", cB);
                 }
 
-                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
-
+//                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
                 //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
                 Utilisateur uti = lB.checkLogin(ds, cB, request.getParameter("loginTI"), request.getParameter("mdpTI"));
 
@@ -411,25 +409,28 @@ public class UtilisateurController extends HttpServlet {
                 riub = new RecupInfosUtilisateurBean();
             }
 
+            if (uBddB == null) {
+                uBddB = new UpdateBDDBean();
+            }
+
 ////////////////////////// MODIF ADRESSE PAR DEFAUT ////////////////////////////              
-            if (request.getParameter("defaut") != null) {
-                String s = request.getParameter("defaut");
-                String ss = sync.getValue();
-                System.out.println("idAdresse : " + s);
-                System.out.println("idUtilisateur : " + ss);
+            if (request.getParameter("defaut") != null) {         
 
                 myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
                 for (Adresse a : myAL) {
                     if (a.getId() == Long.valueOf(request.getParameter("defaut"))) {
-                        a.setStatutAdresse(1l);
-                        //update Adresse set idStatutAdresse = 2 where idAdresse = 18
+                        a.setStatutAdresse(1);
+                        uBddB.defautAdresse(ds, cB, 1, a.getId());
                     } else {
-                        a.setStatutAdresse(2l);
+                        a.setStatutAdresse(2);
+                        uBddB.defautAdresse(ds, cB, 2, a.getId());
                     }
                 }
+                // myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
+                session.setAttribute("listeAdresses", myAL);
 
+                //url = "/WEB-INF/jsp/bienvenue.jsp";
                 url = "/WEB-INF/jsp/listeAdresses.jsp";
-
             }
 ////////////////////////// MODIF ADRESSE ///////////////////////////////////////
 
@@ -534,7 +535,7 @@ public class UtilisateurController extends HttpServlet {
             if (uBddB == null) {
                 uBddB = new UpdateBDDBean();
 
-                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
+//                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
                 if (riub == null) {
                     riub = new RecupInfosUtilisateurBean();
                 }
@@ -573,7 +574,7 @@ public class UtilisateurController extends HttpServlet {
 //                        LISTE DES ADRESSES
 ////////////////////////////////////////////////////////////////////////////////   
         if ("gererAdresses".equals(request.getParameter("section"))) {
-            url = "WEB-INF/jsp/listeAdresses.jsp";
+            url = "/WEB-INF/jsp/listeAdresses.jsp";
 
             if (riub == null) {
                 riub = new RecupInfosUtilisateurBean();

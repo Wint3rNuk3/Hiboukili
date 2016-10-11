@@ -91,7 +91,8 @@ public class RecupInfosUtilisateurBean implements Serializable {
     }
 
     public ArrayList recupListeAdresses(DataSource ds, ConnexionBean cB, Long idUtilisateur) {
-        
+    
+        //myAl.clear();
         ds = cB.MaConnexion();
         try (Connection c = ds.getConnection()) {
             //recupere la liste de toutes les adresses d'un utilisateur
@@ -108,7 +109,7 @@ public class RecupInfosUtilisateurBean implements Serializable {
                 Adresse a = new Adresse();
                 Pays p = new Pays();
                 a.setId(rs.getLong("idAdresse"));
-                a.setStatutAdresse(rs.getLong("idStatutAdresse"));//--------------        
+                a.setStatutAdresse(rs.getInt("idStatutAdresse"));//--------------        
                 a.setNumero(rs.getString("numero"));                
                 a.setVoie(rs.getString("voie"));
                 a.setCp(rs.getString("codePostal"));

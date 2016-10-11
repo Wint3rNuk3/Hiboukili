@@ -36,7 +36,7 @@ public class Adresse implements Serializable {
      * Numero de la rue , l'allee etc... (String car ne fera pas l'objet de
      * calculs).
      */
-    private Long statutAdresse;
+    private int statutAdresse;
     
     private String numero;
     /**
@@ -94,7 +94,7 @@ public class Adresse implements Serializable {
         this.id = id;
     }
 
-    public Long getStatutAdresse() {
+    public int getStatutAdresse() {
         return statutAdresse;
     }
 
@@ -103,7 +103,7 @@ public class Adresse implements Serializable {
      *
      * @param id Nouvel id de l'adresse.
      */
-    public void setStatutAdresse(Long statutAdresse) {
+    public void setStatutAdresse(int statutAdresse) {
         this.statutAdresse = statutAdresse;
     }
 

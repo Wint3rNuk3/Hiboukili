@@ -1,3 +1,5 @@
+<%@page import="model.classes.Adresse"%>
+<%@page import="java.util.ArrayList"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 
     Document   : listeAdresses
@@ -15,18 +17,20 @@
     <body>
         <h1>Mes adresses</h1>
         <a href="UtilisateurController?section=ajouterAdresse"> Ajouter une adresse</a></br></br>
-    <c:forEach var="i" items="${listeAdresses}">
-               idAdresse : ${i.id} - ¤ ${i.statutAdresse} ¤
-        ${i.numero} ${i.voie} ${i.cp} ${i.ville} ${i.complement} ${i.pays.libelle}
-        <%-- si statutAdresse = 1, afficher adresse de facturation --%>
-        <c:if test="${i.statutAdresse==1}" var="test">
-        <a href="UtilisateurController?section=modifierAdresse&defaut=${i.id}">Choisir cette adresse comme adresse de Facturation</a> 
-        <a href="UtilisateurController?section=modifierAdresse&modif=${i.id}">Modifier cette adresse</a> <font color = "red">Adresse de Facturation</font> </br>            
-        </c:if>
-        <c:if test="${i.statutAdresse!=1}" var="test">
-        <a href="UtilisateurController?section=modifierAdresse&defaut=${i.id}">Choisir cette adresse comme adresse de Facturation</a> 
-        <a href="UtilisateurController?section=modifierAdresse&modif=${i.id}">Modifier cette adresse</a></br>            
-        </c:if>
-    </c:forEach>
+
+        <%ArrayList<Adresse> myal = (ArrayList<Adresse>) session.getAttribute("listeAdresses");
+            System.out.println("myal size : " + myal.size() + " WWWW -----------------------------");%>
+
+        <c:forEach var="i" items="${listeAdresses}">
+            idAdresse : ${i.id} - ¤ ${i.statutAdresse} ¤
+            ${i.numero} ${i.voie} ${i.cp} ${i.ville} ${i.complement} ${i.pays.libelle}
+            <%-- si statutAdresse = 1, afficher adresse de facturation --%>
+            <a href="UtilisateurController?section=modifierAdresse&defaut=${i.id}">Choisir cette adresse comme adresse de Facturation</a> 
+            <a href="UtilisateurController?section=modifierAdresse&modif=${i.id}">Modifier cette adresse</a> 
+            <c:if test="${i.statutAdresse==1}" var="test">
+                <font color = "red">Adresse de Facturation</font> 
+            </c:if>
+            </br>            
+        </c:forEach>
     </body>
 </html>

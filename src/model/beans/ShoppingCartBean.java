@@ -74,6 +74,10 @@ public class ShoppingCartBean implements Serializable {
     public void del(String isbn) {
         map.remove(isbn);
     }
+    
+    public void set(String isbn, int qty){
+        map.get(isbn).setCartQty(qty);
+    }
 
     public Collection<Edition> list() {
         return map.values();
@@ -105,6 +109,14 @@ public class ShoppingCartBean implements Serializable {
         this.bc = bc;
     }
 
+    public Edition getInMap(String isbn) {
+        if (map.containsKey(isbn)) {
+            return map.get(isbn);
+        } else {
+            System.out.println("Bonjour !");
+            return null;
+        }
+    }
     public Map<String, Edition> getMap() {
         return map;
     }

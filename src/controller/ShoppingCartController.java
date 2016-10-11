@@ -92,7 +92,8 @@ public class ShoppingCartController extends HttpServlet {
 //            session.setAttribute("prixTotal", prixTotal);
 //            modalOpen = true;
 //            session.setAttribute("modalOpen", modalOpen);
-
+            //System.out.println(cart.getInMap(request.getParameter("set")).getCartQty());
+            //System.out.println(cart.getMap().get("set").getCartQty());
             if (Integer.parseInt(request.getParameter("qty")) <= 0) {
                 cart.del(request.getParameter("set"));
                 session.setAttribute("cart", cart);
@@ -100,18 +101,11 @@ public class ShoppingCartController extends HttpServlet {
                 session.setAttribute("prixTotal", prixTotal);
                 modalOpen = true;
                 session.setAttribute("modalOpen", modalOpen);
-            } else if (Integer.parseInt(request.getParameter("qty")) < eb.findByIsbn(bc, request.getParameter("set")).getCartQty()) {
-                cart.dec(request.getParameter("set"), eb.findByIsbn(bc, request.getParameter("set")), Integer.parseInt(request.getParameter("qty")));
-                session.setAttribute("cart", cart);
-                prixTotal = cart.getCartPrice();
-                session.setAttribute("prixTotal", prixTotal);
-                modalOpen = true;
-                session.setAttribute("modalOpen", modalOpen);
-            } else if (Integer.parseInt(request.getParameter("qty")) == eb.findByIsbn(bc, request.getParameter("set")).getCartQty()) {
+            } else if (Integer.parseInt(request.getParameter("qty")) == cart.getInMap(request.getParameter("set")).getCartQty()) {
                 modalOpen = true;
                 session.setAttribute("modalOpen", modalOpen);
             } else {
-                cart.add(request.getParameter("set"), eb.findByIsbn(bc, request.getParameter("set")), Integer.parseInt(request.getParameter("qty")));
+                cart.set(request.getParameter("set"), Integer.parseInt(request.getParameter("qty")));
                 session.setAttribute("cart", cart);
                 prixTotal = cart.getCartPrice();
                 session.setAttribute("prixTotal", prixTotal);

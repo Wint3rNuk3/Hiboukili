@@ -40,6 +40,8 @@ public class ShoppingCartController extends HttpServlet {
         String prixTotal;
         final Map<String, Edition> cartMap = new HashMap<>();
         EditionBean eb = new EditionBean();
+        boolean refreshed = false;
+        session.setAttribute("refreshed", refreshed);
         boolean modalOpen = false;
         session.setAttribute("modalOpen", modalOpen);
 
@@ -110,6 +112,8 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("modalOpen", modalOpen);
         }
         if (request.getParameter("refresh") != null) {
+            refreshed = true;
+            session.setAttribute("refreshed", refreshed);
             modalOpen = true;
             session.setAttribute("modalOpen", modalOpen);
         }

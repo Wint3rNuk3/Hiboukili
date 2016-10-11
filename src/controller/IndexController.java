@@ -92,8 +92,20 @@ public class IndexController extends HttpServlet {
                 page = nbPage;
             }
         }
+        
         boolean modalOpen = false;
         session.setAttribute("modalOpen", modalOpen);
+        
+        boolean refreshed = (boolean) session.getAttribute("refreshed");
+        
+        if (refreshed == true) {
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
+        } else {
+            modalOpen = false;
+            session.setAttribute("modalOpen", modalOpen);
+        }
+        
         if (request.getParameter("add") != null) {
             //System.out.println(request.getParameter("add"));
             ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");

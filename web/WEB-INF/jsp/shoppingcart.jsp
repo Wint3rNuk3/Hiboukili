@@ -51,7 +51,7 @@
                     </div>
                     <div class="panel-body modal-body">
                         <c:choose>
-                            <c:when test="${empty cart}">
+                            <c:when test="${cart.list().size() == 0}">
                                 <div class="row">
                                     <div class="col-xs-2">
                                     </div>
@@ -61,7 +61,7 @@
                                         <div class="col-xs-4">
                                         </div>
                                         <div class="col-xs-4">
-                                            <span>Panier vide !</span>
+                                            <h4>Panier vide !</h4>
                                         </div>
                                         <div class="col-xs-2">          
                                         </div>
@@ -107,7 +107,10 @@
                         </c:choose>
                         <div class="row">
                             <div class="text-center">
-                                <div class="col-xs-9">
+                                <div class="col-xs-3">
+                                    <a type="button" class="btn btn-danger btn-sm btn-block" id="clean" href="shoppingcart?clean=true" style="margin-bottom:4px; white-space: normal;"> Vider le panier</a>
+                                </div>
+                                <div class="col-xs-6">
                                     <h6 class="text-right">Changements dans le panier ?</h6>
                                 </div>
                                 <div class="col-xs-3">

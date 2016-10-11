@@ -87,13 +87,6 @@ public class ShoppingCartController extends HttpServlet {
 
         }
         if (request.getParameter("set") != null) {
-//            session.setAttribute("cart", cart);
-//            prixTotal = cart.getCartPrice();
-//            session.setAttribute("prixTotal", prixTotal);
-//            modalOpen = true;
-//            session.setAttribute("modalOpen", modalOpen);
-            //System.out.println(cart.getInMap(request.getParameter("set")).getCartQty());
-            //System.out.println(cart.getMap().get("set").getCartQty());
             if (Integer.parseInt(request.getParameter("qty")) <= 0) {
                 cart.del(request.getParameter("set"));
                 session.setAttribute("cart", cart);

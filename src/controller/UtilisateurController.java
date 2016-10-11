@@ -47,6 +47,8 @@ public class UtilisateurController extends HttpServlet {
         String url = null;
         int i1 = 0;//id Utilisateur
         int j2 = 0;//id Adresse
+        ArrayList<Adresse> myAL = null;//ArrayList enregistrant toutes les adresses d'un utilisateur
+
         ConnexionBean cB = (ConnexionBean) session.getAttribute("sessionConnexion");
         ListePaysBean blp = (ListePaysBean) session.getAttribute("sessionBeanListePays");
         ControleSaisieCreationCompteBean bcscc
@@ -397,7 +399,7 @@ public class UtilisateurController extends HttpServlet {
 
 ////////////////////////////////////////////////////////////////////////////////
 //                        MODIFICATION COMPTE - SECTION ADRRESSE
-////////////////////////////////////////////////////////////////////////////////   
+//////////////////////////////////////////////////////////////////////////////// 
         if ("modifierAdresse".equals(request.getParameter("section"))) {
             url = "/WEB-INF/jsp/infosAdresse.jsp";
 
@@ -409,15 +411,36 @@ public class UtilisateurController extends HttpServlet {
                 riub = new RecupInfosUtilisateurBean();
             }
 
-            if (request.getParameter("modif") != null) {
+////////////////////////// MODIF ADRESSE PAR DEFAUT ////////////////////////////              
+            if (request.getParameter("defaut") != null) {
+                String s = request.getParameter("defaut");
+                String ss = sync.getValue();
+                System.out.println("idAdresse : " + s);
+                System.out.println("idUtilisateur : " + ss);
+
+                myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
+                for (Adresse a : myAL) {
+                    if (a.getId() == Long.valueOf(request.getParameter("defaut"))) {
+                        a.setStatutAdresse(1l);
+                        //update Adresse set idStatutAdresse = 2 where idAdresse = 18
+                    } else {
+                        a.setStatutAdresse(2l);
+                    }
+                }
+
+                url = "/WEB-INF/jsp/listeAdresses.jsp";
+
+            }
+////////////////////////// MODIF ADRESSE ///////////////////////////////////////
+
+            //clic sur le lien hypertexte Modifier cette adresse d'une adresse
+            if (request.getParameter("modif") != null) {//request.getParameter("modif")=id de l'adresse a modifier ds listeAdresses
                 Adresse a = riub.recupInfosAdresse(ds, cB, Long.valueOf(request.getParameter("modif")));
 
-            //recupere les infos Adresse de l'utilisateur depuis la BDD
-                //Adresse a = riub.recupInfosAdresse(ds, cB, Long.valueOf(sync.getValue()));//sync = cookie de l'identifiant de l'utilisateur
-                //Adresse a = riub.recupInfosAdresse(ds, cB, Long.valueOf(sync.getValue()));
+                //recupere les infos Adresse de l'utilisateur depuis la BDD
                 session.setAttribute("recupIdPays", a.getPays().getId());
                 //session.setAttribute("recupIdAdresse", a.getId());
-                session.setAttribute("recupIdAdresse",Long.valueOf(request.getParameter("modif")));
+                session.setAttribute("recupIdAdresse", Long.valueOf(request.getParameter("modif")));
                 session.setAttribute("recupNumAdresse", a.getNumero());
                 session.setAttribute("recupVoieAdresse", a.getVoie());
                 session.setAttribute("recupCpAdresse", a.getCp());
@@ -431,7 +454,7 @@ public class UtilisateurController extends HttpServlet {
             if (uBddB == null) {
                 uBddB = new UpdateBDDBean();
             }
-            //recupere les infos depuis les champs de texte et le coombobox pays et les envoie ds le bean UpdateBDD pour mettre a jour la BDD
+            //recupere les infos depuis les champs de texte et le combobox pays et les envoie ds le bean UpdateBDD pour mettre a jour la BDD
             uBddB.MajInfosAdresse(cB, ds,
                     request.getParameter("numAdresseTI"),
                     request.getParameter("voieTI"),
@@ -440,13 +463,14 @@ public class UtilisateurController extends HttpServlet {
                     request.getParameter("infosCompTI"),
                     Long.valueOf(request.getParameter("paysSL")),
                     //(Long) session.getAttribute("recupIdAdresse"));
-                    (Long)(session.getAttribute("recupIdAdresse")));
+                    (Long) (session.getAttribute("recupIdAdresse")));
         }
 
 ////////////////////////////////////////////////////////////////////////////////
 //                        AJOUT NOUVELLE ADRRESSE
-////////////////////////////////////////////////////////////////////////////////  
+//////////////////////////////////////////////////////////////////////////////// 
         if ("ajouterAdresse".equals(request.getParameter("section"))) {
+            //vide les champs de saisie
             session.setAttribute("recupNumAdresse", null);
             session.setAttribute("recupVoieAdresse", null);
             session.setAttribute("recupCpAdresse", null);
@@ -511,10 +535,21 @@ public class UtilisateurController extends HttpServlet {
                 uBddB = new UpdateBDDBean();
 
                 ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
+                if (riub == null) {
+                    riub = new RecupInfosUtilisateurBean();
+                }
+                int monStatutAdresse = 0;
+                //si l'arraylist contenant les adresses est vide (si c'est la 1ere adresse saisie de l'utilisateur) alors valeur de idStatutAdresse = 1
+                myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
+                if (myAL.size() == 0) {
+                    monStatutAdresse = 1;
+                } else {//si arraylist non vide(alors l'utilisateur a deja une premiere adresse enregistree)
+                    monStatutAdresse = 2;
+                }
 
                 //envoie les saisies pour qu'elles soient enregistrees ds la bdd et
                 //recupere l'idAdresse renvoye par la bdd ds j2                
-                j2 = uBddB.creeAdresse(ds, cB, idPays, 2, saisieNumAdresse,
+                j2 = uBddB.creeAdresse(ds, cB, idPays, monStatutAdresse, saisieNumAdresse,
                         saisieVoieAdresse,
                         saisieCpAdresse,
                         saisieVilleAdresse,
@@ -535,7 +570,7 @@ public class UtilisateurController extends HttpServlet {
         }
 
 ////////////////////////////////////////////////////////////////////////////////
-//                        LISTE DES ADRRESSES
+//                        LISTE DES ADRESSES
 ////////////////////////////////////////////////////////////////////////////////   
         if ("gererAdresses".equals(request.getParameter("section"))) {
             url = "WEB-INF/jsp/listeAdresses.jsp";
@@ -543,14 +578,16 @@ public class UtilisateurController extends HttpServlet {
             if (riub == null) {
                 riub = new RecupInfosUtilisateurBean();
             }
-            ArrayList<Adresse> myAL = new ArrayList();
+            //recupere toutes les adresses de l'utilisateur
+            //ArrayList<Adresse> myAL = new ArrayList();
             myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
+
             session.setAttribute("listeAdresses", myAL);
-            for (Adresse a : myAL) {
-                System.out.println("Essai Adresse : " + a.getId() + " - " + a.getNumero() + " "
-                        + a.getVoie() + " " + a.getCp() + " "
-                        + a.getVille() + " " + a.getPays().getLibelle() + " " + a.getComplement());
-            }
+//            for (Adresse a : myAL) {
+//                System.out.println("Essai Adresse : " + a.getId() + " - " + a.getNumero() + " "
+//                        + a.getVoie() + " " + a.getCp() + " "
+//                        + a.getVille() + " " + a.getPays().getLibelle() + " " + a.getComplement());
+//            }
         }
         request.getRequestDispatcher(url).include(request, response);
     }

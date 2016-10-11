@@ -6,7 +6,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="formPaiement.jsp" method="Post">
+        <form action="OrderController" method="Post">
         <%-- le paiement est une sorte de fake. on a pas à gerer ca donc dans ce cas là 
             le paiement sera accepté sir les chiffres de CB correspondent bien à la regex mise en placeù--%>
         <h1 align="center">COORDONNEES DE PAIEMENT</h1>

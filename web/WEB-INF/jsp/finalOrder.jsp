@@ -8,7 +8,7 @@
     </head>
     <body>
         <%--<link rel="stylesheet" href="newcss.css">--%>
-        <form action="OrderController.jsp" method="post">
+        <form action="OrderController" method="Post">
 
             <h1 align="center">COMMANDE</h1>
             <h3>INFORMATIONS GENERALES</h3>
@@ -39,20 +39,21 @@
                 <c:choose>
                     <c:when test="${empty adresse}">
                         Adresse vide !
-                        
+
                     </c:when>
-                        <c:otherwise>
-                            <select name="adresse">
+                    <c:otherwise>
+                        <select name="adresse">
                             <c:forEach items="${adresse}" var="a">
-                            <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
+                                <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
                             </c:forEach>
-                            </select> 
-                        </c:otherwise>
+                        </select> 
+                    </c:otherwise>
                 </c:choose>
             </fieldSet>
             <br/>
             <div align="right">
-                <input type="submit" value="Ajouter" name="ajout" title="Ajouter une nouvelle adresse"/>
+                <a href="OrderController?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
+                <%--<input type="submit" value="Ajouter" name="ajout" title="Ajouter une nouvelle adresse"/>--%>
             </div>
             <br/>
             <fieldset>
@@ -62,29 +63,31 @@
                 <c:choose>
                     <c:when test="${empty adresse}">
                         Adresse vide !
-                        
+
                     </c:when>
-                        <c:otherwise>
-                            <select name="adresse">
+                    <c:otherwise>
+                        <select name="adresse">
                             <c:forEach items="${adresse}" var="a">
-                            <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
+                                <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
                             </c:forEach>
-                            </select> 
-                        </c:otherwise>
+                        </select> 
+                    </c:otherwise>
                 </c:choose>
             </fieldset>
             <br/>
             <div align="right">
-                <input type="submit" value="Ajouter" name="ajout" title="Ajouter une nouvelle adresse"/>
+                <a href="OrderController?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
             </div>
             <br/>
             <br/>
-            <input type="submit" value ="Valider" name="finaliser" title="finalisez votre commande"/>
+            <a href="OrderController?section=finalOrder&final">Valider</a>
+
             <br/>
             <br/>
-            <input type="submit" value="Retour" name="retour" title="retournez au récapitulatif de votre commande"/>
+            <a href="OrderController?section=finalOrder&retour">Retour</a>
+
             <br/>
             <br/>
-    </form>
-</body>
+        </form>
+    </body>
 </html>

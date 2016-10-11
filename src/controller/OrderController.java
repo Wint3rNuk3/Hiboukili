@@ -28,52 +28,52 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //creation session
+       
         HttpSession session = request.getSession();
-        //url page par defaut 
+        
         String url = "/WEB-INF/jsp/RecapOrder.jsp";
 
-        //appel du pool de connexion 
+        
         ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
         if (bc == null) {
             bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
+///////////////////////////////////////////////////////////////////////////////////////////////////
+//                              Affichage du panier !                                            //
+///////////////////////////////////////////////////////////////////////////////////////////////////
 
-        //Section Recap Order
-        EditionBean eb = new EditionBean();
+        
+            EditionBean eb = new EditionBean();
 
-        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-        //test : si le panier est nul en crée un . 
-        if (cart == null) {
-            cart = new ShoppingCartBean();
-            session.setAttribute("cart", cart);
+            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+
+            if (cart == null) {
+                cart = new ShoppingCartBean();
+                session.setAttribute("cart", cart);
+                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+            }
             cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-        }
-        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-        request.setAttribute("panierVide", cart.isEmpty());
-        request.setAttribute("panier", cart.list());
+            request.setAttribute("panierVide", cart.isEmpty());
+            request.setAttribute("panier", cart.list());
 
-        //test 
-//            System.out.println(">>>>>>>>>>>>"+ cart.list().size());
-        if (request.getParameter("valid") != null) {
-            url = "/WEB-INF/jsp/finalOrder.jsp";
-        }
 
-        if (request.getParameter("modif") != null) {
-            url = "/WEB-INF/jsp/shoppingcart.jsp";
-        }
-
-        //section FInal Order
-        if (request.getParameter("valid") != null) {
-            //date 
-            SimpleDateFormat f=new SimpleDateFormat( 
-		"'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE);
-            System.out.println(f);
-            // commande
-            //arraylist qui regroupe les infos de la vue et du controller !
-            // 
+        
+//////////////////////////////////////////////////////////////////////////////////////////////
+//                          Finalisation de la commande                                     //
+//////////////////////////////////////////////////////////////////////////////////////////////
             
+        if ("finalOrder".equals(request.getParameter("section"))) {
+
+//            
+//            date 
+//            SimpleDateFormat f = new SimpleDateFormat(
+//                    "'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE);
+//            System.out.println(f);
+//            COmmande
+//            arraylist qui regroupe les infos de la vue et du controller !
+//            
+
             //adresse
             AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
             if (adresses == null) {
@@ -88,14 +88,13 @@ public class OrderController extends HttpServlet {
             System.out.println("Adresse :" + adresses.list().size());
 
             url = "/WEB-INF/jsp/finalOrder.jsp";
-            
 
-            //bouton
+            
             if (request.getParameter("ajout") != null) {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";
             }
 
-            if (request.getParameter("finaliser") != null) {
+            if (request.getParameter("final") != null) {
                 url = "/WEB-INF/jsp/FormPaiement.jsp";
             }
 
@@ -103,6 +102,7 @@ public class OrderController extends HttpServlet {
                 url = "/WEB-INF/jsp/RecapOrder.jsp";
             }
 
+          
         }
         request.getRequestDispatcher(url).include(request, response);
 

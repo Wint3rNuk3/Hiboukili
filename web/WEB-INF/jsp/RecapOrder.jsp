@@ -6,13 +6,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-
+        
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <form action="OrderController" method="get">
+        <form action="OrderController" method="Post">
             <h1 align="center"> Recapitulatif</h1><br/>
             <br/>
 
@@ -106,10 +106,11 @@
                 </div>
             </div>
             <p align="center">
-            <input type='submit' value='Modifier' name='modif'/>
+            <a href="shoppingcart.jsp">Modifier</a>   
+            <%--<input type='submit' value='Modifier' name='modif'/>--%>
             
-
-            <input type="submit" value="Valider" name="valid"/>
+            <a href="OrderController?section=finalOrder">Valider</a>
+            <%--<input type="submit" value="Valider" name="valid"/>--%>
             
             </p>
         </form>

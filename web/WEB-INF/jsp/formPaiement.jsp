@@ -30,7 +30,7 @@
             <input type="radio" name="carte"/>
             <br/>
             <br/>
-            <img src="images/americanExpress.png" alt="picto carte american express"/>
+            <img src="images/amEx.png" alt="picto carte american express"/>
             <input type="radio" name="carte"/>
             <br/>
             <br/>
@@ -38,14 +38,11 @@
             <input type="radio" name="carte"/>
             <br/>
             <br/>
-            <img src="images/visaBleu.png" alt="picto carte visa bleu"/>
+            <img src="images/carteBleu.png" alt="picto carte bleu"/>
             <input type="radio" name="carte"/>
             <br/>
             <br/>
-            <img src="images/visaElectron.png" alt="picto carte visa electron"/>
-            <input type="radio" name="carte"/>
-            <br/>
-            <br/>   
+              
             
         </p>
         

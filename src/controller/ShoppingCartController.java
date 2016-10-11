@@ -61,6 +61,8 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            refreshed = true;
+            session.setAttribute("refreshed", refreshed);
             modalOpen = true;
             session.setAttribute("modalOpen", modalOpen);
 
@@ -70,6 +72,8 @@ public class ShoppingCartController extends HttpServlet {
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
             session.setAttribute("prixTotal", prixTotal);
+            refreshed = true;
+            session.setAttribute("refreshed", refreshed);
             modalOpen = true;
             session.setAttribute("modalOpen", modalOpen);
         }
@@ -77,6 +81,8 @@ public class ShoppingCartController extends HttpServlet {
             cart.del(request.getParameter("del"));
             session.setAttribute("cart", cart);
             prixTotal = cart.getCartPrice();
+            refreshed = true;
+            session.setAttribute("refreshed", refreshed);
             session.setAttribute("prixTotal", prixTotal);
             modalOpen = true;
             session.setAttribute("modalOpen", modalOpen);
@@ -88,9 +94,13 @@ public class ShoppingCartController extends HttpServlet {
                 session.setAttribute("cart", cart);
                 prixTotal = cart.getCartPrice();
                 session.setAttribute("prixTotal", prixTotal);
+                refreshed = true;
+                session.setAttribute("refreshed", refreshed);
                 modalOpen = true;
                 session.setAttribute("modalOpen", modalOpen);
             } else if (Integer.parseInt(request.getParameter("qty")) == cart.getInMap(request.getParameter("set")).getCartQty()) {
+                refreshed = true;
+                session.setAttribute("refreshed", refreshed);
                 modalOpen = true;
                 session.setAttribute("modalOpen", modalOpen);
             } else {
@@ -98,6 +108,8 @@ public class ShoppingCartController extends HttpServlet {
                 session.setAttribute("cart", cart);
                 prixTotal = cart.getCartPrice();
                 session.setAttribute("prixTotal", prixTotal);
+                refreshed = true;
+                session.setAttribute("refreshed", refreshed);
                 modalOpen = true;
                 session.setAttribute("modalOpen", modalOpen);
             }

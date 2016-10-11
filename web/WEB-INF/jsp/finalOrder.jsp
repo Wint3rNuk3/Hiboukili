@@ -7,8 +7,8 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%--<link rel="stylesheet" href="newcss.css">--%>
-        <form action="OrderController" method="Post">
+        
+        <form action="OrderController" method="Get">
 
             <h1 align="center">COMMANDE</h1>
             <h3>INFORMATIONS GENERALES</h3>
@@ -42,7 +42,7 @@
 
                     </c:when>
                     <c:otherwise>
-                        <select name="adresse">
+                        <select name="adressefacturation">
                             <c:forEach items="${adresse}" var="a">
                                 <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
                             </c:forEach>
@@ -66,7 +66,7 @@
 
                     </c:when>
                     <c:otherwise>
-                        <select name="adresse">
+                        <select name="adresseLivraison">
                             <c:forEach items="${adresse}" var="a">
                                 <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
                             </c:forEach>

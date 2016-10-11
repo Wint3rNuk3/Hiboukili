@@ -17,9 +17,11 @@ import javax.servlet.http.HttpSession;
 import model.beans.AdressesBean;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
+import model.beans.OrderBean;
 import model.beans.ShoppingCartBean;
 import model.classes.Adresse;
 import model.classes.Edition;
+import model.classes.Utilisateur;
 
 @WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
 public class OrderController extends HttpServlet {
@@ -64,6 +66,8 @@ public class OrderController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
             
         if ("finalOrder".equals(request.getParameter("section"))) {
+
+ 
             // afficher la commande generale 
             //   - créer une "commande" avec les elements : quantite totale, nbr d'article, date et statut commande
             // recuperer depuis 
@@ -71,13 +75,7 @@ public class OrderController extends HttpServlet {
             //   - methode BeanCommande : statut commande
             //    -- date depuis controller 
             // du coup : methode créer dans commande normal .
-//            
-//            date 
-//            SimpleDateFormat f = new SimpleDateFormat(
-//                    "'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE);
-//            System.out.println(f);
-//            
-//            
+           
 
             //adresse
             AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
@@ -98,15 +96,27 @@ public class OrderController extends HttpServlet {
             if (request.getParameter("ajout") != null) {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";
             }
-
+            
+            OrderBean order = (OrderBean) session.getAttribute("orderBDD");
             if (request.getParameter("final") != null) {
+                if(order == null){
+                    order = new OrderBean();
+                }
+                
+                
+                
+
+                order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")), 
+                    Long.valueOf(request.getParameter("adresseLivraison")));
+                
                 url = "/WEB-INF/jsp/FormPaiement.jsp";
             }
 
             if (request.getParameter("retour") != null) {
                 url = "/WEB-INF/jsp/RecapOrder.jsp";
             }
-
+            
+    
           
         }
 ////////////////////////////////////////////////////////////////////////////////

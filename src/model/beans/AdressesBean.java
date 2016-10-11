@@ -137,21 +137,7 @@ public class AdressesBean {
                 adresses.add(new Adresse(rs.getString("numero"), rs.getString("voie"), rs.getString("codePostal"), rs.getString("ville"), rs.getString("complement")));
 
             }
-           // Solution 1
-//            while(rs.next()){
-//                adresses.add(rs.getString("numero")
-//                        + rs.getString("voie")
-//                        + rs.getString("codePostal")
-//                        + rs.getString("ville")
-//                        + rs.getString("complement"));
-//
-//                       
-//            }
-//            
-//          map.put("Adresse", adresses);
-
-           // System.out.println("Contenu :" + map);
-
+          
            
             rs.close();
             stmt.close();

@@ -13,14 +13,14 @@ import java.util.Collection;
 import java.util.HashMap;
 import javax.sql.DataSource;
 import model.classes.Commande;
+import model.classes.Edition;
 
 public class OrderBean implements Serializable {
 
-    //HashMap<String, Commande>map;
     ArrayList commandes;
 
     public OrderBean() {
-        //this.map=new HashMap();
+        
         this.commandes = new ArrayList();
 
     }
@@ -29,9 +29,15 @@ public class OrderBean implements Serializable {
         //methode pour afficher les info general de la commande a partir du panier de l'utilisateur
 
         cart.getCartPrice();
-        //cart.qtyTotalCart();
+        for(Edition e : cart.list()){
+            int qtyTotal = 0;
+            qtyTotal += e.getCartQty();
+        }
+        
         recupererStatutCommande(bc);
-
+        
+        
+   
     }
 
     public void create() {
@@ -43,7 +49,7 @@ public class OrderBean implements Serializable {
          - date commande*/
     }
 
-    public void save(ConnexionBean bc, Long idAdresseFacturation, Long idAdresseLivraison, Long idUtilisateur, Date dateCommande) {
+    public void save(ConnexionBean bc, Long idAdresseFacturation, Long idAdresseLivraison) {
         int i = 0;
 
         DataSource ds = bc.MaConnexion();
@@ -66,18 +72,19 @@ public class OrderBean implements Serializable {
             String query = "DECLARE @guid varchar(50);"
                     + " SET @guid= NEWID();"
                     + " INSERT INTO Commande(idAdresseFacturation, idAdresseLivraison, idUtilisateur, numero, dateCommande)"
-                    + " SELECT ?,?,?,@guid, ?"
+                    + " SELECT ?,?,a.idUtilisateur,@guid, cast(convert(char(8), GETDATE(), 112) as int))"
                     + " FROM Utilisateur AS a"
                     + " INNER JOIN   DernieresFacturations AS b"
                     + " ON a.IdUtilisateur=b.IdUtilisateur"
                     + " INNER JOIN DernieresLivraisons AS c"
-                    + " ON a.IdUtilisateur=c.idUtilisateur";
+                    + " ON a.IdUtilisateur=c.idUtilisateur"
+                    + " WHERE a.nom='PetitJean'";
             PreparedStatement stmt = c.prepareStatement(query);
            
             stmt.setLong(1, idAdresseFacturation);
             stmt.setLong(2, idAdresseLivraison);
-            stmt.setLong(3, idUtilisateur);
-            stmt.setDate(4, dateCommande);
+            //stmt.setLong(3, idUtilisateur);
+            
             
             ResultSet res = stmt.executeQuery();
             

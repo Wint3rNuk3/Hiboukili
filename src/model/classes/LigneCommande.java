@@ -38,6 +38,8 @@ public class LigneCommande implements Serializable{
      */
     public LigneCommande() {
     }
+    
+    
 
     public Long getId() {
         return id;

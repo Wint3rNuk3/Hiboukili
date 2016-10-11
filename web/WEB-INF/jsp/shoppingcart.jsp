@@ -23,7 +23,7 @@
 
     <body>
         <jsp:useBean class="model.beans.ShoppingCartBean" id="cart" scope="session" />
-        <c:if test="${modalOpen}">
+        <%--<c:if test="${modalOpen}">
             <script src="js/vendor/jquery-1.11.2.min.js"></script>
             <script>
                 $(document).ready(function () {
@@ -31,8 +31,8 @@
                     $('#cartModal').modal('toggle');
                 });
             </script>
-        </c:if>
-        <div class="row modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+        </c:if>--%>
+        <!--fade modal--><div class="row  " id="cartModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="panel panel-info modal-content">
                     <div class="panel-heading modal-header">

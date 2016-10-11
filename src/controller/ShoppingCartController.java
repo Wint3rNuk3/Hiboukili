@@ -17,7 +17,7 @@ import model.classes.Edition;
 @WebServlet(name = "shoppingCartController", urlPatterns = {"/shoppingcart"})
 public class ShoppingCartController extends HttpServlet {
 
-    private static final String SHOPPINGCART_ROUTE = "";
+    private static final String SHOPPINGCART_ROUTE = "/WEB-INF/jsp/shoppingcart.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,17 +45,17 @@ public class ShoppingCartController extends HttpServlet {
         boolean modalOpen = false;
         session.setAttribute("modalOpen", modalOpen);
 
-//        //System.out.println(cart.list());
-//        if (request.getParameter("add") != null) {
-//            //System.out.println(request.getParameter("add"));
-//            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")));
-//            session.setAttribute("cart", cart);
-//            //ajouter le prix dans le shopping cart
-//            prixTotal = cart.getCartPrice();
-//            session.setAttribute("prixTotal", prixTotal);
-//            modalOpen = true;
-//            session.setAttribute("modalOpen", modalOpen);
-//        }
+        //System.out.println(cart.list());
+        if (request.getParameter("add") != null) {
+            //System.out.println(request.getParameter("add"));
+            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")), 1);
+            session.setAttribute("cart", cart);
+            //ajouter le prix dans le shopping cart
+            prixTotal = cart.getCartPrice();
+            session.setAttribute("prixTotal", prixTotal);
+            modalOpen = true;
+            session.setAttribute("modalOpen", modalOpen);
+        }
         if (request.getParameter("inc") != null) {
             cart.inc(request.getParameter("inc"), eb.findByIsbn(bc, request.getParameter("inc")));
             session.setAttribute("cart", cart);

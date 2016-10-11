@@ -33,7 +33,7 @@
                 <!-- note, quand on clique sur le bouton d'achat correspondant à une edition
                 dans une rubrique, on retourne sur la page de l'index (qui est la même que celle de shopping cart)
                 assez normal en fait... vu le bidouillage. -->
-                <c:import url="../../jsp/shoppingcart.jsp"/>
+                <%--<c:import url="../../jsp/shoppingcart.jsp"/>--%>
             
         </div>
     </jsp:body>

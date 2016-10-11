@@ -93,33 +93,33 @@ public class IndexController extends HttpServlet {
             }
         }
         
-        boolean modalOpen = false;
-        session.setAttribute("modalOpen", modalOpen);
-        
-        boolean refreshed = (boolean) session.getAttribute("refreshed");
-        
-        if (refreshed == true) {
-            modalOpen = true;
-            session.setAttribute("modalOpen", modalOpen);
-        } else {
-            modalOpen = false;
-            session.setAttribute("modalOpen", modalOpen);
-        }
-        
-        if (request.getParameter("add") != null) {
-            //System.out.println(request.getParameter("add"));
-            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
-            String prixTotal;
-            final Map<String, Edition> cartMap = new HashMap<>();
-            EditionBean eb = new EditionBean();
-            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")), 1);
-            session.setAttribute("cart", cart);
-            //ajouter le prix dans le shopping cart
-            prixTotal = cart.getCartPrice();
-            session.setAttribute("prixTotal", prixTotal);
-            modalOpen = true;
-            session.setAttribute("modalOpen", modalOpen);
-        }
+//        boolean modalOpen = false;
+//        session.setAttribute("modalOpen", modalOpen);
+//        
+//        boolean refreshed = (boolean) session.getAttribute("refreshed");
+//        
+//        if (refreshed == true) {
+//            modalOpen = true;
+//            session.setAttribute("modalOpen", modalOpen);
+//        } else {
+//            modalOpen = false;
+//            session.setAttribute("modalOpen", modalOpen);
+//        }
+//        
+//        if (request.getParameter("add") != null) {
+//            //System.out.println(request.getParameter("add"));
+//            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+//            String prixTotal;
+//            final Map<String, Edition> cartMap = new HashMap<>();
+//            EditionBean eb = new EditionBean();
+//            cart.create(request.getParameter("add"), eb.findByIsbn(bc, request.getParameter("add")), 1);
+//            session.setAttribute("cart", cart);
+//            //ajouter le prix dans le shopping cart
+//            prixTotal = cart.getCartPrice();
+//            session.setAttribute("prixTotal", prixTotal);
+//            modalOpen = true;
+//            session.setAttribute("modalOpen", modalOpen);
+//        }
         
         // on transmet la valeur en attribute pour l'utiliser dans la jsp.
         request.setAttribute(PAGE_ATTRIBUTE, page);

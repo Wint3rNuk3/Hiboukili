@@ -413,14 +413,16 @@ public class UtilisateurController extends HttpServlet {
                 uBddB = new UpdateBDDBean();
             }
 
-////////////////////////// MODIF ADRESSE PAR DEFAUT ////////////////////////////              
+////////////////////////// MODIF ADRESSE PAR DEFAUT ////////////////////////////   
+            //lorsqu'on clique sur "Choisir cette adresse comme adresse de facturation"  
             if (request.getParameter("defaut") != null) {         
-
+                //recupere les adresses utilisateur depuis la BDD
                 myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
                 for (Adresse a : myAL) {
+                    //si l'id de l'adresse ds la bdd correspond a l'id renvoye par le lien sur lequel on a clique
                     if (a.getId() == Long.valueOf(request.getParameter("defaut"))) {
-                        a.setStatutAdresse(1);
-                        uBddB.defautAdresse(ds, cB, 1, a.getId());
+                        a.setStatutAdresse(1);//met a jour l'arraylist (necessaire pour l'affichage)
+                        uBddB.defautAdresse(ds, cB, 1, a.getId());//renvoie la valeur 1 ds la bdd
                     } else {
                         a.setStatutAdresse(2);
                         uBddB.defautAdresse(ds, cB, 2, a.getId());

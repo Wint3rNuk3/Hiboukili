@@ -39,9 +39,9 @@ public class OrderController extends HttpServlet {
             bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
-///////////////////////////////////////////////////////////////////////////////////////////////////
-//                              Affichage du panier !                                            //
-///////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                            Affichage du panier !                           //
+////////////////////////////////////////////////////////////////////////////////
 
         
             EditionBean eb = new EditionBean();
@@ -59,19 +59,24 @@ public class OrderController extends HttpServlet {
 
 
         
-//////////////////////////////////////////////////////////////////////////////////////////////
-//                          Finalisation de la commande                                     //
-//////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                         Finalisation de la commande                        //
+////////////////////////////////////////////////////////////////////////////////
             
         if ("finalOrder".equals(request.getParameter("section"))) {
-
+            // afficher la commande generale 
+            //   - créer une "commande" avec les elements : quantite totale, nbr d'article, date et statut commande
+            // recuperer depuis 
+            //   - deux methodes du beanPanier
+            //   - methode BeanCommande : statut commande
+            //    -- date depuis controller 
+            // du coup : methode créer dans commande normal .
 //            
 //            date 
 //            SimpleDateFormat f = new SimpleDateFormat(
 //                    "'On est le' dd MMMM yyyy. 'Il est' H'h'm.", Locale.FRANCE);
 //            System.out.println(f);
-//            COmmande
-//            arraylist qui regroupe les infos de la vue et du controller !
+//            
 //            
 
             //adresse
@@ -104,6 +109,24 @@ public class OrderController extends HttpServlet {
 
           
         }
+////////////////////////////////////////////////////////////////////////////////
+//                     PAIEMENT /VALIDATION DE COMMANDE                       //
+////////////////////////////////////////////////////////////////////////////////
+        
+        //c'est ici qu'on envoie la commande dans la base de donnée tocarde 
+        // avec controle  : if les check du paiement sont respecte alors 
+        // envooe de la commande en base de donnée. 
+        // dans la section précedent on sauvegarde les données necessaire ( choix adresse etc)
+        
+////////////////////////////////////////////////////////////////////////////////
+//                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
+////////////////////////////////////////////////////////////////////////////////
+        
+        //recuperation du numero de commande depuis SQL
+        //lien hypertexte vers : 
+        //              - historique commande ou moncompte
+        //              - Retour Acceuil
+        
         request.getRequestDispatcher(url).include(request, response);
 
     }

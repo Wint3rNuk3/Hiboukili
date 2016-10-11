@@ -43,7 +43,7 @@ public class OrderBean implements Serializable {
          - date commande*/
     }
 
-    public void save(ConnexionBean bc) {
+    public void save(ConnexionBean bc, Long idAdresseFacturation, Long idAdresseLivraison, Long idUtilisateur, Date dateCommande) {
         int i = 0;
 
         DataSource ds = bc.MaConnexion();
@@ -73,17 +73,20 @@ public class OrderBean implements Serializable {
                     + " INNER JOIN DernieresLivraisons AS c"
                     + " ON a.IdUtilisateur=c.idUtilisateur";
             PreparedStatement stmt = c.prepareStatement(query);
-           /* stmt.setLong(1, valeur de la combo);
-            stmt.setLong(2, valeur de la combo);
-            stmt.setLong(3, cookie "sync");
-            stmt.setDate(4, valeur date demandé depuis controller);*/
+           
+            stmt.setLong(1, idAdresseFacturation);
+            stmt.setLong(2, idAdresseLivraison);
+            stmt.setLong(3, idUtilisateur);
+            stmt.setDate(4, dateCommande);
+            
+            ResultSet res = stmt.executeQuery();
             
             
-
+            res.close();
             stmt.close();
 
         } catch (SQLException ex) {
-            System.err.println("Erreur dans Statut commande" + ex.getMessage());
+            System.err.println("Erreur dans Commande" + ex.getMessage());
         }
 
         ds = bc.MaConnexion();

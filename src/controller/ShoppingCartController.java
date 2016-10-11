@@ -41,12 +41,6 @@ public class ShoppingCartController extends HttpServlet {
         final Map<String, Edition> cartMap = new HashMap<>();
         EditionBean eb = new EditionBean();
         boolean modalOpen = false;
-
-//        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-//        cart.create("978-2-0002-0002-0", eb.findByIsbn(bc, "978-2-0002-0002-0"));
-//        session.setAttribute("cart", cart);
-//        prixTotal = cart.getCartPrice();
-//        session.setAttribute("prixTotal", prixTotal);
         session.setAttribute("modalOpen", modalOpen);
 
 //        //System.out.println(cart.list());

@@ -42,7 +42,7 @@
                                     <h5 class="modal-title"><span class="glyphicon glyphicon-shopping-cart"></span> Panier d'achats</h5>
                                 </div>
                                 <div class="col-xs-6">
-                                    <button type="button" class="btn btn-primary btn-sm btn-block" type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    <button type="button" class="btn btn-primary btn-sm btn-block" onclick="window.location.href='/Hiboukili'" type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                         <span class="glyphicon glyphicon-share-alt"></span> Continuer les achats
                                     </button>
                                 </div>

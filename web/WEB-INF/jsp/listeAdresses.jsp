@@ -16,10 +16,17 @@
         <h1>Mes adresses</h1>
         <a href="UtilisateurController?section=ajouterAdresse"> Ajouter une adresse</a></br></br>
     <c:forEach var="i" items="${listeAdresses}">
-               idAdresse : ${i.id} - 
+               idAdresse : ${i.id} - ¤ ${i.statutAdresse} ¤
         ${i.numero} ${i.voie} ${i.cp} ${i.ville} ${i.complement} ${i.pays.libelle}
-        <a href="UtilisateurController?section=modifierAdresse&defaut=${i.id}"> Choisir cette adresse comme adresse de Facturation</a> 
-        <a href="UtilisateurController?section=modifierAdresse&modif=${i.id}"> Modifier cette adresse</a></br>
+        <%-- si statutAdresse = 1, afficher adresse de facturation --%>
+        <c:if test="${i.statutAdresse==1}" var="test">
+        <a href="UtilisateurController?section=modifierAdresse&defaut=${i.id}">Choisir cette adresse comme adresse de Facturation</a> 
+        <a href="UtilisateurController?section=modifierAdresse&modif=${i.id}">Modifier cette adresse</a> <font color = "red">Adresse de Facturation</font> </br>            
+        </c:if>
+        <c:if test="${i.statutAdresse!=1}" var="test">
+        <a href="UtilisateurController?section=modifierAdresse&defaut=${i.id}">Choisir cette adresse comme adresse de Facturation</a> 
+        <a href="UtilisateurController?section=modifierAdresse&modif=${i.id}">Modifier cette adresse</a></br>            
+        </c:if>
     </c:forEach>
     </body>
 </html>

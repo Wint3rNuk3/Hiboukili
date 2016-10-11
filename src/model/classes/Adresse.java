@@ -1,24 +1,43 @@
 package model.classes;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+import model.beans.ConnexionBean;
 
 /**
  * Enregistre les différents éléments d'une adresse.
  *
  * @see Utilisateur
  */
-public class Adresse implements Serializable{
- 
+public class Adresse implements Serializable {
+
     /**
      * Séquentiel de la table Adresse généré automatiquement par la BDD.
      */
     private Long id;
-    
+
     /**
      * Numero de la rue , l'allee etc... (String car ne fera pas l'objet de
      * calculs).
      */
+    private Long statutAdresse;
+    
     private String numero;
     /**
      * Nom de la rue, alléee, voie etc... .
@@ -36,28 +55,26 @@ public class Adresse implements Serializable{
      * Infos complémentaires optionnelles concernant l'adresse.
      */
     private String complement;
-    
+
     private StatutAdresse statut;
-    
+
     private Pays pays;
 
     /**
      * Constructeur de la classe; accès sans utiliser de paramètres.
      */
-    public Adresse(){
-        
+    public Adresse() {
+
     }
+
     public Adresse(String numero, String voie, String cp, String ville, String complement) {
         this.numero = numero;
         this.voie = voie;
-        this.cp= cp;
-        this.ville=ville;
-        this.complement=complement;
-        
-        
+        this.cp = cp;
+        this.ville = ville;
+        this.complement = complement;
+
     }
-    
-    
 
     /**
      * Retourne l'id (généré par la BDD).
@@ -75,6 +92,19 @@ public class Adresse implements Serializable{
      */
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getStatutAdresse() {
+        return statutAdresse;
+    }
+
+    /**
+     * Met à jour l'id (généré par la BDD).
+     *
+     * @param id Nouvel id de l'adresse.
+     */
+    public void setStatutAdresse(Long statutAdresse) {
+        this.statutAdresse = statutAdresse;
     }
 
     /**
@@ -184,7 +214,7 @@ public class Adresse implements Serializable{
     public void setPays(Pays pays) {
         this.pays = pays;
     }
-    
+
     @Override
     public String toString() {
         return "Adresse{" + "id=" + id + ", numero=" + numero + ", voie=" + voie + ", cp=" + cp + ", ville=" + ville + ", complement=" + complement + '}';
@@ -211,5 +241,5 @@ public class Adresse implements Serializable{
         hash = 61 * hash + Objects.hashCode(this.id);
         return hash;
     }
-  
+
 }

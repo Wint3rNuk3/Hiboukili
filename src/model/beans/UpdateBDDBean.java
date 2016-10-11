@@ -74,7 +74,7 @@ public class UpdateBDDBean implements Serializable {
             PreparedStatement ps = c.prepareStatement(update);
 
             ps.setInt(1, idPays);
-            ps.setInt(2, idStatutAdresse);//////////////////////// ICI ///////////////////////////////
+            ps.setInt(2, idStatutAdresse);
             ps.setString(3, numero);
             ps.setString(4, voie);
             ps.setString(5, codePostal);

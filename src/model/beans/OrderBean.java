@@ -76,13 +76,12 @@ public class OrderBean implements Serializable {
             String query = "DECLARE @guid varchar(50);"
                     + " SET @guid= NEWID();"
                     + " INSERT INTO Commande(idAdresseFacturation, idAdresseLivraison, idUtilisateur, numero, dateCommande)"
-                    + " SELECT ?,?,a.idUtilisateur,@guid, cast(convert(char(8), GETDATE(), 112) as int))"
+                    + " SELECT ?,?,1,@guid, cast(convert(char(8), GETDATE(), 112) as int)"
                     + " FROM Utilisateur AS a"
                     + " INNER JOIN   DernieresFacturations AS b"
                     + " ON a.IdUtilisateur=b.IdUtilisateur"
                     + " INNER JOIN DernieresLivraisons AS c"
-                    + " ON a.IdUtilisateur=c.idUtilisateur"
-                    + " WHERE a.nom='PetitJean'";
+                    + " ON a.IdUtilisateur=c.idUtilisateur";
             PreparedStatement stmt = c.prepareStatement(query);
 
             stmt.setLong(1, idAdresseFacturation);

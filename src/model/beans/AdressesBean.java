@@ -18,11 +18,11 @@ import model.classes.StatutAdresse;
 
 public class AdressesBean {
     
-    private static final String SQL_FIND_ALL = "SELECT"
+    private  final String SQL_FIND_ALL = "SELECT"
             + " idAdresse, idPays, idStatutAdresse, numero, voie, codePostal, ville, complement"
             + " FROM Adresse";
     
-    private static final String SQL_FIND_BY_ID = "SELECT"
+    private final String SQL_FIND_BY_ID = "SELECT"
             + " idAdresse, idPays, idStatutAdresse, numero, voie, codePostal, ville, complement"
             + " FROM Adresse"
             + " WHERE idAdresse = ?";
@@ -126,7 +126,7 @@ public class AdressesBean {
 
         try (Connection c = ds.getConnection();) {
 
-            String query = "SELECT numero, voie, codePostal, ville, complement FROM ADRESSE";
+            String query = "SELECT idAdresse, numero, voie, codePostal, ville, complement FROM ADRESSE";
             Statement stmt = c.createStatement();
             
 
@@ -134,7 +134,9 @@ public class AdressesBean {
             
 
             while (rs.next()) {
-                adresses.add(new Adresse(rs.getString("numero"), rs.getString("voie"), rs.getString("codePostal"), rs.getString("ville"), rs.getString("complement")));
+                Adresse a= new Adresse(rs.getString("numero"), rs.getString("voie"), rs.getString("codePostal"), rs.getString("ville"), rs.getString("complement"));
+                a.setId( rs.getLong("idAdresse"));
+                adresses.add( a);
 
             }
           

@@ -137,7 +137,7 @@
 
                                 </c:when>
                                 <c:otherwise>
-                                    <select name="adressefacturation">
+                                    <select name="adresseFacturation">
                                         <c:forEach items="${adresse}" var="a">
                                             <option value="${a.id}">${a.numero},${a.voie},${a.cp},${a.ville},${a.complement}</option>
                                         </c:forEach>
@@ -175,6 +175,9 @@
                         </div>
                         <br/>
                         <br/>
+                            <input type='submit' name='doIt' value='Valider'>
+                            <input type="hidden" name="section" value="finalOrder" />
+                            <input type="hidden" name="final" value="" />
                         <a href="OrderController?section=finalOrder&final">Valider</a>
 
                         <br/>

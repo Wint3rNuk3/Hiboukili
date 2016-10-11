@@ -28,10 +28,10 @@ public class PanierTotal {
 
     public int getQtyTotal() {
         int qtyTotal = 0;
-        for(Edition e : cart.list()){
-            
-            qtyTotal += e.getCartQty();
-        }
+//        for(Edition e : cart.list()){
+//            
+//            qtyTotal += e.getCartQty();
+//        }
         return qtyTotal;
     }
 
@@ -40,7 +40,8 @@ public class PanierTotal {
     }
 
     public float getPrixTotal() {
-        cart.getCartPrice();
+        //cart.getCartPrice();
+        prixTotal= -1;
         return prixTotal;
     }
 

@@ -42,7 +42,6 @@ public class ShoppingCartController extends HttpServlet {
 
         // trucs dont on va avoir besoin
         String prixTotal;
-        final Map<String, Edition> cartMap = new HashMap<>();
         EditionBean eb = new EditionBean();
         boolean refreshed = false;
         session.setAttribute("refreshed", refreshed);

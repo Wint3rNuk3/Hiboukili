@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
+        <jsp:useBean class="model.beans.ShoppingCartBean" id="cart" scope="session" />
         <form action="order" method="Post">
             <h1 align="center"> Recapitulatif</h1><br/>
             <br/>
@@ -24,7 +25,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
                                     <h1>
-                                    <strong>Hibookili</strong>
+                                        <strong>Hibookili</strong>
                                     </h1>
                                     <br> 
                                 </address>
@@ -51,7 +52,7 @@
                             </thead>
 
                             <c:choose> 
-                                <c:when test="${empty cart}">
+                                <c:when test="${cart.list().size() == 0}}">
                                     <div class="row">
                                         <div class="col-xs-2">
                                         </div>
@@ -72,7 +73,7 @@
                                     <hr>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach items="${panier}" var="e">
+                                    <c:forEach items="${cart.list()}" var="e">
                                         <tr>
                                             <td class="col-md-9"><em>${e.isbn}</em></h4></td>
                                             <td class="col-md-1 text-center">${e.prixHt}</td>
@@ -80,22 +81,28 @@
                                             <td>   </td>
                                         </tr>
 
+                                        <c:choose>
+                                            <c:when test="${ e.getTVA() == null }">
 
-                                        <tr>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td class="text-left">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <tr>
+                                                    <td>   </td>
+                                                    <td>   </td>
+                                                    <td class="text-left">
 
-                                                <p>
-                                                    <strong>${ e.getTVA().getLibelle() }: </strong>
-                                                </p></td>
-                                            <td class="text-center">
-                                                <p>
-                                                    <br>
-                                                    <strong>${ e.getTVA().getValeur() } </strong>
-                                                </p>
-                                            </td>
-                                        </tr>
+                                                        <p>
+                                                            <strong>${ e.getTVA().getLibelle() }: </strong>
+                                                        </p></td>
+                                                    <td class="text-center">
+                                                        <p>
+                                                            <br>
+                                                            <strong>${ e.getTVA().getValeur() } </strong>
+                                                        </p>
+                                                    </td>
+                                                </tr>
+                                            </c:otherwise>
+                                        </c:choose>
                                         <tr>
                                             <td>   </td>
                                             <td>   </td>

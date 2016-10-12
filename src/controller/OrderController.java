@@ -84,10 +84,10 @@ public class OrderController extends HttpServlet {
             OrderBean order1 = new OrderBean();
             //affichage commande general
             if(cart != null){
-                cart.getCartPrice();
-                cart.list();
-                order1.recupererStatutCommande(bc);
                 
+                
+                request.setAttribute("panierVide", cart.isEmpty());
+                request.setAttribute("panier", cart.list());
             }
             
 
@@ -135,6 +135,8 @@ public class OrderController extends HttpServlet {
         // avec controle  : if les check du paiement sont respecte alors 
         // envooe de la commande en base de donnée. 
         // dans la section précedent on sauvegarde les données necessaire ( choix adresse etc)
+        
+        
 ////////////////////////////////////////////////////////////////////////////////
 //                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
 ////////////////////////////////////////////////////////////////////////////////

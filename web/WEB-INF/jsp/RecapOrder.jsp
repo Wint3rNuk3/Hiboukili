@@ -108,10 +108,13 @@
 
 
                         <p align="center">
-                            <a href="shoppingcart.jsp">Modifier</a>   
+                            <a href="shoppingcart">Modifier</a>   
                             <%--<input type='submit' value='Modifier' name='modif'/>--%>
+                            <c:url value="order" var="url">
+                                <c:param name="section" value="finalOrder"/>
+                            </c:url>
 
-                            <a href="OrderController?section=finalOrder">Valider</a>
+                            <a href="${url}">Valider</a>
                             <%--<input type="submit" value="Valider" name="valid"/>--%>
                     </div>
                 </div>

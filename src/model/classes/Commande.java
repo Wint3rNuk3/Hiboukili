@@ -53,6 +53,15 @@ public class Commande implements Serializable{
      * @return Id (généré par la BDD) de la commande sous la forme de nombre
      * d'un entier (long).
      */
+    
+    public Commande(String numero){
+        this.numero=numero;
+    }
+
+    
+    
+    
+    
     public Long getId() {
         return id;
     }

@@ -45,15 +45,27 @@
                                     </div>
                                 </div>
                                 <p>
+
                                     Voici les informations relatives à votre commande!<br/>
-                                    <br/>
-                                    Numero de commande : 15236DFFFF<br/>
+                                    <%--<c:choose>
+                                        <c:when test="${empty order}">
+                                            Commande vide !
+
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:forEach items="${order}" var="o">--%>
+
+                                                Numero de commande : Num commande<br/>
+                                                
+                                            <%--</c:forEach>
+                                        </c:otherwise>
+                                    </c:choose>--%>
                                     <%--recuperation du numero de commande via methode SQL bean commande--%>
                                     <br/>
-                                    Vous pouvez la consulter dans l'historique de vos commandes. <br/>
+                                    Vous pouvez retourner sur votre compte. <br/>
                                     <br/>
 
-                                    Dans la rubrique <a href="order?section=validation&monCompte">Mon Compte</a>, onglet Historique de commande.<br/>
+                                    Dans la rubrique <a href="order?section=validation&monCompte">Mon Compte</a>.<br/>
 
                                     <br/>
                                 </p>

@@ -19,15 +19,13 @@
         <html>
             <head>
                 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <title>JSP Page</title>
+                <title>Paiement</title>
 
 
             </head>
             <body>
                 <form action="order" method="Post">
 
-                    <h1 align="center">COORDONNEES DE PAIEMENT</h1>
-                    
                     <div class="container">
                         <div class="row">
                             <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
@@ -36,7 +34,7 @@
                                         
                                         <address>
                                             <h1>
-                                                <strong>Hibookili</strong>
+                                                <strong>Coordonnées de paiement</strong>
                                             </h1>
                                             <br> 
                                         </address>
@@ -44,7 +42,7 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                         <p>
                                         <h5>
-                                            <em>Date: 6 Octobre 2016</em>
+                                            <em>Date: 12 Octobre 2016</em>
                                         </h5>
                                         </p>
 
@@ -52,11 +50,12 @@
                                 </div>
 
                                 </span>
-                                Numero CB : <input type="number" name="cb" required/><br/>
+                                Numero CB : <input type="text" name="cb" required/><br/>
+                                
                                 <br/>
-                                Date d'expiration : <input type="date" name="date" required/><br/>
+                                Date d'expiration : <input type="text" name="date" required/><br/>
                                 <br/>
-                                Code de securité: <input type="number" name="crypto" title="Correspond aux 3 chiffres visibles au dos de votre carte " required/><br/>
+                                Code de securité: <input type="text" name="crypto" title="Correspond aux 3 chiffres visibles au dos de votre carte " required/><br/>
                                 <br/>
                                 Nom du porteur :<input type="text" name="nom" required/><br/>
                                 <br/>

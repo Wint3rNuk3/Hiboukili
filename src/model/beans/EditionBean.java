@@ -216,7 +216,7 @@ public class EditionBean {
                 ps2.setInt(1, leStockVersionIntegreSaMere - e.getCartQty());
             
             ps2.setString(2, e.getIsbn());
-            ResultSet rs2 = ps2.executeQuery();
+            ps2.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -255,7 +255,7 @@ public class EditionBean {
             ps2.setInt(1, leStockVersionIntegreSaMere + qty);
             
             ps2.setString(2, isbn);
-            ResultSet rs2 = ps2.executeQuery();
+            ps2.executeUpdate();
 
         } catch (SQLException ex) {
             Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);

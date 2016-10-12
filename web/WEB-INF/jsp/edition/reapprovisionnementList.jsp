@@ -61,14 +61,21 @@
 
         <div class="pull-right col-md-2 col-sm-2  col-xs-2">
             <div class="btn-group btn-group-vertical" role="group" aria-label="...">
-
-                <form id="form" action="${pageContext.request.contextPath}/reapprovisionnement?iwantmoaarr=${item.isbn}" method="post">
-                    <input type="text" class="form-control input-sm" name="qty">
+                
+                <c:url value="reapprovisionnement" var="url">
+                    <c:param name="iwantmoaarr" value="${ item.isbn }" />
+                </c:url>
+                
+                <form id="form" action="${url}" method="post">
+                    <input type="number" class="form-control input-sm" name="qty">
                 </form>
                 
                 <button type="submit" form="form" value ="Commander !" class="btn btn-primary">
                     <i class="glyphicon glyphicon-plane"> </i>
                 </button>
+
+                
+
 
             </div>
         </div>

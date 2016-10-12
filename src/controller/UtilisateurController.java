@@ -158,93 +158,6 @@ public class UtilisateurController extends HttpServlet {
         }
 
 ////////////////////////////////////////////////////////////////////////////////
-//                        CREATION COMPTE - SECTION ADRESSE
-////////////////////////////////////////////////////////////////////////////////        
-//        //recupere la liste des pays et l'enregistre ds la requete liste
-//        blp.getListFromBdd(ds, cB);
-//        request.setAttribute("liste", blp.returnMapValues());
-//
-//        //lorsqu'on appuie sur le bouton valider adresse du formulaire d'adresse
-//        
-//        if (request.getParameter("validerAdresseBT") != null ) {
-//
-//            //recupere la "value"  <OPTION value = "${i.idPays}" >"${i.libelle}"</OPTION> 
-//            //donc l'idPays et nom pas le libelle
-//            int idPays = Integer.valueOf(request.getParameter("paysSL"));
-//
-//            int idStatutAdresse = 1;
-//            request.setAttribute("idStatutAdresse", 1);//toujours active a la creation de compte
-//
-//            //enregistre toutes les saisies ds une variable et ds une requete
-//            String saisieNumAdresse = request.getParameter("numAdresseTI");
-//            request.setAttribute("recupNumAdresse", request.getParameter("numAdresseTI"));
-//
-//            String saisieVoieAdresse = request.getParameter("voieTI");
-//            request.setAttribute("recupVoieAdresse", request.getParameter("voieTI"));
-//
-//            String saisieCpAdresse = request.getParameter("cpTI");
-//            request.setAttribute("recupCpAdresse", request.getParameter("cpTI"));
-//
-//            String saisieVilleAdresse = request.getParameter("villeTI");
-//            request.setAttribute("recupVilleAdresse", request.getParameter("villeTI"));
-//
-//            String saisieInfosCompAdresse = request.getParameter("infosCompTI");
-//            request.setAttribute("recupInfosCompAdresse", request.getParameter("infosCompTI"));
-//
-//            String saisiePaysAdresse = request.getParameter("paysSL");
-//            request.setAttribute("recupPaysAdresse", request.getParameter("paysSL"));
-//
-//            messageErreur = bcscc.checkInfoAdresse();//Controles a implementer plus tard
-//
-//            if (messageErreur != null) {
-//                request.setAttribute("erreurSaisie", messageErreur[0]);
-//                //section vide pour l'instant
-//            } else {
-//
-//                //enregistrement des infos ds la bdd
-//            }
-//
-//            //prepare la connexion au pool de connexion
-//            if (cB == null) {
-//                cB = new ConnexionBean();
-//                session.setAttribute("sessionConnexion", cB);
-//            }
-//
-//            //prepare l'enregistrement des infos ds la bdd
-//            uBddB = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
-//            if (uBddB == null) {
-//                uBddB = new UpdateBDDBean();
-//
-//                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
-//
-//                //envoie les saisies pour qu'elles soient enregistrees ds la bdd et
-//                //recupere l'idAdresse renvoye par la bdd ds j2                
-//                j2 = uBddB.creeAdresse(ds, cB, idPays, 1, saisieNumAdresse,
-//                        saisieVoieAdresse,
-//                        saisieCpAdresse,
-//                        saisieVilleAdresse,
-//                        saisieInfosCompAdresse);
-//
-//                i1 = (int) session.getAttribute("recupInt1");//recupere l'id Utilisateur
-//                //envoie les id utilisateur et adresse pour l'enregistrement ds la table dernieresFacturations
-//                uBddB.updateDernieresFacturations(ds, cB, i1, j2);
-//
-////                if (sync == null) {
-////                    sync = new Cookie("sync", session.getAttribute("recupInt1").toString());
-////                    sync.setMaxAge(24 * 60 * 60);
-////                    response.addCookie(sync);
-////                }
-////
-////                if (cookieLoginReussi == null) {
-////                    sync = new Cookie("cookieLoginReussi", request.getParameter("mailTI"));
-////                    sync.setMaxAge(24 * 60 * 60);
-////                    response.addCookie(sync);
-////                }
-//                url = "/WEB-INF/jsp/bienvenue.jsp";
-//            }
-//
-//        }
-////////////////////////////////////////////////////////////////////////////////
 //                                      LOGIN
 ////////////////////////////////////////////////////////////////////////////////           
         //initialisation des requetes
@@ -280,7 +193,6 @@ public class UtilisateurController extends HttpServlet {
                     session.setAttribute("sessionConnexion", cB);
                 }
 
-//                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
                 //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
                 Utilisateur uti = lB.checkLogin(ds, cB, request.getParameter("loginTI"), request.getParameter("mdpTI"));
 
@@ -442,7 +354,6 @@ public class UtilisateurController extends HttpServlet {
 
                 //recupere les infos Adresse de l'utilisateur depuis la BDD
                 session.setAttribute("recupIdPays", a.getPays().getId());
-                //session.setAttribute("recupIdAdresse", a.getId());
                 session.setAttribute("recupIdAdresse", Long.valueOf(request.getParameter("modif")));
                 session.setAttribute("recupNumAdresse", a.getNumero());
                 session.setAttribute("recupVoieAdresse", a.getVoie());
@@ -537,7 +448,6 @@ public class UtilisateurController extends HttpServlet {
             if (uBddB == null) {
                 uBddB = new UpdateBDDBean();
 
-//                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
                 if (riub == null) {
                     riub = new RecupInfosUtilisateurBean();
                 }
@@ -582,15 +492,9 @@ public class UtilisateurController extends HttpServlet {
                 riub = new RecupInfosUtilisateurBean();
             }
             //recupere toutes les adresses de l'utilisateur
-            //ArrayList<Adresse> myAL = new ArrayList();
             myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
 
             session.setAttribute("listeAdresses", myAL);
-//            for (Adresse a : myAL) {
-//                System.out.println("Essai Adresse : " + a.getId() + " - " + a.getNumero() + " "
-//                        + a.getVoie() + " " + a.getCp() + " "
-//                        + a.getVille() + " " + a.getPays().getLibelle() + " " + a.getComplement());
-//            }
         }
         request.getRequestDispatcher(url).include(request, response);
     }

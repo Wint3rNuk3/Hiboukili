@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:template title="Hiboukilit">
+<t:template title="Connexion">
 
     <jsp:attribute name="styles">
     </jsp:attribute>
@@ -10,28 +10,31 @@
     <jsp:attribute name="scripts">
     </jsp:attribute>
 
-    
-    
     <jsp:body>
-<%--<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Page Login</title>
-    </head>
-    <body> --%>
-        <h1>Login</h1>
-        <form action ="UtilisateurController" method = "POST">
-            <input type="hidden" name="section" value="sectionLogin" />
-            Login<br/> 
-            <input type ="text" name = "loginTI" value = "${recupLogin}" /><br/> <br/> 
-            Mot de passe<br/> 
-            <input type ="password" name = "mdpTI" value = "" /><br/> <br/> 
-            <input type ="submit" name = "validerBT" value = "Valider" /><br/> <br/> 
-        </form>
-            <a href ="UtilisateurController?section=versNouveauCompte">Créer un nouveau compte</a></br></br>
+        <div class="panel panel-default col-md-4 col-md-offset-4">
+            <div class="panel-body">
+                
+                <form class="form-horizontal" action="UtilisateurController" method="POST">
+
+                    <input type="hidden" name="section" value="sectionLogin" />
+
+                    <div class="form-group">
+                        <label for="login">Login</label>
+                        <input id="login" class="form-control" type="email" name="loginTI" value="${recupLogin}" placeholder="Email"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pwd">Mot de passe</label>
+                        <input id="pwd" type="password" class="form-control" name="mdpTI" value="" placeholder="Mot de passe" />
+                    </div>
+
+                    <div class="text-center">
+                        <input class="btn btn-success" type="submit" name="validerBT" value="Valider" />
+                        <a class="btn btn-default" href="UtilisateurController?section=versNouveauCompte">Créer un nouveau compte</a>
+                    </div>
+                </form>
+            </div>
+        </div>
         <font Color = "red">${msgLogin}</font>
-    <%--  </body>
-</html> --%>
     </jsp:body>
 </t:template>

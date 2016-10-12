@@ -53,8 +53,33 @@
                 <img src="images/logo_md.png" />
             </a>
         </div>
+        
+        
+        <form class="navbar-form navbar-right">
+
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="text" class="form-control" id="recherche" placeholder="Votre recherche">
+                    <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default" >
+                            <i class="glyphicon glyphicon-search"> </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        
+<!--        <form class="navbar-form navbar-right">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>-->
 
         <ul class="nav navbar-nav navbar-right">
+            
+            
             <c:url value="shoppingcart" var="url" />
             
             <li>

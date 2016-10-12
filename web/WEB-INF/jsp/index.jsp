@@ -21,9 +21,9 @@
     <jsp:body>
         <div class="col-lg-12">
             
-            <div class="text-center">
+<!--            <div class="text-center">
 
-                <!-- formulaire de recherche -->
+                 formulaire de recherche 
                 <form class="form-inline">
 
                     <div class="form-group">
@@ -37,9 +37,9 @@
                         </div>
                     </div>
                 </form>
-            </div>
+            </div>-->
 
-            <hr>
+            <!--<hr>-->
 
             <c:import url="edition/list.jsp"/>
             

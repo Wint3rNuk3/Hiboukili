@@ -66,10 +66,10 @@ a:hover{
     background-image: none;
 }
 
-.navbar-default .navbar-link:hover,
+/*.navbar-default .navbar-link:hover,
 .navbar-default .navbar-link:focus {
     color: #e74c3c;
-}
+}*/
 
 .navbar-default .navbar-brand{
     padding: 22px 15px;
@@ -160,6 +160,10 @@ a:hover{
     -webkit-transition: color 0.1s ease-in-out;
     font-size: 14px;
     position: relative;
+}
+
+.navbar-default form.navbar-form {
+    margin-top: 13px;
 }
 
 .navbar-default .navbar-nav {

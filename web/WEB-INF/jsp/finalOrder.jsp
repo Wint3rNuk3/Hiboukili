@@ -141,6 +141,7 @@
                         </fieldset>
                         <br/>
                         <div align="right">
+                               
                             <a href="order?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
                         </div>
                         <br/>
@@ -148,11 +149,15 @@
                             <input type='submit' name='doIt' value='Valider'>
                             <input type="hidden" name="section" value="finalOrder" />
                             <input type="hidden" name="final" value="" />
-                        <%--<a href="OrderController?section=finalOrder&final">Valider</a>--%>
+                        
 
                         <br/>
                         <br/>
-                        <a href="order?section=finalOrder&retour">Retour</a>
+                        <input type="submit" name="retour" value="Retour">
+                        <input type="hidden" name="section" value="finalOrder" />
+                        <input type="hidden" name="final" value="" />
+                        
+                        <%--<a href="order?section=finalOrder&retour">Retour</a>--%>
 
                         <br/>
                         <br/>

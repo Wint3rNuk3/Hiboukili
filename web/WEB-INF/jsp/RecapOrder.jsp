@@ -125,14 +125,20 @@
 
 
                                 <p align="center">
-                                    <a href="shoppingcart">Modifier</a>   
-                                    <%--<input type='submit' value='Modifier' name='modif'/>--%>
-                                    <c:url value="order" var="url">
+                                   <%-- <c:url value="order" var="url">
                                         <c:param name="section" value="finalOrder"/>
-                                    </c:url>
+                                    </c:url>--%>
+                                    <%--<a href="shoppingcart">Modifier</a>--%>  
+                                    <input type='submit' value='Modifier' name='modif'/>
+                                    
+                                    
+                                    
+                                    <input type='submit' name='valid' value='Valider'>
+                                    <input type="hidden" name="section" value="finalOrder" />
+                                    
 
-                                    <a href="${url}">Valider</a>
-                                    <%--<input type="submit" value="Valider" name="valid"/>--%>
+                                   
+                                    
                             </div>
                         </div>
                     </div>

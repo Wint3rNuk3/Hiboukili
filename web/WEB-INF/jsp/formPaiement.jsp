@@ -27,13 +27,13 @@
                 <form action="order" method="Post">
 
                     <h1 align="center">COORDONNEES DE PAIEMENT</h1>
-                    <br/>
-                    <br/>
+                    
                     <div class="container">
                         <div class="row">
                             <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
                                 <div class="row">
                                     <div class="col-xs-6 col-sm-6 col-md-6">
+                                        
                                         <address>
                                             <h1>
                                                 <strong>Hibookili</strong>
@@ -98,7 +98,12 @@
                                     </div>
                                     <br/>
                                     <div align ="left" class="boutonValider">
-                                        <input type="submit" name="valider" value="Payer"/><br/>
+                                        
+                                        
+                                        <input type="submit" name="paye" value="Payer"/>
+                                        
+                                        <input type="hidden" name="section" value="paiement" />
+                                        <input type="hidden" name="paye" value="" />
                                     </div>
 
 

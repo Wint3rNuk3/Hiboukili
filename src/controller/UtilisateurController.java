@@ -162,15 +162,31 @@ public class UtilisateurController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////           
         //initialisation des requetes
         request.setAttribute("msgLogin", "");//message d'erreur rouge apparaissant au bas du formulaire lorsque login ou mdp faux
-        //request.setAttribute("recupLogin", "");//recupere le login saisi ds le champ Login
 
         //renvoie a la page d'erreur si le login/mdp est errone plus de 3 fois
         if (cookieLoginRate != null && cookieLoginRate.getValue().length() > 2) {
             url = "/WEB-INF/jsp/error.jsp";
         }
 
+////////////////////////////////////////////////////////////////////////////////        
+//////////////////////////////////////////////////////////////////////////////// 
+        //affichage du prenom de l'utilisateur lorsque le cookie cookieLoginReussi existe
+        Utilisateur uti = null; //va recuperer les infos utilisateur depuis la BDD 
+        LoginBean lB = (LoginBean) session.getAttribute("sessionLogin");
+        if (riub == null) {
+            riub = new RecupInfosUtilisateurBean();
+        }
         //renvoie a la page de bienvenue lorsque le cookie de Login reussi existe
         if (cookieLoginReussi != null) {
+            if (lB == null) {
+                lB = new LoginBean();
+            }
+
+            if (uti == null) {
+                uti = riub.recupInfosUtilisateur(ds, cB, Long.valueOf(sync.getValue()));//recupere les infos utilisateur a partir du cookie sync
+                session.setAttribute("prenomUtilisateur", uti.getPrenom());//enregistre le prenom du l'utilisateur ds une session qui sera recuperee par la page de bienvenue
+
+            }//------------------------------------------
             url = "/WEB-INF/jsp/bienvenue.jsp";
         }
 
@@ -180,7 +196,6 @@ public class UtilisateurController extends HttpServlet {
             if (request.getParameter("validerBT") != null) {
 
                 //verifie si un beanLogin est enregistre ds la session; si non, le cree
-                LoginBean lB = (LoginBean) session.getAttribute("sessionLogin");
                 if (lB == null) {
                     lB = new LoginBean();
                     session.setAttribute("sessionLogin", lB);
@@ -194,8 +209,9 @@ public class UtilisateurController extends HttpServlet {
                 }
 
                 //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
-                Utilisateur uti = lB.checkLogin(ds, cB, request.getParameter("loginTI"), request.getParameter("mdpTI"));
-
+                if (uti == null) {
+                    uti = lB.checkLogin(ds, cB, request.getParameter("loginTI"), request.getParameter("mdpTI"));
+                }
                 //recupere le login saisi ds le champ Login
                 request.setAttribute("recupLogin", request.getParameter("loginTI"));
 
@@ -251,9 +267,8 @@ public class UtilisateurController extends HttpServlet {
             response.addCookie(cookieLoginReussi);
             sync.setMaxAge(0);//supprime le cookie de login reussi
             response.addCookie(sync);
-
-            session.setAttribute("utilisateur", null);//supprime l'objet utilisateur de la session
-
+            //session.setAttribute("utilisateur", null);//supprime l'objet utilisateur de la session
+            session.invalidate();
             url = "/WEB-INF/jsp/pageLogin.jsp";//renvoie a la page du formulaire de login
 
         }
@@ -327,7 +342,7 @@ public class UtilisateurController extends HttpServlet {
 
 ////////////////////////// MODIF ADRESSE PAR DEFAUT ////////////////////////////   
             //lorsqu'on clique sur "Choisir cette adresse comme adresse de facturation"  
-            if (request.getParameter("defaut") != null) {         
+            if (request.getParameter("defaut") != null) {
                 //recupere les adresses utilisateur depuis la BDD
                 myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
                 for (Adresse a : myAL) {

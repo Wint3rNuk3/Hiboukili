@@ -18,7 +18,7 @@ import model.classes.StatutAdresse;
 
 public class AdressesBean {
     
-    private  final String SQL_FIND_ALL = "SELECT"
+    private final String SQL_FIND_ALL = "SELECT"
             + " idAdresse, idPays, idStatutAdresse, numero, voie, codePostal, ville, complement"
             + " FROM Adresse";
     
@@ -28,11 +28,10 @@ public class AdressesBean {
             + " WHERE idAdresse = ?";
 
     ArrayList adresses;
-    //HashMap<String, ArrayList<Adresse>> map;
-    //HashMap<String, Adresse> map;
+    
     
     public AdressesBean() {
-        //this.map = new HashMap();
+        
         this.adresses = new ArrayList();
     }
     

@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <form action="OrderController" method="Post">
+        <form action="order" method="Post">
             <h1 align="center"> Commande Générale</h1><br/>
             <br/>
             <div class="container">
@@ -48,7 +48,7 @@
                             </thead>
 
                             <c:choose> 
-                                <c:when test="${empty orderTotal}">
+                                <c:when test="${empty cart}">
                                     <div class="row">
                                         <div class="col-xs-2">
                                         </div>
@@ -69,9 +69,9 @@
                                     <hr>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach items="${orderTotal}" var="p">
+                                    <c:forEach items="${cart}" var="c">
                                         <tr>
-                                            <td class="col-md-9"><em>${p.qtyTotal}</em></h4></td>
+                                            <%---<td class="col-md-9"><em>${}</em></h4></td>--%>
                                             <td class="col-md-1 text-center">${p.prixTotal}</td>
                                             <td class="col-md-1 text-center">${p.statutCommande}</td>
                                         </tr>

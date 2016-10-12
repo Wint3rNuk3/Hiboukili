@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <form action="OrderController" method="Post">
+        <form action="order" method="Post">
 
             <h1 align="center">COORDONNEES DE PAIEMENT</h1>
             <br/>
@@ -39,13 +39,13 @@
                         </div>
 
                         </span>
-                        Numero CB : <input type="number" name="cb"/><br/>
+                        Numero CB : <input type="number" name="cb" required/><br/>
                         <br/>
-                        Date d'expiration : <input type="date" name="date"/><br/>
+                        Date d'expiration : <input type="date" name="date" required/><br/>
                         <br/>
-                        Code de securité: <input type="number" name="crypto" title="Correspond aux 3 chiffres visibles au dos de votre carte "/><br/>
+                        Code de securité: <input type="number" name="crypto" title="Correspond aux 3 chiffres visibles au dos de votre carte " required/><br/>
                         <br/>
-                        Nom du porteur :<input type="text" name="nom"/><br/>
+                        Nom du porteur :<input type="text" name="nom" required/><br/>
                         <br/>
                         <br/>
                         <br/>

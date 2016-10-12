@@ -25,10 +25,10 @@ import model.classes.Edition;
 import model.classes.PanierTotal;
 import model.classes.Utilisateur;
 
-@WebServlet(name = "OrderController", urlPatterns = {"/OrderController"})
+@WebServlet(name = "order", urlPatterns = {"/order"})
 public class OrderController extends HttpServlet {
-    
-     private Cookie getMyCookies(Cookie[] tab, String name) {
+
+    private Cookie getMyCookies(Cookie[] tab, String name) {
         if (tab != null) {
             for (Cookie c : tab) {
                 if (c.getName().equals(name)) {
@@ -43,12 +43,10 @@ public class OrderController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-       
         HttpSession session = request.getSession();
-        
+
         String url = "/WEB-INF/jsp/RecapOrder.jsp";
 
-        
         ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
         if (bc == null) {
             bc = new ConnexionBean();
@@ -58,58 +56,40 @@ public class OrderController extends HttpServlet {
 //                            Affichage du panier !                           //
 ////////////////////////////////////////////////////////////////////////////////
 
-        
-            EditionBean eb = new EditionBean();
+        EditionBean eb = new EditionBean();
 
-            ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
 
-            if (cart == null) {
-                cart = new ShoppingCartBean();
-                session.setAttribute("cart", cart);
-                cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-            }
+        if (cart == null) {
+            cart = new ShoppingCartBean();
+            session.setAttribute("cart", cart);
             cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-            request.setAttribute("panierVide", cart.isEmpty());
-            request.setAttribute("panier", cart.list());
+        }
+        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+        request.setAttribute("panierVide", cart.isEmpty());
+        request.setAttribute("panier", cart.list());
 
-
-        
 ////////////////////////////////////////////////////////////////////////////////
 //                         Finalisation de la commande                        //
 ////////////////////////////////////////////////////////////////////////////////
-            
         if ("finalOrder".equals(request.getParameter("section"))) {
             int i1 = 2;//id Utilisateur
             Cookie sync = getMyCookies(request.getCookies(), "sync");
             if (sync == null) {
-                    sync = new Cookie("sync", Integer.toString(i1));
-                    sync.setMaxAge(24 * 60 * 60);
-                    response.addCookie(sync);
-                }
+                sync = new Cookie("sync", Integer.toString(i1));
+                sync.setMaxAge(24 * 60 * 60);
+                response.addCookie(sync);
+            }
             
-
-//              OrderBean orderTotal = (OrderBean) session.getAttribute("CommandeRecap");
-//              //PanierTotal panierTotal = (PanierTotal) session.getAttribute("PanierTotal");
-//              PanierTotal panierTotal = new PanierTotal();
-//              if(orderTotal == null){
-//                  orderTotal = new OrderBean();
-//                  session.setAttribute("CommandeRecap", orderTotal);
-//                  //orderTotal.recupererUtilisateur();
-//                  orderTotal.createPanierTotal(bc,panierTotal.getQtyTotal(), panierTotal.getPrixTotal(), panierTotal.getStatutCommande(bc));
-//              }
-//              orderTotal.createPanierTotal(bc,3, 50, "En cours de validation");
-//              request.setAttribute("commandeVide", orderTotal.isEmpty());
-//              request.setAttribute("commande", orderTotal.list());
-              
-              
-            // afficher la commande generale 
-            //   - créer une "commande" avec les elements : quantite totale, nbr d'article et statut commande
-            // recuperer depuis 
-            //   - deux methodes du beanPanier
-            //   - methode BeanCommande : statut commande
-             
-            // du coup : methode créer dans commande normal .
-           
+            OrderBean order1 = new OrderBean();
+            //affichage commande general
+            if(cart != null){
+                cart.getCartPrice();
+                cart.list();
+                order1.recupererStatutCommande(bc);
+                
+            }
+            
 
             //adresse
             AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
@@ -126,49 +106,42 @@ public class OrderController extends HttpServlet {
 
             url = "/WEB-INF/jsp/finalOrder.jsp";
 
-            
             if (request.getParameter("ajout") != null) {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";
             }
-            
+
             OrderBean order = (OrderBean) session.getAttribute("orderBDD");
             if (request.getParameter("final") != null && sync.getValue() != null) {
-                if(order == null){
+                if (order == null) {
                     order = new OrderBean();
                 }
-                
-                
-                order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")), 
-                    Long.valueOf(request.getParameter("adresseLivraison")), Long.valueOf(sync.getValue()));
-                
+
+                order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")),
+                        Long.valueOf(request.getParameter("adresseLivraison")), Long.valueOf(sync.getValue()));
+
                 url = "/WEB-INF/jsp/FormPaiement.jsp";
             }
 
             if (request.getParameter("retour") != null) {
                 url = "/WEB-INF/jsp/RecapOrder.jsp";
             }
-            
-    
-          
+
         }
 ////////////////////////////////////////////////////////////////////////////////
 //                     PAIEMENT /VALIDATION DE COMMANDE                       //
 ////////////////////////////////////////////////////////////////////////////////
-        
+
         //c'est ici qu'on envoie la commande dans la base de donnée tocarde 
         // avec controle  : if les check du paiement sont respecte alors 
         // envooe de la commande en base de donnée. 
         // dans la section précedent on sauvegarde les données necessaire ( choix adresse etc)
-        
 ////////////////////////////////////////////////////////////////////////////////
 //                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
 ////////////////////////////////////////////////////////////////////////////////
-        
         //recuperation du numero de commande depuis SQL
         //lien hypertexte vers : 
         //              - historique commande ou moncompte
         //              - Retour Acceuil
-        
         request.getRequestDispatcher(url).include(request, response);
 
     }

@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <form action="OrderController" method="Post">
+        <form action="order" method="Post">
             <h1 align="center"> Recapitulatif</h1><br/>
             <br/>
 

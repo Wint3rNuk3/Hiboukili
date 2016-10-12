@@ -222,6 +222,45 @@ public class EditionBean {
             Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void setStockInDB(ConnexionBean bc, String isbn, int qty) {
+        DataSource ds = bc.MaConnexion();
+        try (Connection c = ds.getConnection()) {
+
+            PreparedStatement ps1 = c.prepareStatement(SQL_GET_STOCK);
+            ps1.setString(1, isbn);
+            ResultSet rs1 = ps1.executeQuery();
+            String leStock = null;
+            
+            // les entrailles
+            ResultSetMetaData rsmd = rs1.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            
+            while (rs1.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) {
+                        System.out.print(",  ");
+                    }
+                    String columnValue = rs1.getString(i);
+                    System.out.print(rsmd.getColumnName(i) + " : " + columnValue);
+                }
+                leStock = rs1.getString(1);
+                System.out.println("");
+            }
+
+            ///////////////////////////////////////////////////////
+            int leStockVersionIntegreSaMere = Integer.parseInt(leStock);
+            PreparedStatement ps2 = c.prepareStatement(SQL_SET_STOCK);
+            
+            ps2.setInt(1, leStockVersionIntegreSaMere + qty);
+            
+            ps2.setString(2, isbn);
+            ResultSet rs2 = ps2.executeQuery();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 //    public List<Edition> paginate(BeanConnexion bc, int page, int perPage){
 //        List<Edition> list = findAll(bc);

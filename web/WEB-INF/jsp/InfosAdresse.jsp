@@ -4,15 +4,29 @@
     Author     : cdi302
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:template title="Hiboukilit">
+
+    <jsp:attribute name="styles">
+    </jsp:attribute>
+
+    <jsp:attribute name="scripts">
+    </jsp:attribute>
+
+    
+    
+    <jsp:body>
+        
+<%-- <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
+    <body> --%>
         <h1>Infos Adresse </h1>
 
         <form action ="UtilisateurController" method="GET">
@@ -61,5 +75,9 @@ ce pays a l'affichage --%>
                 <input type ="submit" name="modifierAdresseBT" value ="Modifier l'adresse">            
             </c:if>
         </form>
-    </body>
-</html>
+ <%--   </body>
+</html> --%>
+ 
+ 
+    </jsp:body>
+</t:template>

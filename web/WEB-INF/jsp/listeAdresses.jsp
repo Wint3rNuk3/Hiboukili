@@ -8,18 +8,34 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+
+
+<%-- <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Liste Adresses</title>
-    </head>
-    <body>
+    </head> 
+    <body> --%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:template title="Hiboukilit">
+
+    <jsp:attribute name="styles">
+    </jsp:attribute>
+
+    <jsp:attribute name="scripts">
+    </jsp:attribute>
+        
+    <jsp:body>
+
+
+
         <h1>Mes adresses</h1>
         <a href="UtilisateurController?section=ajouterAdresse"> Ajouter une adresse</a></br></br>
 
-        <%ArrayList<Adresse> myal = (ArrayList<Adresse>) session.getAttribute("listeAdresses");
-            System.out.println("myal size : " + myal.size() + " WWWW -----------------------------");%>
+        <%--ArrayList<Adresse> myal = (ArrayList<Adresse>) session.getAttribute("listeAdresses");
+            System.out.println("myal size : " + myal.size() + " WWWW -----------------------------");--%>
 
         <c:forEach var="i" items="${listeAdresses}">
             idAdresse : ${i.id} - ¤ ${i.statutAdresse} ¤
@@ -32,5 +48,7 @@
             </c:if>
             </br>            
         </c:forEach>
-    </body>
-</html>
+<%--    </body>
+ </html> --%>
+   </jsp:body>
+</t:template>

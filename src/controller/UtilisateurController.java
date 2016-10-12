@@ -251,9 +251,8 @@ public class UtilisateurController extends HttpServlet {
             response.addCookie(cookieLoginReussi);
             sync.setMaxAge(0);//supprime le cookie de login reussi
             response.addCookie(sync);
-
-            session.setAttribute("utilisateur", null);//supprime l'objet utilisateur de la session
-
+            //session.setAttribute("utilisateur", null);//supprime l'objet utilisateur de la session
+            session.invalidate();
             url = "/WEB-INF/jsp/pageLogin.jsp";//renvoie a la page du formulaire de login
 
         }

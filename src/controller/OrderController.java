@@ -22,7 +22,7 @@ import model.beans.OrderBean;
 import model.beans.ShoppingCartBean;
 import model.classes.Adresse;
 import model.classes.Edition;
-import model.classes.PanierTotal;
+
 import model.classes.Utilisateur;
 
 @WebServlet(name = "order", urlPatterns = {"/order"})
@@ -52,13 +52,12 @@ public class OrderController extends HttpServlet {
             bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
+        OrderBean order = (OrderBean) session.getAttribute("order");
+        EditionBean eb = new EditionBean();
+        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
 ////////////////////////////////////////////////////////////////////////////////
 //                            Affichage du panier !                           //
 ////////////////////////////////////////////////////////////////////////////////
-
-        EditionBean eb = new EditionBean();
-
-        ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
 
         if (cart == null) {
             cart = new ShoppingCartBean();
@@ -68,10 +67,19 @@ public class OrderController extends HttpServlet {
         //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
         //request.setAttribute("panierVide", cart.isEmpty());
         //request.setAttribute("panier", cart.list());
+        
+        if(request.getParameter("valid") != null){
+            url = "/WEB-INF/jsp/finalOrder.jsp";
+        }
+        
+        if(request.getParameter("modif") != null){
+            url = "/WEB-INF/jsp/shoppingcart.jsp";
+        }
 
 ////////////////////////////////////////////////////////////////////////////////
 //                         Finalisation de la commande                        //
 ////////////////////////////////////////////////////////////////////////////////
+       
         if ("finalOrder".equals(request.getParameter("section"))) {
             int i1 = 2;//id Utilisateur
             Cookie sync = getMyCookies(request.getCookies(), "sync");
@@ -80,16 +88,14 @@ public class OrderController extends HttpServlet {
                 sync.setMaxAge(24 * 60 * 60);
                 response.addCookie(sync);
             }
-            
-            OrderBean order1 = new OrderBean();
+
+            //OrderBean order1 = new OrderBean();
             //affichage commande general
-            if(cart != null){
-                
-                
+            if (cart != null) {
+
                 request.setAttribute("panierVide", cart.isEmpty());
                 request.setAttribute("panier", cart.list());
             }
-            
 
             //adresse
             AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
@@ -110,7 +116,7 @@ public class OrderController extends HttpServlet {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";
             }
 
-            OrderBean order = (OrderBean) session.getAttribute("orderBDD");
+           
             if (request.getParameter("final") != null && sync.getValue() != null) {
                 if (order == null) {
                     order = new OrderBean();
@@ -135,8 +141,6 @@ public class OrderController extends HttpServlet {
         // avec controle  : if les check du paiement sont respecte alors 
         // envooe de la commande en base de donnée. 
         // dans la section précedent on sauvegarde les données necessaire ( choix adresse etc)
-        
-        
 ////////////////////////////////////////////////////////////////////////////////
 //                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
 ////////////////////////////////////////////////////////////////////////////////

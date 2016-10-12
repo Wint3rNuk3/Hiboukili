@@ -14,7 +14,7 @@ import java.util.HashMap;
 import javax.sql.DataSource;
 import model.classes.Commande;
 import model.classes.Edition;
-import model.classes.PanierTotal;
+
 
 public class OrderBean implements Serializable {
 
@@ -34,35 +34,7 @@ public class OrderBean implements Serializable {
     public void setStatCommande(String statCommande) {
         this.statCommande = statCommande;
     }
-    
-
-//    public void createPanierTotal(ConnexionBean bc, int qtyTotal, float prixTotal, String statCommande) {
-//        
-//        commandes.add(new PanierTotal(qtyTotal, prixTotal, statCommande));
-////        //methode pour afficher les info general de la commande a partir du panier de l'utilisateur
-////        ShoppingCartBean cart = new ShoppingCartBean();
-////        cart.getCartPrice();
-////        int qtyTotal = 0;
-////        for (Edition e : cart.list()) {
-////
-////            qtyTotal += e.getCartQty();
-////        }
-////
-////        recupererStatutCommande(bc);
-////
-////        //commandes.add(new PanierTotal(cart.getCartPrice(), qtyTotal, recupererStatutCommande(bc)));
-//
-//    }
-
-    public void create() {
-        /* Cree la commande avec  : 
-         - adresselivraison
-         - adressefactuation
-         -utilisateur
-         -numero commande
-         - date commande*/
-    }
-
+ 
     public void save(ConnexionBean bc, Long idAdresseFacturation, Long idAdresseLivraison, Long idUtilisateur) {
         int i = 0;
 

@@ -152,6 +152,8 @@
 
                         <br/>
                         <br/>
+                        <input type="submit" name="retour" value="Modifier">
+                        <input type="hidden" name 
                         <a href="order?section=finalOrder&retour">Retour</a>
 
                         <br/>

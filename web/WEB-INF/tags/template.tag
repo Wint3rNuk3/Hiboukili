@@ -9,6 +9,7 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <%@attribute name="title" required="true" description="Title"%>
+<%@attribute name="imgPath" description="An image to identify section" %>
 <%@attribute name="styles" fragment="true" %>
 <%@attribute name="scripts" fragment="true" %>
 
@@ -114,9 +115,20 @@
 
                 <%-- Colonne centrale --%>
                 <div id="page-content-wrapper">
+                    
+                    
+                    <div class="jumbotron" 
+                        style="background-image: url('<c:out value="${ imgPath }" default="images/fond-5.jpg"/>')">
+                        <h1 class='text-center'>
+                            <c:out value="${ title }" default=""/>
+                        </h1>
+                    </div>
+                    
                     <div class="container-fluid">
                         <div class="row">
-                            <jsp:doBody />
+                            <div id="page-content">
+                                <jsp:doBody />
+                            </div>
                         </div>
                     </div>
                 

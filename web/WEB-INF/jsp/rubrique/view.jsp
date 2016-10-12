@@ -10,7 +10,7 @@
 
 
 <%-- Affichage d'une rubrique --%>
-<t:template title="">
+<t:template title="${ rubrique.libelle }">
 
     <jsp:body>
         <div class="panel panel-default">

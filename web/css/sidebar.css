@@ -26,7 +26,7 @@
 #sidebar-wrapper {
     z-index: 1000;
     position: fixed;
-    left: 249px;
+    left: 250px;
     width: 0;
     height: 100%;
     margin-left: -250px;
@@ -46,6 +46,9 @@
 #page-content-wrapper {
     width: 100%;
     position: absolute;
+}
+
+#page-content-wrapper #page-content {
     padding: 15px;
 }
 
@@ -132,8 +135,11 @@
     }
 
     #page-content-wrapper {
-        padding: 20px;
         position: relative;
+    }
+    
+    #page-content-wrapper #page-content {
+        padding: 20px;
     }
 
     #wrapper.toggled #page-content-wrapper {

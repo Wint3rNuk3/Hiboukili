@@ -11,5 +11,6 @@
 <link rel="stylesheet" href="css/bootstrap-theme.min.css">
 
 <%-- import des css de l'application --%>
+<link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/sidebar.css">

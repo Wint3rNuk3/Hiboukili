@@ -30,9 +30,11 @@
             </button>
 
             <c:url value="${ brandUrl }" var="url"/>
-            <a class="navbar-brand" href="<c:out value="${ url }"/>">
+            
+            <a class="navbar-brand visible-xs" href="<c:out value="${ url }"/>">
                 <jsp:invoke fragment="brand" />
             </a>
+            
         </div>
 
         <div id="<c:out value="${ id }"/>" class="navbar-collapse collapse">

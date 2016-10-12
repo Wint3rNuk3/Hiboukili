@@ -8,7 +8,10 @@ body{
     /*background-image: url("../images/fond-5.jpg");*/
     background-repeat: no-repeat;
     background-size: cover;
-    padding-top: 51px; 
+    padding-top: 65px; 
+    background: #fff;
+    margin: 0;
+    overflow-x: hidden;
 }
 
 img.edition{
@@ -20,3 +23,273 @@ img.edition{
     background: rgba(255,255,255,0.9);
 }
 
+
+/* Personnalisation du style */
+
+a{
+    color: #34495E;
+}
+
+a:hover{
+    color: #2C3E50;
+}
+
+::-moz-selection { 
+    background: #34495E; 
+    color: #fff; 
+    text-shadow: none; 
+}
+
+::selection { 
+    background: #34495E; 
+    color: #fff; 
+    text-shadow: none; 
+}
+
+/*
+        ==============
+        [3. NAVBAR]
+        ==============
+*/
+
+.navbar{
+    border-bottom: 5px solid #34495E;
+    margin-bottom: 0;
+    min-height: 65px;
+}
+
+.navbar.navbar-default{
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background-color: #ffffff;
+    background-image: none;
+}
+
+.navbar-default .navbar-link:hover,
+.navbar-default .navbar-link:focus {
+    color: #e74c3c;
+}
+
+.navbar-default .navbar-brand{
+    padding: 22px 15px;
+    -o-transition: color 0.3s ease-in-out;
+    -moz-transition: color 0.3s ease-in-out;
+    -webkit-transition: color 0.3s ease-in-out;
+    -ms-transition: color 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus,
+.navbar-default .navbar-brand:active{
+    color: #34495E;
+    -o-transition: color 0.3s ease-in-out;
+    -moz-transition: color 0.3s ease-in-out;
+    -webkit-transition: color 0.3s ease-in-out;
+    -ms-transition: color 0.3s ease-in-out;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar #brand,
+.navbar-default #brand{
+    position: absolute;
+    left: 50%;
+    margin: -60px auto 0 -90px;
+    width: 180px;
+    height: 180px;
+    border-bottom: 5px solid #34495E;
+    border-radius: 100%;
+    background: #ffffff;
+    z-index: 10;
+}
+
+.navbar .logo,
+.navbar-default .logo{
+    position: fixed;
+    left: 50%;
+    min-width: 120px;
+    max-width: 120px;
+    min-height: 120px;
+    max-height: 120px;
+    margin: 55px auto 0 -55px;
+    background: transparent;
+    -o-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.navbar .logo img,
+.navbar-default .logo img{
+    min-width: 105px;
+    max-width: 105px;
+    min-height: 105px;
+    max-height: 105px;
+    -o-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+}
+
+.navbar-default .nav-left > li:nth-child(5n + 0){
+    display: none;
+}
+
+.navbar-default .nav-left{
+    float: left;
+}
+
+.navbar-default .nav-right{
+    margin-left: 170px;
+    float: right;
+}
+
+.navbar-default .navbar-nav > li > a {
+    float: none;
+    padding: 10px 17px;
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: #666666;
+    text-decoration: none;
+    text-shadow: none;
+    transition: color 0.1s ease-in-out;
+    -o-transition: color 0.1s ease-in-out;
+    -moz-transition: color 0.1s ease-in-out;
+    -webkit-transition: color 0.1s ease-in-out;
+    font-size: 14px;
+    position: relative;
+}
+
+.navbar-default .navbar-nav {
+    padding-left: 0;
+}
+
+.navbar-default .navbar-nav > li > a:focus,
+.navbar-default .navbar-nav > li > a:hover {
+    color: #34495E;
+    text-decoration: none;
+    background-color: transparent;
+    transition: color 0.1s ease-in-out;
+    -o-transition: color 0.1s ease-in-out;
+    -moz-transition: color 0.1s ease-in-out;
+    -webkit-transition: color 0.1s ease-in-out;
+}
+
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: #34495E;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    
+    background-image: none;
+}
+
+.navbar-default .navbar-nav li.dropdown.open > .dropdown-toggle,
+.navbar-default .navbar-nav li.dropdown.active > .dropdown-toggle,
+.navbar-default .navbar-nav li.dropdown.open.active > .dropdown-toggle {
+    color: #ffffff;
+    background-color: #34495E;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.navbar-default .navbar-nav li.dropdown.open > .dropdown-toggle .caret,
+.navbar-default .navbar-nav li.dropdown.active > .dropdown-toggle .caret,
+.navbar-default .navbar-nav li.dropdown.open.active > .dropdown-toggle .caret {
+    border-top-color: #ffffff;
+    border-bottom-color: #ffffff;
+}
+
+.navbar-default .navbar-nav > li > .dropdown-menu{
+    margin-top: 9px;
+}
+
+.dropdown-menu {
+    background-color: #ffffff;
+    border: 1px solid #666666;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -webkit-animation-name: fadeInUp;
+    -moz-animation-name: fadeInUp;
+    -o-animation-name: fadeInUp;
+    animation-name: fadeInUp;
+    -webkit-animation-duration: 0.3s;
+    -moz-animation-duration: 0.3s;
+    -o-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    -moz-animation-fill-mode: both;
+    -o-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.dropdown-menu  > li > a{
+    font-weight: 600;
+    color: #666666;
+    text-transform: uppercase;
+    font-size: 12px;
+    position: relative;
+}
+
+.dropdown-menu  > li.nav-header{
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    color: #ffffff;
+    text-decoration: none;
+    background: #34495E;
+    font-weight: 600;
+
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+    color: #ffffff;
+    text-decoration: none;
+    background: #34495E;
+}
+
+.dropdown-menu li{
+    position: relative;
+}
+
+/*
+    Page
+*/
+
+.jumbotron {
+    margin-bottom: 0px;
+    /*min-height: 200px;*/
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.jumbotron h1 {
+    color: #ffffff;
+    background-color: rgba(52, 73, 94, 0.8);
+}

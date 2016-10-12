@@ -3,9 +3,12 @@ package model.beans;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -24,7 +27,7 @@ public class EditionBean {
             + " idStatutEdition, datePubli, prixHt,"
             + " couverture, titre, stock"
             + " FROM Edition";
-    
+
     private static final String SQL_FIND_BY_RUBRIQUE = "SELECT"
             + " e.idEdition, e.isbn, e.idOuvrage, e.idEditeur, e.idLangue,"
             + " e.idStatutEdition, e.datePubli, e.prixHt,"
@@ -52,7 +55,7 @@ public class EditionBean {
 
         return list;
     }
-    
+
     public List<Edition> findByRubrique(ConnexionBean bc, Long idRubrique) {
         List<Edition> list = new ArrayList();
 
@@ -60,9 +63,9 @@ public class EditionBean {
         try (Connection c = ds.getConnection()) {
 
             PreparedStatement ps = c.prepareStatement(SQL_FIND_BY_RUBRIQUE);
-            
+
             ps.setLong(1, idRubrique);
-            
+
             ResultSet rs = ps.executeQuery();
 
             list = list(rs, bc);
@@ -81,13 +84,11 @@ public class EditionBean {
             + " FROM Edition"
             + " WHERE isbn=?";
 
-    
-    public Edition findByIsbn(ConnexionBean bc, String isbn){
+    public Edition findByIsbn(ConnexionBean bc, String isbn) {
         Edition edition = new Edition();
-        
+
         // le nom de méthode commence par une majuscule,
         // mais ce n'est pas de mon ressort.
-
         DataSource ds = bc.MaConnexion();
         try (Connection c = ds.getConnection()) {
 
@@ -96,13 +97,12 @@ public class EditionBean {
             ResultSet rs = ps.executeQuery();
             //String executedQuery = rs.getStatement().toString();
             //System.out.println(executedQuery);
-            
+
             edition = one(rs, bc);
-                
+
                 // mettre à jour le prix.
-                // on ne veut afficher le prix ttc seulement lors de l'affichage de la commande ou du panier ?
+            // on ne veut afficher le prix ttc seulement lors de l'affichage de la commande ou du panier ?
 //                edition.initPrix();
-            
         } catch (SQLException ex) {
             Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -126,7 +126,7 @@ public class EditionBean {
         edition.setCouverture(rs.getString("couverture"));
         edition.setTitre(rs.getString("titre"));
         edition.setStock(rs.getInt("stock"));
-        
+
         // recuperer l'editeur.
         Editeur editeur = new EditeurBean().findById(bc, idEditeur);
         edition.setEditeur(editeur);
@@ -146,30 +146,81 @@ public class EditionBean {
         // recuperer les taxes.
         List<Taxe> taxes = new TaxeBean().findByEdition(bc, idEdition);
         edition.setTaxes(taxes);
-        
+
         // recuperer les promotions.
         List<Promotion> promos = new PromotionBean().findByEdition(bc, idEdition);
         edition.setPromotions(promos);
-        
+
         return edition;
     }
 
     private List<Edition> list(ResultSet rs, ConnexionBean bc) throws SQLException {
         List<Edition> list = new ArrayList();
-        
+
         while (rs.next()) {
             list.add(map(rs, bc));
         }
-        
+
         return list;
     }
 
     private Edition one(ResultSet rs, ConnexionBean bc) throws SQLException {
-        if(rs.next()) {
+        if (rs.next()) {
             return map(rs, bc);
         }
-        
+
         return null;
+    }
+
+    private static final String SQL_GET_STOCK = "SELECT"
+            + " stock"
+            + " FROM Edition"
+            + " WHERE isbn = ?";
+
+    private static final String SQL_SET_STOCK = "UPDATE Edition"
+            + " SET stock = ?"
+            + " WHERE isbn = ?";
+
+    public void setStockInDB(ConnexionBean bc, Edition e) {
+        DataSource ds = bc.MaConnexion();
+        try (Connection c = ds.getConnection()) {
+
+            PreparedStatement ps1 = c.prepareStatement(SQL_GET_STOCK);
+            ps1.setString(1, e.getIsbn());
+            ResultSet rs1 = ps1.executeQuery();
+            String leStock = null;
+            
+            // les entrailles
+            ResultSetMetaData rsmd = rs1.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            
+            while (rs1.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) {
+                        System.out.print(",  ");
+                    }
+                    String columnValue = rs1.getString(i);
+                    System.out.print(rsmd.getColumnName(i) + " : " + columnValue);
+                }
+                leStock = rs1.getString(1);
+                System.out.println("");
+            }
+
+            ///////////////////////////////////////////////////////
+            int leStockVersionIntegreSaMere = Integer.parseInt(leStock);
+            PreparedStatement ps2 = c.prepareStatement(SQL_SET_STOCK);
+            if(e.getCartQty() > leStockVersionIntegreSaMere)
+                ps2.setInt(1, 0);
+                //eventuellement appeler une erreur
+            else
+                ps2.setInt(1, leStockVersionIntegreSaMere - e.getCartQty());
+            
+            ps2.setString(2, e.getIsbn());
+            ResultSet rs2 = ps2.executeQuery();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 //    public List<Edition> paginate(BeanConnexion bc, int page, int perPage){

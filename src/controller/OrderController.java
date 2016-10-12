@@ -6,8 +6,11 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -124,7 +127,7 @@ public class OrderController extends HttpServlet {
                 order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")),
                         Long.valueOf(request.getParameter("adresseLivraison")), Long.valueOf(sync.getValue()));
 
-                url = "/WEB-INF/jsp/FormPaiement.jsp";
+                url = "/WEB-INF/jsp/formPaiement.jsp";
 
             } else if (request.getParameter("retour") != null) {
 
@@ -134,12 +137,18 @@ public class OrderController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
 //                     PAIEMENT /VALIDATION DE COMMANDE                       //
 ////////////////////////////////////////////////////////////////////////////////
+        
+        EditionBean ed = new EditionBean();
+        
+        
         if ("paiement".equals(request.getParameter("section"))) {
             if (request.getParameter("paye") != null) {
             // check paiement
-
+                for(Edition e : cart.list()){
+                    ed.setStockInDB(bc, e);  
+                }
                 url = "/WEB-INF/jsp/orderAccept.jsp";
-
+                
             }
 
             if (request.getParameter("annuler") != null) {

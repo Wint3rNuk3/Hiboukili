@@ -9,13 +9,12 @@ public class MessageBean implements Serializable {
 
     private HashMap<String, ArrayList<String>> messages = null;
     private HashMap<String, ArrayList<String>> recup = null;
-    
 
     public MessageBean() {
         this.messages = new HashMap<>();
     }
 
-    public void info(String msg) {
+    public void infos(String msg) {
 
         if (!messages.containsKey("info")) {
             messages.put("info", new ArrayList());
@@ -23,7 +22,7 @@ public class MessageBean implements Serializable {
         messages.get("info").add(msg);
     }
 
-    public void error(String msg) {
+    public void errors(String msg) {
 
         if (!messages.containsKey("error")) {
             messages.put("error", new ArrayList());
@@ -31,7 +30,7 @@ public class MessageBean implements Serializable {
         messages.get("error").add(msg);
     }
 
-    public void success(String msg) {
+    public void successes(String msg) {
 
         if (!messages.containsKey("success")) {
             messages.put("success", new ArrayList());
@@ -43,5 +42,17 @@ public class MessageBean implements Serializable {
         recup = messages;
         messages.clear();
         return recup;
+    }
+
+    public Collection getInfos() {
+        return messages.get("info");
+    }
+
+    public Collection getErrors() {
+        return messages.get("error");
+    }
+
+    public Collection getSuccesses() {
+        return messages.get("success");
     }
 }

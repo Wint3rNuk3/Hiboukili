@@ -123,6 +123,30 @@
                             <c:out value="${ title }" default=""/>
                         </h1>
                     </div>
+                        
+                    <%-- traitement des messages --%>
+                    <c:if test="${ messages != null }">
+                        <div id="message-box" class="col-md-4 col-lg-4 col-sm-12">
+                            <c:forEach var="entry" items="${ messages.getMessages() }">
+                                <c:forEach var="msg" items="${ entry.value }">
+                                    <div class="alert alert-dismissible alert-<c:out value="${ entry.key }" default="info"/>">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                        <c:out value="${ msg }" />
+                                    </div>
+                                </c:forEach>
+                            </c:forEach>
+                        </div>
+                        
+                        <%-- infos --%>
+                        <%--<c:forEach var="info" items="${ messages.getInfos() }">--%>
+<!--                            <div class="alert alert-info">
+                                <%--<c:out value="${ info }" />--%>
+                            </div>-->
+                        <%--</c:forEach>--%>
+                        
+                    </c:if>
                     
                     <div class="container-fluid">
                         <div class="row">

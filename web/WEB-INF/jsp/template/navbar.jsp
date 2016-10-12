@@ -49,11 +49,11 @@
         </ul>
         
         <div id="brand" class="visible-lg visible-md">
-            <a class="logo" href="/">
+            <c:url value="/" var="url"/>
+            <a class="logo" href="${url}">
                 <img src="images/logo_md.png" />
             </a>
         </div>
-        
         
         <form class="navbar-form navbar-right">
 
@@ -91,17 +91,15 @@
             <li>
                 <c:choose>
                     <c:when test="${ utilisateur != null }">
-                        <button class="btn navbar-btn dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
+                        <a class="btn navbar-btn dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> 
                             <i class="glyphicon glyphicon-user"></i>
-                        </button>
+                        </a>
                         <ul class="dropdown-menu">
                             <li class="dropdown-header"><span>Vous etes connecté: <c:out value="${ utilisateur.nom }"/></span></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
+                            <li><a href="UtilisateurController?section=modifierInfosPerso">Modifier les infos personnelles</a></li>
+                            <li><a href="UtilisateurController?section=gererAdresses">Gérer mes adresses</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">One more separated link</a></li>
+                            <li><a href="UtilisateurController?section=deconnexion">Déconnexion</a> </li>
                         </ul>
                     </c:when>
 

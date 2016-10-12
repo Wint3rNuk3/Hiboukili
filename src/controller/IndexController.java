@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
+import model.beans.MessageBean;
 import model.classes.Edition;
 
 @WebServlet(name = "IndexController", urlPatterns = {""})
@@ -62,6 +63,17 @@ public class IndexController extends HttpServlet {
             session.setAttribute("sessionConnexion", bc);
         }
         // fin copié/collé
+        
+        /* exemple d'utilisation du messageBean.
+        MessageBean mb = (MessageBean) session.getAttribute("messages");
+        if (mb == null) {
+            mb = new MessageBean();
+            session.setAttribute("messages", mb);
+        }
+        
+        mb.info("Salut");
+        mb.danger("Salut c'est une error");
+        */
         
         // on demande la liste complète des editions.
         List<Edition> editions = new EditionBean().findAll(bc);

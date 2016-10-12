@@ -25,7 +25,7 @@
             </a>
         </div>
 
-        <div class="col-md-7 col-sm-7 col-xs-7">
+        <div class="col-md-9 col-sm-9 col-xs-9">
             <h4 class="">
                 <c:out value="${ item.ouvrage.titre }"/>
             </h4>
@@ -63,19 +63,13 @@
                     </c:forEach>
                 </p>
             </c:if>
-        </div>
-
-        <div class="pull-right col-md-2 col-sm-2  col-xs-2">
-            <div class="btn-group btn-group-vertical" role="group" aria-label="...">
                 
-                <a id="add" class="btn btn-success" style="padding:0;" href="shoppingcart?add=${item.isbn}">
-                    <button role="button" class="btn btn-success" style="border:none;" data-toggle="modal" data-target="#cartModal">
-                        <i class="glyphicon glyphicon-shopping-cart"> </i>
-                    </button>
+            <div class="btn-group btn-group-lg" role="group" aria-label="...">
+                
+                <a id="add" class="btn btn-success" href="shoppingcart?add=${item.isbn}">
+                    <i class="glyphicon glyphicon-shopping-cart"> </i>
                 </a>
-                    <!-- insert some href="shoppingcart?add=dollar{e.isbn}" kind of -->
-                    
-                
+                <!-- insert some href="shoppingcart?add=dollar{e.isbn}" kind of -->
                 
                 <c:url value="edition" var="url">
                     <c:param name="isbn" value="${ item.isbn }" />
@@ -88,5 +82,25 @@
                 <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
             </div>
         </div>
+
+<!--        <div class="pull-right col-md-1 col-sm-1 col-xs-1">
+            <div class="btn-group btn-group-vertical" role="group" aria-label="...">
+                
+                <a id="add" class="btn btn-success" href="shoppingcart?add=${item.isbn}">
+                    <i class="glyphicon glyphicon-shopping-cart"> </i>
+                </a>
+                 insert some href="shoppingcart?add=dollar{e.isbn}" kind of 
+                
+                <%--<c:url value="edition" var="url">--%>
+                    <%--<c:param name="isbn" value="${ item.isbn }" />--%>
+                <%--</c:url>--%>
+                
+                <a href="${ url }" role="button" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-eye-open"> </i>
+                </a>
+                    
+                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
+            </div>
+        </div>-->
     </jsp:body>
 </t:list>

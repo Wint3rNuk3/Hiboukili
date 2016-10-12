@@ -4,55 +4,64 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class MessageBean implements Serializable {
 
     private HashMap<String, ArrayList<String>> messages = null;
-    private HashMap<String, ArrayList<String>> recup = null;
-
+    
     public MessageBean() {
         this.messages = new HashMap<>();
     }
 
-    public void infos(String msg) {
-
-        if (!messages.containsKey("info")) {
-            messages.put("info", new ArrayList());
-        }
-        messages.get("info").add(msg);
+    public void info(String msg) {
+        addMessage("info", msg);
     }
 
-    public void errors(String msg) {
-
-        if (!messages.containsKey("error")) {
-            messages.put("error", new ArrayList());
-        }
-        messages.get("error").add(msg);
+    public void danger(String msg) {
+        addMessage("danger", msg);
     }
 
-    public void successes(String msg) {
-
-        if (!messages.containsKey("success")) {
-            messages.put("success", new ArrayList());
+    public void success(String msg) {
+        addMessage("success", msg);
+    }
+    
+    public void warning(String msg) {
+        addMessage("warning", msg);
+    }
+    
+    private void addMessage(String type, String message){
+        if (!messages.containsKey(type)) {
+            messages.put(type, new ArrayList());
         }
-        messages.get("success").add(msg);
+        messages.get(type).add(message);
+    }
+    
+    private List getMessages(String type){
+        List msgs = new ArrayList();
+        if(!messages.containsKey(type)) {
+            return msgs;
+        }
+        msgs.addAll(messages.get(type));
+        messages.get(type).clear();
+        return msgs;
     }
 
     public HashMap<String, ArrayList<String>> getMessages() {
-        recup = messages;
+        HashMap msgs = new HashMap(messages);
         messages.clear();
-        return recup;
+        return msgs;
     }
 
     public Collection getInfos() {
-        return messages.get("info");
+        return getMessages("info");
     }
 
-    public Collection getErrors() {
-        return messages.get("error");
+    public Collection getDangers() {
+        return getMessages("danger");
     }
 
     public Collection getSuccesses() {
-        return messages.get("success");
+        return getMessages("success");
     }
 }

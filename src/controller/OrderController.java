@@ -63,11 +63,11 @@ public class OrderController extends HttpServlet {
         if (cart == null) {
             cart = new ShoppingCartBean();
             session.setAttribute("cart", cart);
-            cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+            //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
         }
-        cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-        request.setAttribute("panierVide", cart.isEmpty());
-        request.setAttribute("panier", cart.list());
+        //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+        //request.setAttribute("panierVide", cart.isEmpty());
+        //request.setAttribute("panier", cart.list());
 
 ////////////////////////////////////////////////////////////////////////////////
 //                         Finalisation de la commande                        //

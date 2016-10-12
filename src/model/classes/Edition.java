@@ -340,6 +340,9 @@ public class Edition implements Serializable {
     public Taxe getTVA() {
         // pour le moment parcequ'on a pas encore de cas où il y aurait plusieurs taxes
         // et que je ne sais pas comment faire.
+        if(this.taxes.isEmpty()){
+            return null;
+        }
      return this.taxes.get(0);
     }
 

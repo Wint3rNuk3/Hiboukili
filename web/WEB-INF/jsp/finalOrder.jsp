@@ -1,14 +1,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:template title="Hiboukilit">
+    
+    <jsp:attribute name="styles">
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+    </jsp:attribute>
+        
+ <jsp:body>       
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
 
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        
     </head>
     <body>
         <form action="order" method="Post">
@@ -77,26 +86,7 @@
                                         </tr>
 
 
-                                        <%--<tr>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td class="text-right">
-
-                                                <p>
-                                                    <strong>TVA: </strong>
-                                                </p></td>
-                                            <td class="text-center">
-                                                <p>
-                                                    <strong>5.5%</strong>
-                                                </p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>   </td>
-                                            <td>   </td>
-                                            <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                                            <td class="text-center text-danger"><h4><strong>£31.53</strong></h4></td>
-                                        </tr>--%>
+                                        
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
@@ -172,3 +162,6 @@
         </form>
     </body>
 </html>
+ 
+</jsp:body>
+</t:template>

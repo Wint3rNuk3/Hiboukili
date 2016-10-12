@@ -1,11 +1,19 @@
-<%-- 
-    Document   : orderAccept
-    Created on : 5 oct. 2016, 18:18:46
-    Author     : Marÿn
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
+
+<t:template title="Hiboukilit">
+    
+    <jsp:attribute name="styles">
+        
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+    </jsp:attribute>
+        
+         <jsp:body>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -39,3 +47,5 @@
         </form>
     </body>
 </html>
+</jsp:body>
+</t:template>

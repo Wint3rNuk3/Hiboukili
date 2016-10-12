@@ -110,7 +110,7 @@ public class OrderController extends HttpServlet {
             adresses.recupererAdresse(bc);
             System.out.println("Adresse :" + adresses.list().size());
 
-            url = "/WEB-INF/jsp/finalOrder.jsp";
+           // url = "/WEB-INF/jsp/finalOrder.jsp";
 
             if (request.getParameter("ajout") != null) {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";

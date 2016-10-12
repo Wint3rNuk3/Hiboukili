@@ -16,6 +16,7 @@ public class LoginBean implements Serializable {
     }
 
     public Utilisateur checkLogin(DataSource ds, ConnexionBean bc, String login, String mdp) {
+        System.out.println("Controle");
         ds = bc.MaConnexion();//connexion
         try (Connection c = ds.getConnection()) {
             //requete

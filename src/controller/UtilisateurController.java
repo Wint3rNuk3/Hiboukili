@@ -50,11 +50,12 @@ public class UtilisateurController extends HttpServlet {
         ArrayList<Adresse> myAL = null;//ArrayList enregistrant toutes les adresses d'un utilisateur
 
         ConnexionBean cB = (ConnexionBean) session.getAttribute("sessionConnexion");
-        ListePaysBean blp = (ListePaysBean) session.getAttribute("sessionBeanListePays");
-        ControleSaisieCreationCompteBean bcscc
-                = (ControleSaisieCreationCompteBean) request.getAttribute("BeanControleSaisieCreationCompte");
+        LoginBean lB = (LoginBean) session.getAttribute("sessionLogin");
+        ListePaysBean lpB = (ListePaysBean) session.getAttribute("sessionBeanListePays");
+        ControleSaisieCreationCompteBean csccB
+                = (ControleSaisieCreationCompteBean) session.getAttribute("BeanControleSaisieCreationCompte");
         UpdateBDDBean uBddB = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
-        RecupInfosUtilisateurBean riub = (RecupInfosUtilisateurBean) session.getAttribute("RecupInfosUtilisateurBean()");
+        RecupInfosUtilisateurBean riub = (RecupInfosUtilisateurBean) request.getAttribute("RecupInfosUtilisateurBean");
 
         Cookie cookieLoginReussi = getMyCookies(request.getCookies(), "cookieLoginReussi");
         Cookie cookieLoginRate = getMyCookies(request.getCookies(), "cookieLoginRate");
@@ -63,16 +64,33 @@ public class UtilisateurController extends HttpServlet {
         //cree une session de connexion si non existante        
         if (cB == null) {
             cB = new ConnexionBean();
+            session.setAttribute("sessionConnexion", cB);
         }
 
+        if (lB == null) {
+            lB = new LoginBean();
+            session.setAttribute("sessionLogin", lB);
+        }
         //cree une session pour generer la liste des pays ds le combobox si non existante
-        if (blp == null) {
-            blp = new ListePaysBean();
+        if (lpB == null) {
+            lpB = new ListePaysBean();
+            session.setAttribute("sessionBeanListePays", lpB);
+        }
+
+        if (uBddB == null) {
+            uBddB = new UpdateBDDBean();
+            session.setAttribute("BeanUpdateBDD", uBddB);
+        }
+
+        if (riub == null) {
+            riub = new RecupInfosUtilisateurBean();
+            session.setAttribute("RecupInfosUtilisateurBean", riub);
         }
 
         //cree une session pour le controle des saisies si non existante
-        if (bcscc == null) {
-            bcscc = new ControleSaisieCreationCompteBean();
+        if (csccB == null) {
+            csccB = new ControleSaisieCreationCompteBean();
+            session.setAttribute("BeanControleSaisieCreationCompte", csccB);
         }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -110,26 +128,12 @@ public class UtilisateurController extends HttpServlet {
 
             //a voir si on garde cette partie du code, gestion des champs nuls 
             //se fait pas par un bean mais ds les balises HTML directement (required)
-            messageErreur = bcscc.checkInfo(saisieNom, saisiePrenom, saisieDob, saisieTel,
+            messageErreur = csccB.checkInfo(saisieNom, saisiePrenom, saisieDob, saisieTel,
                     saisieMail, saisieMdp, saisieConfMdp);
             //pour l'instant, verifie seulement que le mot de passe est identique ds les 2 champs
             if (messageErreur != null) {
                 request.setAttribute("erreurSaisie", messageErreur[0]);
-
             } else {
-
-                //prepare la connexion au pool de connexion
-                if (cB == null) {
-                    cB = new ConnexionBean();
-                    session.setAttribute("sessionConnexion", cB);
-                }
-
-                //prepare l'enregistrement des infos ds la bdd
-                if (uBddB == null) {
-                    uBddB = new UpdateBDDBean();
-                }
-
-//                ds = cB.MaConnexion(); //prepare la connexion a la BDD a partir du pool de connexion
                 //envoie les saisies pour qu'elles soient enregistrees ds la bdd et
                 //recupere l'idUtilisateur renvoye par la bdd ds i1
                 i1 = uBddB.creeCompteDsBdd(ds, cB,
@@ -168,25 +172,15 @@ public class UtilisateurController extends HttpServlet {
             url = "/WEB-INF/jsp/error.jsp";
         }
 
-////////////////////////////////////////////////////////////////////////////////        
-//////////////////////////////////////////////////////////////////////////////// 
         //affichage du prenom de l'utilisateur lorsque le cookie cookieLoginReussi existe
         Utilisateur uti = null; //va recuperer les infos utilisateur depuis la BDD 
-        LoginBean lB = (LoginBean) session.getAttribute("sessionLogin");
-        if (riub == null) {
-            riub = new RecupInfosUtilisateurBean();
-        }
         //renvoie a la page de bienvenue lorsque le cookie de Login reussi existe
         if (cookieLoginReussi != null) {
-            if (lB == null) {
-                lB = new LoginBean();
-            }
 
             if (uti == null) {
                 uti = riub.recupInfosUtilisateur(ds, cB, Long.valueOf(sync.getValue()));//recupere les infos utilisateur a partir du cookie sync
                 session.setAttribute("prenomUtilisateur", uti.getPrenom());//enregistre le prenom du l'utilisateur ds une session qui sera recuperee par la page de bienvenue
-
-            }//------------------------------------------
+            }
             url = "/WEB-INF/jsp/bienvenue.jsp";
         }
 
@@ -195,23 +189,11 @@ public class UtilisateurController extends HttpServlet {
             //lorsqu'on appuie sur le bouton valider du formulaire d'identification
             if (request.getParameter("validerBT") != null) {
 
-                //verifie si un beanLogin est enregistre ds la session; si non, le cree
-                if (lB == null) {
-                    lB = new LoginBean();
-                    session.setAttribute("sessionLogin", lB);
-                }
 
                 //verifie si un beanConnexion est enregistre ds la session; si non, le cree            
                 cB = (ConnexionBean) session.getAttribute("sessionConnexion");
-                if (cB == null) {
-                    cB = new ConnexionBean();
-                    session.setAttribute("sessionConnexion", cB);
-                }
 
-                //renvoie un objet Utilisateur si le couple login/mdp a ete saisi correctement
-                if (uti == null) {
-                    uti = lB.checkLogin(ds, cB, request.getParameter("loginTI"), request.getParameter("mdpTI"));
-                }
+                uti = lB.checkLogin(ds, cB, request.getParameter("loginTI"), request.getParameter("mdpTI"));
                 //recupere le login saisi ds le champ Login
                 request.setAttribute("recupLogin", request.getParameter("loginTI"));
 
@@ -270,7 +252,6 @@ public class UtilisateurController extends HttpServlet {
             //session.setAttribute("utilisateur", null);//supprime l'objet utilisateur de la session
             session.invalidate();
             url = "/WEB-INF/jsp/pageLogin.jsp";//renvoie a la page du formulaire de login
-
         }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -278,13 +259,6 @@ public class UtilisateurController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
         if ("modifierInfosPerso".equals(request.getParameter("section"))) {
 
-            if (riub == null) {
-                riub = new RecupInfosUtilisateurBean();
-            }
-
-            if (cB == null) {
-                cB = new ConnexionBean();
-            }
             //a partir de l'idUtilisateur (enregistree dans le cookie sync), on recupere les infos utilisateur
             Utilisateur u = riub.recupInfosUtilisateur(ds, cB, Long.valueOf(sync.getValue()));
 
@@ -311,13 +285,6 @@ public class UtilisateurController extends HttpServlet {
             String saisieTel = request.getParameter("telTI");
             request.setAttribute("recupTelCompte", request.getParameter("telTI"));
 
-            if (uBddB == null) {
-                uBddB = new UpdateBDDBean();
-            }
-
-            if (cB == null) {
-                cB = new ConnexionBean();
-            }
             //met a jour les infos utilisateur ds la BDD
             uBddB.MajInfosUtilisateur(cB, ds, saisieNom, saisiePrenom, saisieTel, Long.valueOf(sync.getValue()));
         }
@@ -327,18 +294,6 @@ public class UtilisateurController extends HttpServlet {
 //////////////////////////////////////////////////////////////////////////////// 
         if ("modifierAdresse".equals(request.getParameter("section"))) {
             url = "/WEB-INF/jsp/infosAdresse.jsp";
-
-            if (cB == null) {
-                cB = new ConnexionBean();
-            }
-
-            if (riub == null) {
-                riub = new RecupInfosUtilisateurBean();
-            }
-
-            if (uBddB == null) {
-                uBddB = new UpdateBDDBean();
-            }
 
 ////////////////////////// MODIF ADRESSE PAR DEFAUT ////////////////////////////   
             //lorsqu'on clique sur "Choisir cette adresse comme adresse de facturation"  
@@ -355,7 +310,6 @@ public class UtilisateurController extends HttpServlet {
                         uBddB.defautAdresse(ds, cB, 2, a.getId());
                     }
                 }
-                // myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
                 session.setAttribute("listeAdresses", myAL);
 
                 //url = "/WEB-INF/jsp/bienvenue.jsp";
@@ -380,9 +334,7 @@ public class UtilisateurController extends HttpServlet {
         }
         //lorsqu'on clique sur le bouton modifier l'adresse
         if (request.getParameter("modifierAdresseBT") != null && sync.getValue() != null) {
-            if (uBddB == null) {
-                uBddB = new UpdateBDDBean();
-            }
+
             //recupere les infos depuis les champs de texte et le combobox pays et les envoie ds le bean UpdateBDD pour mettre a jour la BDD
             uBddB.MajInfosAdresse(cB, ds,
                     request.getParameter("numAdresseTI"),
@@ -391,7 +343,6 @@ public class UtilisateurController extends HttpServlet {
                     request.getParameter("villeTI"),
                     request.getParameter("infosCompTI"),
                     Long.valueOf(request.getParameter("paysSL")),
-                    //(Long) session.getAttribute("recupIdAdresse"));
                     (Long) (session.getAttribute("recupIdAdresse")));
         }
 
@@ -410,8 +361,8 @@ public class UtilisateurController extends HttpServlet {
         }
 //------------------------------------------------------------------------------
         //recupere la liste des pays et l'enregistre ds la requete liste
-        blp.getListFromBdd(ds, cB);
-        request.setAttribute("liste", blp.returnMapValues());
+        lpB.getListFromBdd(ds, cB);
+        request.setAttribute("liste", lpB.returnMapValues());
 
         //lorsqu'on appuie sur le bouton valider adresse du formulaire d'adresse
         if (request.getParameter("validerAdresseBT") != null && sync.getValue() != null) {
@@ -442,7 +393,7 @@ public class UtilisateurController extends HttpServlet {
             String saisiePaysAdresse = request.getParameter("paysSL");
             request.setAttribute("recupPaysAdresse", request.getParameter("paysSL"));
 
-            messageErreur = bcscc.checkInfoAdresse();//Controles a implementer plus tard
+            messageErreur = csccB.checkInfoAdresse();//Controles a implementer plus tard
 
             if (messageErreur != null) {
                 request.setAttribute("erreurSaisie", messageErreur[0]);
@@ -452,20 +403,9 @@ public class UtilisateurController extends HttpServlet {
                 //enregistrement des infos ds la bdd
             }
 
-            //prepare la connexion au pool de connexion
-            if (cB == null) {
-                cB = new ConnexionBean();
-                session.setAttribute("sessionConnexion", cB);
-            }
-
             //prepare l'enregistrement des infos ds la bdd
             uBddB = (UpdateBDDBean) session.getAttribute("BeanUpdateBDD");
-            if (uBddB == null) {
-                uBddB = new UpdateBDDBean();
-
-                if (riub == null) {
-                    riub = new RecupInfosUtilisateurBean();
-                }
+            if (uBddB != null) {
                 int monStatutAdresse = 0;
                 //si l'arraylist contenant les adresses est vide (si c'est la 1ere adresse saisie de l'utilisateur) alors valeur de idStatutAdresse = 1
                 myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
@@ -503,9 +443,6 @@ public class UtilisateurController extends HttpServlet {
         if ("gererAdresses".equals(request.getParameter("section"))) {
             url = "/WEB-INF/jsp/listeAdresses.jsp";
 
-            if (riub == null) {
-                riub = new RecupInfosUtilisateurBean();
-            }
             //recupere toutes les adresses de l'utilisateur
             myAL = riub.recupListeAdresses(ds, cB, Long.valueOf(sync.getValue()));
 

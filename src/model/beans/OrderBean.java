@@ -19,12 +19,22 @@ import model.classes.PanierTotal;
 public class OrderBean implements Serializable {
 
     ArrayList commandes;
+    private String statCommande;
 
     public OrderBean() {
 
         this.commandes = new ArrayList();
 
     }
+
+    public String getStatCommande() {
+        return statCommande;
+    }
+
+    public void setStatCommande(String statCommande) {
+        this.statCommande = statCommande;
+    }
+    
 
 //    public void createPanierTotal(ConnexionBean bc, int qtyTotal, float prixTotal, String statCommande) {
 //        

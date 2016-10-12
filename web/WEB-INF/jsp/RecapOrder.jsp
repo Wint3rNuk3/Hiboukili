@@ -77,20 +77,22 @@
                                             <td class="col-md-9"><em>${e.isbn}</em></h4></td>
                                             <td class="col-md-1 text-center">${e.prixHt}</td>
                                             <td class="col-md-1 text-center">${e.cartQty}</td>
+                                            <td>   </td>
                                         </tr>
 
 
                                         <tr>
                                             <td>   </td>
                                             <td>   </td>
-                                            <td class="text-right">
+                                            <td class="text-left">
 
                                                 <p>
-                                                    <strong>TVA: </strong>
+                                                    <strong>${ e.getTVA().getLibelle() }: </strong>
                                                 </p></td>
                                             <td class="text-center">
                                                 <p>
-                                                    <strong>5.5%</strong>
+                                                    <br>
+                                                    <strong>${ e.getTVA().getValeur() } </strong>
                                                 </p>
                                             </td>
                                         </tr>
@@ -98,7 +100,7 @@
                                             <td>   </td>
                                             <td>   </td>
                                             <td class="text-right"><h4><strong>Total: </strong></h4></td>
-                                            <td class="text-center text-danger"><h4><strong>£31.53</strong></h4></td>
+                                            <td class="text-center text-danger"><h4><strong>${ e.getPrix() * e.getCartQty() }</strong></h4></td>
                                         </tr>
                                     </c:forEach>
                                 </c:otherwise>
@@ -108,7 +110,7 @@
 
 
                         <p align="center">
-                            <a href="shoppingcart.jsp">Modifier</a>   
+                            <a href="shoppingcart">Modifier</a>   
                             <%--<input type='submit' value='Modifier' name='modif'/>--%>
 
                             <a href="OrderController?section=finalOrder">Valider</a>

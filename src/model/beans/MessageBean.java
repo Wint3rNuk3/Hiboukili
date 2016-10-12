@@ -8,9 +8,11 @@ import java.util.HashMap;
 public class MessageBean implements Serializable {
 
     private HashMap<String, ArrayList<String>> messages = null;
+    private HashMap<String, ArrayList<String>> recup = null;
+    
 
     public MessageBean() {
-
+        this.messages = new HashMap<>();
     }
 
     public void info(String msg) {
@@ -38,9 +40,8 @@ public class MessageBean implements Serializable {
     }
 
     public HashMap<String, ArrayList<String>> getMessages() {
-        return messages;
+        recup = messages;
+        messages.clear();
+        return recup;
     }
-    
-    
-    
 }

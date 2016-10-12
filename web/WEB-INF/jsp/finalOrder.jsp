@@ -11,7 +11,7 @@
         <link rel="stylesheet" href="css/main.css">
     </head>
     <body>
-        <form action="OrderController" method="Post">
+        <form action="order" method="Post">
             <h1 align="center"> Commande Générale</h1><br/>
             <br/>
             <div class="container">
@@ -48,7 +48,7 @@
                             </thead>
 
                             <c:choose> 
-                                <c:when test="${empty orderTotal}">
+                                <c:when test="${empty cart}">
                                     <div class="row">
                                         <div class="col-xs-2">
                                         </div>
@@ -69,15 +69,15 @@
                                     <hr>
                                 </c:when>
                                 <c:otherwise>
-                                    <c:forEach items="${orderTotal}" var="p">
+                                    <c:forEach items="${cart.list()}" var="c">
                                         <tr>
-                                            <td class="col-md-9"><em>${p.qtyTotal}</em></h4></td>
-                                            <td class="col-md-1 text-center">${p.prixTotal}</td>
-                                            <td class="col-md-1 text-center">${p.statutCommande}</td>
+                                            <td class="col-md-9"><em>${c.cartQty}</em></h4></td>
+                                            <td class="col-md-1 text-center">${c.getPrix() * c.getCartQty()}</td>
+                                            <td class="col-md-1 text-center">En cours de validation</td>
                                         </tr>
 
 
-                                        <tr>
+                                        <%--<tr>
                                             <td>   </td>
                                             <td>   </td>
                                             <td class="text-right">
@@ -96,7 +96,7 @@
                                             <td>   </td>
                                             <td class="text-right"><h4><strong>Total: </strong></h4></td>
                                             <td class="text-center text-danger"><h4><strong>£31.53</strong></h4></td>
-                                        </tr>
+                                        </tr>--%>
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
@@ -127,7 +127,7 @@
                         </fieldSet>
                         <br/>
                         <div align="right">
-                            <a href="OrderController?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
+                            <a href="order?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
 
                         </div>
                         <br/>
@@ -151,7 +151,7 @@
                         </fieldset>
                         <br/>
                         <div align="right">
-                            <a href="OrderController?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
+                            <a href="order?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
                         </div>
                         <br/>
                         <br/>
@@ -162,7 +162,7 @@
 
                         <br/>
                         <br/>
-                        <a href="OrderController?section=finalOrder&retour">Retour</a>
+                        <a href="order?section=finalOrder&retour">Retour</a>
 
                         <br/>
                         <br/>

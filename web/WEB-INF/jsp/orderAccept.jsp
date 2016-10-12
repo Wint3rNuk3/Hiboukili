@@ -12,7 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <form action="OrderController" method="Post">
+        <form action="order" method="Post">
             <h1 align="center"> COMMANDE ACCEPTEE</h1>
             <p>
             Voici les informations relatives à votre commande!<br/>

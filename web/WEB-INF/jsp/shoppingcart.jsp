@@ -127,9 +127,11 @@
                                 <h4 class="text-right">Total <strong>${prixTotal} €</strong></h4>
                             </div>
                             <div class="col-xs-3">
-                                <button type="button" class="btn btn-success btn-block" style="margin-bottom:4px; white-space: normal;">
+                                <c:url value="order" var="url">
+                                </c:url>
+                                <a type="button" class="btn btn-success btn-block" href="${ url }" style="margin-bottom:4px; white-space: normal;">
                                     Valider
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

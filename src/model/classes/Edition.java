@@ -336,6 +336,12 @@ public class Edition implements Serializable {
 
         this.taxes.add(taxe);
     }
+    
+    public Taxe getTVA() {
+        // pour le moment parcequ'on a pas encore de cas où il y aurait plusieurs taxes
+        // et que je ne sais pas comment faire.
+     return this.taxes.get(0);
+    }
 
     public List<Promotion> getPromotions() {
         return promotions;

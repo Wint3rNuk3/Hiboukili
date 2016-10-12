@@ -17,50 +17,62 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:template title="Hiboukilit">
-
-    <jsp:attribute name="styles">
-    </jsp:attribute>
-
-    <jsp:attribute name="scripts">
-    </jsp:attribute>
-
-    
+<t:template title="Données personnelles">
     
     <jsp:body>
-        <h1>Données Personnelles !</h1>
-        <form action = "UtilisateurController" method ="GET" />
+        <div class="col-md-6 col-md-offset-3">
+            
+            <form action="UtilisateurController" method="GET" class="form-horizontal">
 
-        Nom<br/>
-        <input type ="text" name ="nomTI" value ="${recupNomCompte}" required ></br></br>
-        Prenom<br/>
-        <input type ="text" name ="prenomTI" value ="${recupPrenomCompte}" required ></br></br>
-        Date de naissance<br/>
-        <input type ="text" name ="dobTI" value ="${recupDobCompte}" required ></br></br>
+                <div class="form-group">
+                    <label for="name">Nom</label>
+                    <input id="name" class="form-control" type="text" name="nomTI" value="${recupNomCompte}" required />
+                </div>
 
-        Numéro de téléphone<br/>
-        <input type ="text" name ="telTI" value ="${recupTelCompte}" ></br></br>
+                <div class="form-group">
+                    <label for="firstname">Prenom</label>
+                    <input id="firstname" class="form-control" type="text" name="prenomTI" value="${recupPrenomCompte}" required />
+                </div>
 
-        <%-- composants pour la creation de compte--%>
-        <c:if test="${recupNomCompte==null}">
+                <div class="form-group">
+                    <label for="birth">Date de naissance</label>
+                    <input id="birth" class="form-control" type="date" name="dobTI" value="${recupDobCompte}" required />
+                </div>
 
-            Adresse mail<br/>
-            <input type ="text" name ="mailTI" value ="${recupMailCompte}" required ></br></br>        
-            Mot de passe<br/>
-            <input type ="password" name ="mdpTI" required ></br></br>
-            Confirmation</br> du mot de passe<br/>
-            <input type ="password" name ="confMdpTI" required ></br></br>
-            <input type ="submit" name = "creerCompteBT" value ="Créez votre compte"></br></br>
+                <div class="form-group">
+                    <label for="phone">Numéro de téléphone</label>
+                    <input id="phone" class="form-control" type="tel" name ="telTI" value ="${recupTelCompte}" />
+                </div>
 
-        </c:if>
+                <%-- composants pour la creation de compte--%>
+                <c:if test="${recupNomCompte==null}">
+                    
+                    <div class="form-group">
+                        <label for="mail">Adresse mail</label>
+                        <input id="mail" class="form-control" type="email" name ="mailTI" value ="${recupMailCompte}" required />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pswd">Mot de passe</label>
+                        <input id="pswd" class="form-control" type ="password" name ="mdpTI" required />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="pswd-confirm">Confirmation du mot de passe</label>
+                        <input id="pswd-confirm" class="form-control" type ="password" name ="confMdpTI" required />
+                    </div>
+                    
+                    
+                    <input class="btn btn-success" type="submit" name="creerCompteBT" value="Créez votre compte"></br></br>
 
-        <%-- composants pour la modification de compte--%>
-        <c:if test="${recupNomCompte!=null}">
-            <input type ="submit" name = "modifCompteBT" value ="Modifier"></br></br>
-        </c:if>
-        <font color="red">${erreurSaisie}</font>
-    </form>
-<%--    </body>
- </html> --%>
+                </c:if>
+
+                <%-- composants pour la modification de compte--%>
+                <c:if test="${recupNomCompte!=null}">
+                    <input class="btn btn-info" type="submit" name="modifCompteBT" value="Modifier">
+                </c:if>
+                <font color="red">${erreurSaisie}</font>
+            </form>
+        </div>
     </jsp:body>
 </t:template>

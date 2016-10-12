@@ -1,9 +1,7 @@
 package controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,24 +10,23 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
-import model.beans.ShoppingCartBean;
 import model.classes.Edition;
 
 @WebServlet(name = "IndexController", urlPatterns = {""})
 public class IndexController extends HttpServlet {
     
-    private static final String INDEX_ROUTE = "/WEB-INF/jsp/index.jsp";
+    private final String INDEX_ROUTE        = "/WEB-INF/jsp/index.jsp";
     
-    private static final String PAGE_PARAMETER = "page";
-    private static final String PER_PAGE_PARAMETER = "perPage";
+    private final String PAGE_PARAMETER     = "page";
+    private final String PER_PAGE_PARAMETER = "perPage";
     
-    private static final String PAGE_ATTRIBUTE = "page";
-    private static final String NB_PAGE_ATTRIBUTE = "nbPage";
-    private static final String PER_PAGE_ATTRIBUTE = "perPage";
-    private static final String EDITIONS_ATTRIBUTE = "editions";
+    private final String PAGE_ATTRIBUTE     = "page";
+    private final String NB_PAGE_ATTRIBUTE  = "nbPage";
+    private final String PER_PAGE_ATTRIBUTE = "perPage";
+    private final String EDITIONS_ATTRIBUTE = "editions";
     
-    private static final int DEFAULT_PAGE = 1;
-    private static final int DEFAULT_PERPAGE = 6;
+    private final int DEFAULT_PAGE = 1;
+    private final int DEFAULT_PERPAGE = 6;
     
     private int perPage;
     private int page;

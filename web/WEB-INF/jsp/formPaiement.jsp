@@ -5,6 +5,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
 
+        <link rel="stylesheet" href="css/cssFormPaiement.css" type="text/css">
         <link rel="stylesheet" href="css/bootstrap.min.css">
         <link rel="stylesheet" href="css/bootstrap-theme.min.css">
         <link rel="stylesheet" href="css/main.css">
@@ -22,7 +23,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
                                     <h1>
-                                    <strong>Hibookili</strong>
+                                        <strong>Hibookili</strong>
                                     </h1>
                                     <br> 
                                 </address>
@@ -52,31 +53,43 @@
                             choisissez le type de votre carte :
                             <br/>
                             <br/>
-                            <img src="images/visa.png" alt="picto carte visa"/>
-                            <input type="radio" name="carte"/>
-                            <br/>
-                            <br/>
-                            <img src="images/amEx.png" alt="picto carte american express"/>
-                            <input type="radio" name="carte"/>
-                            <br/>
-                            <br/>
-                            <img src="images/masterCard.png" alt="picto carte masterCard"/>
-                            <input type="radio" name="carte"/>
-                            <br/>
-                            <br/>
-                            <img src="images/carteBleu.png" alt="picto carte bleu"/>
-                            <input type="radio" name="carte"/>
-                            <br/>
-                            <br/>
+                        <section class="panel-image" id="pan-img">
+                            <div class="conteneurImg">
+                                <div class="imgCarte">
+                                    <img src="images/visa.png" alt="picto carte visa"/>
+                                    <input type="radio" name="carte"/>
+                                </div>
+                                <div class="imgCarte">
+                                    <img src="images/amEx.png" alt="picto carte american express"/>
+                                    <input type="radio" name="carte"/>
+                                </div>
+                                <div class="imgCarte">
+                                    <img src="images/masterCard.png" alt="picto carte masterCard"/>
+                                    <input type="radio" name="carte"/>
+                                </div>
+                                <div class="imgCarte">
+                                    <img src="images/carteBleu.png" alt="picto carte bleu"/>
+                                    <input type="radio" name="carte"/>
+                                </div>
+                            </div>
+                        </section>
 
 
                         </p>
 
                         <br/>
                         <br/>
-                        <input type="submit" name="annuler" value="Annuler"/><br/>
-                        <br/>
-                        <input type="submit" name="valider" value="Payer"/><br/>
+                        <div class="conteneurBouton">
+                            <div align="right" class="boutonAnnuler">
+                                <input type="submit" name="annuler" value="Annuler"/><br/>
+                            </div>
+                            <br/>
+                            <div align ="left" class="boutonValider">
+                                <input type="submit" name="valider" value="Payer"/><br/>
+                            </div>
+
+
+                        </div>
 
 
 

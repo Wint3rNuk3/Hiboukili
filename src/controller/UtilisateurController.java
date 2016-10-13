@@ -143,7 +143,7 @@ public class UtilisateurController extends HttpServlet {
                         request.getParameter("telTI"),
                         request.getParameter("mailTI"),
                         request.getParameter("mdpTI"));
-                url = "/WEB-INF/jsp/infosAdresse.jsp";
+                url = "/WEB-INF/jsp/InfosAdresse.jsp";
 
                 session.setAttribute("recupInt1", i1);//enregistre l'id utilisateur ds une requete
 
@@ -293,7 +293,7 @@ public class UtilisateurController extends HttpServlet {
 //                        MODIFICATION COMPTE - SECTION ADRRESSE
 //////////////////////////////////////////////////////////////////////////////// 
         if ("modifierAdresse".equals(request.getParameter("section"))) {
-            url = "/WEB-INF/jsp/infosAdresse.jsp";
+            url = "/WEB-INF/jsp/InfosAdresse.jsp";
 
 ////////////////////////// MODIF ADRESSE PAR DEFAUT ////////////////////////////   
             //lorsqu'on clique sur "Choisir cette adresse comme adresse de facturation"  
@@ -357,7 +357,7 @@ public class UtilisateurController extends HttpServlet {
             session.setAttribute("recupVilleAdresse", null);
             session.setAttribute("recupInfosCompAdresse", null);
 
-            url = "/WEB-INF/jsp/infosAdresse.jsp";//renvoie a la page de bienvenue    
+            url = "/WEB-INF/jsp/InfosAdresse.jsp";//renvoie a la page de bienvenue    
         }
 //------------------------------------------------------------------------------
         //recupere la liste des pays et l'enregistre ds la requete liste

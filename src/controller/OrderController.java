@@ -22,6 +22,7 @@ import model.beans.AdressesBean;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
 import model.beans.OrderBean;
+import model.beans.PaiementBean;
 import model.beans.ShoppingCartBean;
 import model.classes.Adresse;
 import model.classes.Edition;
@@ -55,6 +56,14 @@ public class OrderController extends HttpServlet {
             bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
+        int i1 = 3;//id Utilisateur
+        Cookie sync = getMyCookies(request.getCookies(), "sync");
+        if (sync == null) {
+            sync = new Cookie("sync", Integer.toString(i1));
+            sync.setMaxAge(24 * 60 * 60);
+            response.addCookie(sync);
+        }
+        AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
         OrderBean order = (OrderBean) session.getAttribute("order");
         EditionBean eb = new EditionBean();
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
@@ -83,15 +92,7 @@ public class OrderController extends HttpServlet {
 //                         Finalisation de la commande                        //
 ////////////////////////////////////////////////////////////////////////////////
         if ("finalOrder".equals(request.getParameter("section"))) {
-            int i1 = 2;//id Utilisateur
-            Cookie sync = getMyCookies(request.getCookies(), "sync");
-            if (sync == null) {
-                sync = new Cookie("sync", Integer.toString(i1));
-                sync.setMaxAge(24 * 60 * 60);
-                response.addCookie(sync);
-            }
 
-            //OrderBean order1 = new OrderBean();
             //affichage commande general
             if (cart != null) {
 
@@ -100,7 +101,6 @@ public class OrderController extends HttpServlet {
             }
 
             //adresse
-            AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
             if (adresses == null) {
                 adresses = new AdressesBean();
                 session.setAttribute("adresse", adresses);
@@ -110,7 +110,7 @@ public class OrderController extends HttpServlet {
             request.setAttribute("adresse", adresses.list());
 
             adresses.recupererAdresse(bc);
-            System.out.println("Adresse :" + adresses.list().size());
+            //System.out.println("Adresse :" + adresses.list().size());
 
             if (request.getParameter("ajout") != null) {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";
@@ -127,7 +127,7 @@ public class OrderController extends HttpServlet {
                 order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")),
                         Long.valueOf(request.getParameter("adresseLivraison")), Long.valueOf(sync.getValue()));
 
-                url = "/WEB-INF/jsp/formPaiement.jsp";
+                url = "/WEB-INF/jsp/FormPaiement.jsp";
 
             } else if (request.getParameter("retour") != null) {
 
@@ -137,47 +137,75 @@ public class OrderController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
 //                     PAIEMENT /VALIDATION DE COMMANDE                       //
 ////////////////////////////////////////////////////////////////////////////////
-        
-        EditionBean ed = new EditionBean();
-        
-        
+        PaiementBean pCheck = new PaiementBean();
         if ("paiement".equals(request.getParameter("section"))) {
             if (request.getParameter("paye") != null) {
-            // check paiement
-                for(Edition e : cart.list()){
-                    ed.setStockInDB(bc, e);  
+//                if(pCheck.check(request.getParameter("cb"), request.getParameter("crypto"), request.getParameter("date"))){
+//                   
+//                }
+                EditionBean ed = new EditionBean();
+
+                if ("paiement".equals(request.getParameter("section"))) {
+                    if (request.getParameter("paye") != null) {
+                        // check paiement
+                        for (Edition e : cart.list()) {
+                            ed.setStockInDB(bc, e);
+                        }
+                        url = "/WEB-INF/jsp/orderAccept.jsp";
+
+                    }
+
+                    if (order == null) {
+                        order = new OrderBean();
+                        session.setAttribute("order", order);
+                    }
+                    request.setAttribute("orderVide", order.isEmpty());
+                    request.setAttribute("order", order.list());
+
+                    order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
+
+                    url = "/WEB-INF/jsp/orderAccept.jsp";
+
                 }
-                url = "/WEB-INF/jsp/orderAccept.jsp";
-                
+
+                if (request.getParameter("annuler") != null) {
+
+                    url = "/WEB-INF/jsp/finalOrder.jsp";
+                }
+
             }
-
-            if (request.getParameter("annuler") != null) {
-
-                url = "/WEB-INF/jsp/finalOrder.jsp";
-            }
-
-        }
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
 ////////////////////////////////////////////////////////////////////////////////
-        //recuperation du numero de commande depuis SQL
-        //lien hypertexte vers : 
-        //              - historique commande ou moncompte
-        //              - Retour Acceuil
-        
-        if("validation".equals(request.getParameter("section"))){
-            if(request.getParameter("monCompte")!= null){
-                url = "/WEB-INF/jsp/bienvenue.jsp";
+            //recuperation du numero de commande depuis SQL
+            //lien hypertexte vers : 
+            //              - historique commande ou moncompte
+            //              - Retour Acceuil
+            //recuperation du numero de commande depuis SQL
+            //lien hypertexte vers : 
+            //              - historique commande ou moncompte
+            //              - Retour Acceuil
+            if (order == null) {
+                order = new OrderBean();
+                session.setAttribute("order", order);
             }
-            
-            if(request.getParameter("retourA") != null){
-                
-                url = "/WEB-INF/jsp/index.jsp";
+            request.setAttribute("orderVide", order.isEmpty());
+            request.setAttribute("order", order.list());
+
+            order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
+
+            if ("validation".equals(request.getParameter("section"))) {
+                if (request.getParameter("monCompte") != null) {
+                    url = "/WEB-INF/jsp/bienvenue.jsp";
+                }
+
+                if (request.getParameter("retourA") != null) {
+
+                    url = "/WEB-INF/jsp/index.jsp";
+                }
+
             }
-            
-            
-            
         }
         request.getRequestDispatcher(url).include(request, response);
 

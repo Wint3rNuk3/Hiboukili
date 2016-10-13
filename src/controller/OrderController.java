@@ -21,6 +21,7 @@ import javax.servlet.http.HttpSession;
 import model.beans.AdressesBean;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
+import model.beans.MessageBean;
 import model.beans.OrderBean;
 import model.beans.PaiementBean;
 import model.beans.ShoppingCartBean;
@@ -33,7 +34,6 @@ import model.classes.Utilisateur;
 public class OrderController extends HttpServlet {
 
     // methode de recuperation des cookies 
-
     private Cookie getMyCookies(Cookie[] tab, String name) {
         if (tab != null) {
             for (Cookie c : tab) {
@@ -51,7 +51,7 @@ public class OrderController extends HttpServlet {
 
         //creation session
         HttpSession session = request.getSession();
-        
+
         // url de la page par defaut 
         String url = "/WEB-INF/jsp/RecapOrder.jsp";
 
@@ -131,6 +131,13 @@ public class OrderController extends HttpServlet {
                         Long.valueOf(request.getParameter("adresseFacturation")),
                         Long.valueOf(request.getParameter("adresseLivraison")),
                         Long.valueOf(sync.getValue()));
+                MessageBean mb = (MessageBean) session.getAttribute("messages");
+                if (mb == null) {
+                    mb = new MessageBean();
+                    session.setAttribute("messages", mb);
+                }
+
+                mb.info("Le hibou prend note de votre commande!");
 
                 url = "/WEB-INF/jsp/FormPaiement.jsp";
 

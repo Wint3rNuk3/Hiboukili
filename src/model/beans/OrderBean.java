@@ -54,6 +54,7 @@ public class OrderBean implements Serializable {
             stmt.close();
 
         } catch (SQLException ex) {
+            
 
             System.err.println("Erreur dans Commande" + ex.getMessage());
         }

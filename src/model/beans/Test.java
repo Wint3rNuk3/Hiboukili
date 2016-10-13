@@ -28,7 +28,7 @@ public class Test {
         }
 
         AdressesBean adresses = new AdressesBean();
-        adresses.recupererAdresse(bc);
+        
 
     }
 }

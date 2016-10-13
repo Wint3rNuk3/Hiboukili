@@ -118,16 +118,26 @@ public class AdressesBean {
         return null;
     }
 
-    public void recupererAdresse(ConnexionBean bc) {
+    public void recupererAdresse(ConnexionBean bc, Long idUtilisateur) {
         int i = 0;
 
         DataSource ds = bc.MaConnexion();
 
         try (Connection c = ds.getConnection();) {
 
-            String query = "SELECT idAdresse, numero, voie, codePostal, ville, complement FROM ADRESSE";
-            Statement stmt = c.createStatement();
+//            String query = "SELECT idAdresse, numero, voie, codePostal, ville, complement FROM ADRESSE";
+//            Statement stmt = c.createStatement();
             
+            String query ="SELECT a.idAdresse, u.idUtilisateur, a.numero, a.voie,"
+                    + " a.codePostal, a.ville, a.complement"
+                    + " FROM Adresse AS a"
+                    + " INNER JOIN DernieresLivraisons AS dl"
+                    + " ON dl.idAdresse = a.idAdresse"
+                    + " INNER JOIN Utilisateur AS u"
+                    + " ON u.idUtilisateur = dl.idUtilisateur"
+                    + " WHERE idUtilisateur = ?";
+            PreparedStatement stmt = c.prepareStatement(query);
+            stmt.setLong(1, idUtilisateur);
 
             ResultSet rs = stmt.executeQuery(query);
             

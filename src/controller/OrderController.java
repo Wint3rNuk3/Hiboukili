@@ -113,7 +113,7 @@ public class OrderController extends HttpServlet {
             request.setAttribute("adresseVide", adresses.isEmpty());
             request.setAttribute("adresse", adresses.list());
 
-            adresses.recupererAdresse(bc);
+            adresses.recupererAdresse(bc, Long.valueOf(sync.getValue()));
             
 
             if (request.getParameter("ajout") != null) {

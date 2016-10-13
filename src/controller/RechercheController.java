@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ConnexionBean;
+import model.beans.EditionBean;
+import model.classes.Edition;
 
 @WebServlet(name = "RechercheController", urlPatterns = {"/recherche"})
 public class RechercheController extends HttpServlet {
@@ -31,8 +34,15 @@ public class RechercheController extends HttpServlet {
             session.setAttribute("sessionConnexion", bc);
         }
         
+        String q = request.getParameter("q");
         
+        List<Edition> recherche = new EditionBean().recherche(bc, q);
         
+        request.setAttribute("editions", recherche);
+        
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/jsp/edition/recherche.jsp")
+                .forward(request, response);
         
     }
 

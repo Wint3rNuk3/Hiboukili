@@ -35,6 +35,35 @@ public class EditionBean {
             + " FROM Edition as e"
             + " JOIN MiseEnRubrique AS mer ON mer.idOuvrage = e.idOuvrage"
             + " WHERE mer.idRubrique = ?";
+    
+    // on recherche par 
+    //  - le titre ( tout ou partie )
+    //  - mot clef
+    //  - la rubrique
+    //  - le theme
+    //  - le resume ? 
+    //  - l'auteur ( nom, prenom )
+    private static final String SQL_RECHERCHE = "SELECT DISTINCT"
+            + " e.idEdition, e.isbn, e.idOuvrage, e.idEditeur, e.idLangue,"
+            + " e.idStatutEdition, e.datePubli, e.prixHt,"
+            + " e.couverture, e.titre, e.stock"
+            + " FROM Edition AS e"
+            
+            + " JOIN Ouvrage        AS ouv  ON ouv.idOuvrage  = e.idOuvrage"
+            + " JOIN Auteur         AS aut  ON ouv.idOuvrage  = e.idOuvrage"
+            
+            + " JOIN MiseEnRubrique AS mer  ON mer.idOuvrage  = e.idOuvrage"
+            + " JOIN Rubrique       AS rub  ON mer.idRubrique = rub.idRubrique"
+            
+            + " JOIN Thematique     AS thq  ON thq.idOuvrage  = e.idOuvrage"
+            + " JOIN Theme          AS the  ON thq.idTheme    = the.idTheme"
+            
+            + " JOIN Referencement  AS ref  ON ref.idOuvrage  = e.idOuvrage"
+            + " JOIN Tag            AS tag  ON ref.idTag      = tag.idTag"
+            
+            + " WHERE ouv.titre like ? OR e.titre like ?"
+//            + " OR ";
+    ;
 
     public List<Edition> findAll(ConnexionBean bc) {
         List<Edition> list = new ArrayList();
@@ -261,6 +290,29 @@ public class EditionBean {
             Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public List<Edition> recherche(ConnexionBean bc, String q) {
+        List<Edition> list = new ArrayList();
+
+        DataSource ds = bc.MaConnexion();
+        try (Connection c = ds.getConnection()) {
+
+            PreparedStatement ps = c.prepareStatement(SQL_RECHERCHE);
+
+            ps.setString(1, "%" + q + "%");
+            ps.setString(2, "%" + q + "%");
+
+            ResultSet rs = ps.executeQuery();
+
+            list = list(rs, bc);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(EditionBean.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return list;
+    }
+    
 
 //    public List<Edition> paginate(BeanConnexion bc, int page, int perPage){
 //        List<Edition> list = findAll(bc);

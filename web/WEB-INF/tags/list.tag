@@ -16,59 +16,71 @@
 <c:set var="listClass" value="${(empty listClass) ? 'list-group' : listClass}"/>
 <c:set var="itemClass" value="${(empty listClass) ? 'list-group-item' : itemClass}"/>
 
-<%-- On parcourt la liste --%>
-<ul class="${ listClass }">
+<c:choose>
     
-    <c:forEach varStatus="status" var="item" items="${ list }" end="${ perPage }">
+    <c:when test="${ empty list}" >
+        <div>
+            Pas de resultats
+        </div>
+    </c:when>
 
-        <%@ variable alias="current" name-from-attribute="var" scope="NESTED" %>
-        <c:set var="current" value="${ item }" />
-        
-        <li class="${ itemClass } clearfix">
-            
-            <jsp:doBody />
+    <c:otherwise>
+        <%-- On parcourt la liste --%>
+        <ul class="${ listClass }">
 
-        </li>
-    </c:forEach>
-</ul>
+            <c:forEach varStatus="status" var="item" items="${ list }" end="${ perPage }">
 
-<c:if test="${ nbPage > 1 }">
-<%-- Pagination --%>
-<div class="text-center">
-    <nav aria-label="Page navigation">
-        <ul class="pagination">
-            <li class="<c:if test="${ page < 2 }">disabled</c:if>">
-                <c:url value="${ paginationUrl }" var="url">
-                    <c:param name="page" value="${ 1 }" />
-                    <c:param name="perPage" value="${ perPage }" />
-                </c:url>
-                <a href="${ url }" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
+                <%@ variable alias="current" name-from-attribute="var" scope="NESTED" %>
+                <c:set var="current" value="${ item }" />
 
-            <c:forEach varStatus="status" begin="1" end="${ nbPage }">
+                <li class="${ itemClass } clearfix">
 
-                <c:url value="${ paginationUrl }" var="url">
-                    <c:param name="page" value="${ status.index }" />
-                    <c:param name="perPage" value="${ perPage }" />
-                </c:url>
+                    <jsp:doBody />
 
-                <li class="<c:if test="${ status.index == page }"> active </c:if>">
-                    <a href="<c:out value="${ url }"/>"><c:out value="${ status.index }"/></a>
                 </li>
             </c:forEach>
-
-            <li class="<c:if test="${ page >= nbPage}">disabled</c:if>">
-                <c:url value="${ paginationUrl }" var="url">
-                    <c:param name="page" value="${ nbPage }" />
-                    <c:param name="perPage" value="${ perPage }" />
-                </c:url>
-                <a href="${ url }" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
         </ul>
-    </nav>
-</div><%-- Fin pagination --%>
-</c:if>
+        
+        <c:if test="${ nbPage > 1 }">
+        <%-- Pagination --%>
+        <div class="text-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="<c:if test="${ page < 2 }">disabled</c:if>">
+                        <c:url value="${ paginationUrl }" var="url">
+                            <c:param name="page" value="${ 1 }" />
+                            <c:param name="perPage" value="${ perPage }" />
+                        </c:url>
+                        <a href="${ url }" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <c:forEach varStatus="status" begin="1" end="${ nbPage }">
+
+                        <c:url value="${ paginationUrl }" var="url">
+                            <c:param name="page" value="${ status.index }" />
+                            <c:param name="perPage" value="${ perPage }" />
+                        </c:url>
+
+                        <li class="<c:if test="${ status.index == page }"> active </c:if>">
+                            <a href="<c:out value="${ url }"/>"><c:out value="${ status.index }"/></a>
+                        </li>
+                    </c:forEach>
+
+                    <li class="<c:if test="${ page >= nbPage}">disabled</c:if>">
+                        <c:url value="${ paginationUrl }" var="url">
+                            <c:param name="page" value="${ nbPage }" />
+                            <c:param name="perPage" value="${ perPage }" />
+                        </c:url>
+                        <a href="${ url }" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div><%-- Fin pagination --%>
+        </c:if>
+    </c:otherwise>
+    
+</c:choose>

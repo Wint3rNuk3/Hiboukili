@@ -55,13 +55,14 @@
             </a>
         </div>
         
-        <form class="navbar-form navbar-right">
+        <c:url value="/recherche" var="url"/>
+        <form class="navbar-form navbar-right" action="${url}">
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="recherche" placeholder="Votre recherche">
+                    <input type="text" class="form-control" id="recherche" name="q" placeholder="Votre recherche">
                     <div class="input-group-btn">
-                        <button type="submit" class="btn btn-default" >
+                        <button type="submit" class="btn btn-default">
                             <i class="glyphicon glyphicon-search"> </i>
                         </button>
                     </div>

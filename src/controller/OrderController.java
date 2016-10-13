@@ -113,15 +113,15 @@ public class OrderController extends HttpServlet {
             request.setAttribute("adresseVide", adresses.isEmpty());
             request.setAttribute("adresse", adresses.list());
 
-            adresses.recupererAdresse(bc, Long.valueOf(sync.getValue()));
+            adresses.recupererAdresse(bc);
             
-
+            //ajouter une adresse
             if (request.getParameter("ajout") != null) {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";
             }
 
 
-
+            //sauvegarder la commande dans la base de donnée 
             if (request.getParameter("final") != null && sync.getValue() != null) {
                 if (order == null) {
                     order = new OrderBean();
@@ -146,6 +146,7 @@ public class OrderController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
         PaiementBean pCheck = new PaiementBean();
         EditionBean ed = new EditionBean();
+        //check avant de payer ( ne fonctionne pas ...)
         if ("paiement".equals(request.getParameter("section"))) {
             if (request.getParameter("paye") != null) {
 
@@ -210,14 +211,14 @@ public class OrderController extends HttpServlet {
         //lien hypertexte vers : 
         //              - historique commande ou moncompte
         //              - Retour Acceuil
-//        if (order == null) {
-//            order = new OrderBean();
-//            session.setAttribute("order", order);
-//        }
-//        request.setAttribute("orderVide", order.isEmpty());
-//        request.setAttribute("order", order.list());
-//
-//        order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
+        if (order == null) {
+            order = new OrderBean();
+            session.setAttribute("order", order);
+        }
+        request.setAttribute("orderVide", order.isEmpty());
+        request.setAttribute("order", order.list());
+
+        order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
 
         if ("validation".equals(request.getParameter("section"))) {
             if (request.getParameter("monCompte") != null) {

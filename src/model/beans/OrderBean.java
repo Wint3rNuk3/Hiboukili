@@ -133,17 +133,16 @@ public class OrderBean implements Serializable {
 
     }
 
-    public void recupererNumerosCommande(ConnexionBean bc,  Long idAdresseFacturation, Long idAdresseLivraison, Long idUtilisateur) {
+    public void recupererNumerosCommande(ConnexionBean bc, Long idUtilisateur) {
 
         DataSource ds = bc.MaConnexion();
 
         try (Connection c = ds.getConnection();) {
 
-            String query = "SELECT TOP 1 numero FROM Commande WHERE idUtilisateur = ? AND idAdresseLivraison = ? AND idAdresseFacturation = ? ";
+            String query = "SELECT TOP 1 numero FROM Commande WHERE idUtilisateur = ?";
             PreparedStatement stmt = c.prepareStatement(query);
             stmt.setLong(1, idUtilisateur);
-            stmt.setLong(2, idAdresseLivraison);
-            stmt.setLong(3, idAdresseFacturation);
+            
 
             ResultSet res = stmt.executeQuery();
 

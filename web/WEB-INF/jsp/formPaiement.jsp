@@ -2,13 +2,11 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:template title="Hiboukilit">
+<t:template title="Paiement">
 
     <jsp:attribute name="styles">
         <link rel="stylesheet" href="css/cssFormPaiement.css" type="text/css">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="css/main.css">
+        
     </jsp:attribute>
 
 
@@ -16,14 +14,7 @@
 
 
     <jsp:body>
-        <html>
-            <head>
-                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-                <title>Paiement</title>
-
-
-            </head>
-            <body>
+       
                 <form action="order" method="Post">
 
                     <div class="container">
@@ -42,7 +33,7 @@
                                     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
                                         <p>
                                         <h5>
-                                            <em>Date: 12 Octobre 2016</em>
+                                            <em>Date: 13 Octobre 2016</em>
                                         </h5>
                                         </p>
 
@@ -116,7 +107,7 @@
                     </div>
 
                 </form>
-            </body>
+            
         </html>
     </jsp:body>
 </t:template>

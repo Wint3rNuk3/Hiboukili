@@ -138,22 +138,37 @@ public class OrderController extends HttpServlet {
 //                     PAIEMENT /VALIDATION DE COMMANDE                       //
 ////////////////////////////////////////////////////////////////////////////////
         PaiementBean pCheck = new PaiementBean();
+        EditionBean ed = new EditionBean();
         if ("paiement".equals(request.getParameter("section"))) {
             if (request.getParameter("paye") != null) {
-//                if(pCheck.check(request.getParameter("cb"), request.getParameter("crypto"), request.getParameter("date"))){
-//                   
-//                }
-                EditionBean ed = new EditionBean();
 
-                if ("paiement".equals(request.getParameter("section"))) {
-                    if (request.getParameter("paye") != null) {
-                        // check paiement
-                        for (Edition e : cart.list()) {
+                if(pCheck.checkNumCarte(request.getParameter("cb"))){
+                    
+                }
+                if(pCheck.checkDateExp(request.getParameter("date"))){
+                    
+                }
+                if(pCheck.checkCodeCrypto(request.getParameter("crypto"))){
+                    
+                }
+                
+                for (Edition e : cart.list()) {
                             ed.setStockInDB(bc, e);
                         }
-                        url = "/WEB-INF/jsp/orderAccept.jsp";
+                
+                url = "/WEB-INF/jsp/orderAccept.jsp";
+            }    
+                
 
-                    }
+//                if ("paiement".equals(request.getParameter("section"))) {
+//                    if (request.getParameter("paye") != null) {
+//                        // check paiement
+//                        for (Edition e : cart.list()) {
+//                            ed.setStockInDB(bc, e);
+//                        }
+//                        url = "/WEB-INF/jsp/orderAccept.jsp";
+//
+//                    }
 
                     if (order == null) {
                         order = new OrderBean();
@@ -173,7 +188,7 @@ public class OrderController extends HttpServlet {
                     url = "/WEB-INF/jsp/finalOrder.jsp";
                 }
 
-            }
+            
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
@@ -206,7 +221,7 @@ public class OrderController extends HttpServlet {
                 }
 
             }
-        }
+        
         request.getRequestDispatcher(url).include(request, response);
 
     }

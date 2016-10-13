@@ -2,7 +2,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<t:template title="Paiement">
+<t:template title="Paiement" imgPath="images/imgBookPaiement.png">
 
     <jsp:attribute name="styles">
         <link rel="stylesheet" href="css/cssFormPaiement.css" type="text/css">

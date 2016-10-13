@@ -54,10 +54,10 @@
                                     </c:choose>--%>
                                     <%--recuperation du numero de commande via methode SQL bean commande--%>
                                     <br/>
-                                    Vous pouvez retourner sur votre compte. <br/>
+                                    Vous pouvez retourner sur <a href="order?section=validation&monCompte"> votre compte</a>. <br/>
                                     <br/>
 
-                                    Dans la rubrique <a href="order?section=validation&monCompte">Mon Compte</a>.<br/>
+                                   
 
                                     <br/>
                                 </p>

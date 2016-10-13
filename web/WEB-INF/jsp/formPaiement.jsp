@@ -5,7 +5,7 @@
 <t:template title="Paiement">
 
     <jsp:attribute name="styles">
-        <link rel="stylesheet" href="css/cssFormPaiement.css" type="text/css">
+      <link rel="stylesheet" href="css/cssFormPaiement.css" type="text/css">
         
     </jsp:attribute>
 
@@ -82,20 +82,22 @@
 
                                 <br/>
                                 <br/>
-                                <div class="conteneurBouton">
-                                    <div align="right" class="boutonAnnuler">
+                                <br/>
+                                <%--<div class="conteneurBouton">
+                                    <div align="right" class="boutonAnnuler">--%>
+                                <div align="left">
                                         <input type="submit" name="annuler" value="Annuler"/><br/>
-                                    </div>
+                                    <%--</div>--%>
                                     <br/>
-                                    <div align ="left" class="boutonValider">
+                                    <%--<div align ="left" class="boutonValider">--%>
                                         
                                         
                                         <input type="submit" name="paye" value="Payer"/>
                                         
                                         <input type="hidden" name="section" value="paiement" />
                                         <input type="hidden" name="paye" value="" />
-                                    </div>
-
+                                    <%--</div>--%>
+                                </div>
 
                                 </div>
 

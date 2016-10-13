@@ -203,14 +203,7 @@ public class OrderController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
 //                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
 ////////////////////////////////////////////////////////////////////////////////
-        //recuperation du numero de commande depuis SQL
-        //lien hypertexte vers : 
-        //              - historique commande ou moncompte
-        //              - Retour Acceuil
-        //recuperation du numero de commande depuis SQL
-        //lien hypertexte vers : 
-        //              - historique commande ou moncompte
-        //              - Retour Acceuil
+        
         if (order == null) {
             order = new OrderBean();
             session.setAttribute("order", order);

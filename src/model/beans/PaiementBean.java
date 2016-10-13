@@ -6,15 +6,22 @@ import java.io.Serializable;
 public class PaiementBean implements Serializable {
 
     public boolean checkNumCarte(String numCarte){
-        return numCarte.matches("([0-9]{4}-){4}");
+        if(numCarte.matches("([0-9]{4}-){4}"));
+        return true;
     }
     
     public boolean checkDateExp(String dateExp){
-        return dateExp.matches("(0[1-9]|1[012])/(20\\d)");
+        
+        if(dateExp.matches("(0[1-9]|1[012])/(20\\d)"));
+        
+        
+        return true;
     }
     
     public boolean checkCodeCrypto(String codeCrypto){
-        return codeCrypto.matches("([0-9]{3})");
+        
+        if(codeCrypto.matches("([0-9]{3})"));
+        return true;
     }
     
    

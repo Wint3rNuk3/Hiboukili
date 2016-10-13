@@ -31,7 +31,7 @@ import model.classes.Utilisateur;
 
 @WebServlet(name = "order", urlPatterns = {"/order"})
 public class OrderController extends HttpServlet {
-
+    // methode de recuperation des cookies 
     private Cookie getMyCookies(Cookie[] tab, String name) {
         if (tab != null) {
             for (Cookie c : tab) {
@@ -46,23 +46,28 @@ public class OrderController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        
+        //creation session
         HttpSession session = request.getSession();
-
+        
+        // url de la page par defaut 
         String url = "/WEB-INF/jsp/RecapOrder.jsp";
-
+        
+        // appel du pool de connexion 
         ConnexionBean bc = (ConnexionBean) session.getAttribute("sessionConnexion");
         if (bc == null) {
             bc = new ConnexionBean();
             session.setAttribute("sessionConnexion", bc);
         }
-        int i1 = 3;//id Utilisateur
+        // appel du cookie sync 
+        int i1 = 0;//id Utilisateur
         Cookie sync = getMyCookies(request.getCookies(), "sync");
         if (sync == null) {
             sync = new Cookie("sync", Integer.toString(i1));
             sync.setMaxAge(24 * 60 * 60);
             response.addCookie(sync);
         }
+        //differentes sessions ou objet utils pour le reste du code 
         AdressesBean adresses = (AdressesBean) session.getAttribute("adresses");
         OrderBean order = (OrderBean) session.getAttribute("order");
         EditionBean eb = new EditionBean();
@@ -70,16 +75,15 @@ public class OrderController extends HttpServlet {
 ////////////////////////////////////////////////////////////////////////////////
 //                            Affichage du panier !                           //
 ////////////////////////////////////////////////////////////////////////////////
-
+        
+        //test si le panier est nul 
         if (cart == null) {
             cart = new ShoppingCartBean();
             session.setAttribute("cart", cart);
-            //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
+            
         }
-        //cart.create("978-2-0001-0001-0", eb.findByIsbn(bc, "978-2-0001-0001-0"));
-        //request.setAttribute("panierVide", cart.isEmpty());
-        //request.setAttribute("panier", cart.list());
-
+        
+        
         if (request.getParameter("valid") != null) {
             url = "/WEB-INF/jsp/finalOrder.jsp";
         }
@@ -110,22 +114,25 @@ public class OrderController extends HttpServlet {
             request.setAttribute("adresse", adresses.list());
 
             adresses.recupererAdresse(bc);
-            //System.out.println("Adresse :" + adresses.list().size());
+            
 
             if (request.getParameter("ajout") != null) {
                 url = "/WEB-INF/jsp/InfosAdresse.jsp";
             }
 
-//            if (request.getParameter("retour") != null) {
-//                url = "/WEB-INF/jsp/RecapOrder.jsp";
-//            }
+
+
             if (request.getParameter("final") != null && sync.getValue() != null) {
                 if (order == null) {
                     order = new OrderBean();
                 }
 
-                order.save(bc, Long.valueOf(request.getParameter("adresseFacturation")),
-                        Long.valueOf(request.getParameter("adresseLivraison")), Long.valueOf(sync.getValue()));
+                order.save(bc, 
+                        Long.valueOf(request.getParameter("adresseFacturation")),
+                        Long.valueOf(request.getParameter("adresseLivraison")), 
+                        Long.valueOf(sync.getValue()));
+                
+               
 
                 url = "/WEB-INF/jsp/FormPaiement.jsp";
 
@@ -142,23 +149,28 @@ public class OrderController extends HttpServlet {
         if ("paiement".equals(request.getParameter("section"))) {
             if (request.getParameter("paye") != null) {
 
-                if(pCheck.checkNumCarte(request.getParameter("cb"))){
-                    
-                }
-                if(pCheck.checkDateExp(request.getParameter("date"))){
-                    
-                }
-                if(pCheck.checkCodeCrypto(request.getParameter("crypto"))){
-                    
-                }
-                
-                for (Edition e : cart.list()) {
-                            ed.setStockInDB(bc, e);
+                if (pCheck.checkNumCarte(request.getParameter("cb")) == true) {
+                    if (pCheck.checkDateExp(request.getParameter("date")) == true) {
+                        if (pCheck.checkCodeCrypto(request.getParameter("crypto")) == true) {
+
                         }
+                    }
+                    
+                     url = "/WEB-INF/jsp/orderAccept.jsp";
+                    
+                }else{
+                    //test a remplacer par message error. 
+                    System.out.println("error");
+                }
+
+               
+
+                for (Edition e : cart.list()) {
+                    ed.setStockInDB(bc, e);
+                }
+
                 
-                url = "/WEB-INF/jsp/orderAccept.jsp";
-            }    
-                
+            }
 
 //                if ("paiement".equals(request.getParameter("section"))) {
 //                    if (request.getParameter("paye") != null) {
@@ -169,59 +181,56 @@ public class OrderController extends HttpServlet {
 //                        url = "/WEB-INF/jsp/orderAccept.jsp";
 //
 //                    }
+//            if (order == null) {
+//                order = new OrderBean();
+//                session.setAttribute("order", order);
+//            }
+//            request.setAttribute("orderVide", order.isEmpty());
+//            request.setAttribute("order", order.list());
+//
+//            order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
 
-                    if (order == null) {
-                        order = new OrderBean();
-                        session.setAttribute("order", order);
-                    }
-                    request.setAttribute("orderVide", order.isEmpty());
-                    request.setAttribute("order", order.list());
+            url = "/WEB-INF/jsp/orderAccept.jsp";
 
-                    order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
+        }
 
-                    url = "/WEB-INF/jsp/orderAccept.jsp";
+        if (request.getParameter("annuler") != null) {
 
-                }
-
-                if (request.getParameter("annuler") != null) {
-
-                    url = "/WEB-INF/jsp/finalOrder.jsp";
-                }
-
-            
+            url = "/WEB-INF/jsp/finalOrder.jsp";
+        }
 
 ////////////////////////////////////////////////////////////////////////////////
 //                            PAGE FIN COMMANDE/RETOUR ACCUEIL                //
 ////////////////////////////////////////////////////////////////////////////////
-            //recuperation du numero de commande depuis SQL
-            //lien hypertexte vers : 
-            //              - historique commande ou moncompte
-            //              - Retour Acceuil
-            //recuperation du numero de commande depuis SQL
-            //lien hypertexte vers : 
-            //              - historique commande ou moncompte
-            //              - Retour Acceuil
-            if (order == null) {
-                order = new OrderBean();
-                session.setAttribute("order", order);
+        //recuperation du numero de commande depuis SQL
+        //lien hypertexte vers : 
+        //              - historique commande ou moncompte
+        //              - Retour Acceuil
+        //recuperation du numero de commande depuis SQL
+        //lien hypertexte vers : 
+        //              - historique commande ou moncompte
+        //              - Retour Acceuil
+//        if (order == null) {
+//            order = new OrderBean();
+//            session.setAttribute("order", order);
+//        }
+//        request.setAttribute("orderVide", order.isEmpty());
+//        request.setAttribute("order", order.list());
+//
+//        order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
+
+        if ("validation".equals(request.getParameter("section"))) {
+            if (request.getParameter("monCompte") != null) {
+                url = "/WEB-INF/jsp/bienvenue.jsp";
             }
-            request.setAttribute("orderVide", order.isEmpty());
-            request.setAttribute("order", order.list());
 
-            order.recupererNumerosCommande(bc, Long.valueOf(sync.getValue()));
+            if (request.getParameter("retourA") != null) {
 
-            if ("validation".equals(request.getParameter("section"))) {
-                if (request.getParameter("monCompte") != null) {
-                    url = "/WEB-INF/jsp/bienvenue.jsp";
-                }
-
-                if (request.getParameter("retourA") != null) {
-
-                    url = "/WEB-INF/jsp/index.jsp";
-                }
-
+                url = "/WEB-INF/jsp/index.jsp";
             }
-        
+
+        }
+
         request.getRequestDispatcher(url).include(request, response);
 
     }

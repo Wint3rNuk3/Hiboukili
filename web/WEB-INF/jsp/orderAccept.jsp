@@ -64,7 +64,7 @@
                                 </p>
 
 
-                                <input type="submit" name="retourA" value="Retour Accueil"/><br/>
+                                <!--name="retourA"--><a href="http://localhost:8080/Hiboukili"><button type="button" style="width:60px;height:30px;">Accueil</button></a><br/>
                                 <input type="hidden" name="section" value="validation"/>
                                 <input type="hidden" name="retourA" value=""/>
                                 <br/>

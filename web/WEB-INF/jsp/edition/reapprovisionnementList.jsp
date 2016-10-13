@@ -60,19 +60,21 @@
         </div>
 
         <div class="pull-right col-md-2 col-sm-2  col-xs-2">
-            <div class="btn-group btn-group-vertical" role="group" aria-label="...">
+            <div class="btn-group" role="group" aria-label="...">
                 
                 <c:url value="reapprovisionnement" var="url">
                     <c:param name="iwantmoaarr" value="${ item.isbn }" />
                 </c:url>
                 
-                <form id="form" action="${url}" method="post">
-                    <input type="number" class="form-control input-sm" name="qty">
+                <form id="form" action="${url}" method="post" style="position:relative;">
+                    <input type="number" class="form-control input-sm" name="qty" style="width:50%">
+                    <button type="submit" formaction="${url}" class="btn btn-primary" style="postion:absolute">
+                        <i class="glyphicon glyphicon-plane"> </i>
+                    </button>
                 </form>
                 
-                <button type="submit" form="form" value ="Commander !" class="btn btn-primary">
-                    <i class="glyphicon glyphicon-plane"> </i>
-                </button>
+                        
+                
 
                 
 

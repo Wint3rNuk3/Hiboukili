@@ -144,9 +144,10 @@
 
                             <br/>
                             <br/>
-                            <input type="submit" name="retour" value="Retour">
+                            <a href="http://localhost:8080/hiboukili/order"><button type="button" style="width:60px;height:30px;">Retour</button></a><br/>
+                           <%-- <input type="submit" name="retour" value="Retour">
                             <input type="hidden" name="section" value="finalOrder" />
-                            <input type="hidden" name="final" value="" />
+                            <input type="hidden" name="final" value="" />--%>
 
 
 

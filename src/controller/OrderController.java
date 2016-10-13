@@ -139,7 +139,7 @@ public class OrderController extends HttpServlet {
 
                 mb.info("Le hibou prend note de votre commande!");
 
-                url = "/WEB-INF/jsp/formPaiement.jsp";
+                url = "/WEB-INF/jsp/FormPaiement.jsp";
 
             } else if (request.getParameter("retour") != null) {
 
@@ -172,7 +172,7 @@ public class OrderController extends HttpServlet {
                 for (Edition e : cart.list()) {
                     ed.setStockInDB(bc, e);
                 }
-                
+                //vider le panier une fois que la commande est faite et save dans la bdd. 
                 cart.clean();
 
             }

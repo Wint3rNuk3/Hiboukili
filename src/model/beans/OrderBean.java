@@ -17,12 +17,13 @@ import model.classes.Edition;
 
 public class OrderBean implements Serializable {
 
-    ArrayList commandes;
+    //ArrayList commandes;
     private String statCommande;
+    HashMap<Long, Commande>commandes;
 
     public OrderBean() {
 
-        this.commandes = new ArrayList();
+        this.commandes = new HashMap();
 
     }
 
@@ -45,15 +46,15 @@ public class OrderBean implements Serializable {
                     + " VALUES (?, ?, ?, @guid, cast(convert(char(8), GETDATE(), 112) as int));";
 
             PreparedStatement stmt = c.prepareStatement(query);
-  
+
             stmt.setLong(1, idAdresseFacturation);
             stmt.setLong(2, idAdresseLivraison);
             stmt.setLong(3, idUtilisateur);
             stmt.executeUpdate();
             stmt.close();
-            
-        }catch (SQLException ex) {
-            
+
+        } catch (SQLException ex) {
+
             System.err.println("Erreur dans Commande" + ex.getMessage());
         }
 
@@ -142,14 +143,13 @@ public class OrderBean implements Serializable {
             String query = "SELECT TOP 1 numero FROM Commande WHERE idUtilisateur = ?";
             PreparedStatement stmt = c.prepareStatement(query);
             stmt.setLong(1, idUtilisateur);
-            
 
             ResultSet res = stmt.executeQuery();
 
-//            while (res.next()) {
-               Commande com = new Commande(res.getString("numero"));
-                commandes.add(com);
-//            }
+            while (res.next()) {
+               //Commande com = new Commande(res.getString("numero"));
+                commandes.put(idUtilisateur, new Commande(res.getString("numero")));
+            }
 
             res.close();
             stmt.close();
@@ -163,7 +163,7 @@ public class OrderBean implements Serializable {
     }
 
     public Collection<Commande> list() {
-        return commandes;
+        return commandes.values();
     }
 
     public int size() {

@@ -39,20 +39,21 @@
                                 <p>
 
                                     Félicitation ! Un hibou s'attèle actuellement à préparer votre commande ! <br/>
-                                   <%-- <c:choose>
+                                    <jsp:useBean class="model.beans.OrderBean" id="order" scope="session" />
+                                    <c:choose>
                                         <c:when test="${empty order}">
                                             Commande vide !
 
                                         </c:when>
                                         <c:otherwise>
-                                            <c:forEach items="${order}" var="o">--%>
+                                            <c:forEach items="${order}" var="o">
 
-                                               <%-- Numero de commande : ${o.numero}<br/>
+                                               Numero de commande : ${o.numero}<br/>
                                                 
                                             </c:forEach>
                                         </c:otherwise>
-                                    </c:choose>--%>
-                                    <%--recuperation du numero de commande via methode SQL bean commande--%>
+                                    </c:choose>
+                                    
                                     <br/>
                                     Vous pouvez retourner sur <a href="order?section=validation&monCompte"> votre compte</a>. <br/>
                                     <br/>

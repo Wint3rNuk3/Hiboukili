@@ -36,35 +36,7 @@ public class EditionBean {
             + " JOIN MiseEnRubrique AS mer ON mer.idOuvrage = e.idOuvrage"
             + " WHERE mer.idRubrique = ?";
     
-    // on recherche par 
-    //  - le titre ( tout ou partie )
-    //  - mot clef
-    //  - la rubrique
-    //  - le theme
-    //  - le resume ? 
-    //  - l'auteur ( nom, prenom )
-    private static final String SQL_RECHERCHE = "SELECT DISTINCT"
-            + " e.idEdition, e.isbn, e.idOuvrage, e.idEditeur, e.idLangue,"
-            + " e.idStatutEdition, e.datePubli, e.prixHt,"
-            + " e.couverture, e.titre, e.stock"
-            + " FROM Edition AS e"
-            
-            + " JOIN Ouvrage        AS ouv  ON ouv.idOuvrage  = e.idOuvrage"
-            + " JOIN Auteur         AS aut  ON ouv.idOuvrage  = e.idOuvrage"
-            
-            + " JOIN MiseEnRubrique AS mer  ON mer.idOuvrage  = e.idOuvrage"
-            + " JOIN Rubrique       AS rub  ON mer.idRubrique = rub.idRubrique"
-            
-            + " JOIN Thematique     AS thq  ON thq.idOuvrage  = e.idOuvrage"
-            + " JOIN Theme          AS the  ON thq.idTheme    = the.idTheme"
-            
-            + " JOIN Referencement  AS ref  ON ref.idOuvrage  = e.idOuvrage"
-            + " JOIN Tag            AS tag  ON ref.idTag      = tag.idTag"
-            
-            + " WHERE ouv.titre like ? OR e.titre like ?"
-//            + " OR ";
-    ;
-
+    
     public List<Edition> findAll(ConnexionBean bc) {
         List<Edition> list = new ArrayList();
 
@@ -291,6 +263,38 @@ public class EditionBean {
         }
     }
     
+    // on recherche par 
+    //  - le titre ( tout ou partie ) OK
+    //  - mot clef
+    //  - la rubrique
+    //  - le theme
+    //  - le resume ? 
+    //  - l'auteur ( nom, prenom )
+    private static final String SQL_RECHERCHE = "SELECT DISTINCT"
+            + " e.idEdition, e.isbn, e.idOuvrage, e.idEditeur, e.idLangue,"
+            + " e.idStatutEdition, e.datePubli, e.prixHt,"
+            + " e.couverture, e.titre, e.stock"
+            + " FROM Edition AS e"
+            
+            + " JOIN Ouvrage        AS ouv  ON ouv.idOuvrage  = e.idOuvrage"
+            + " JOIN Auteur         AS aut  ON ouv.idAuteur   = aut.idAuteur"
+            
+            + " JOIN MiseEnRubrique AS mer  ON mer.idOuvrage  = e.idOuvrage"
+            + " JOIN Rubrique       AS rub  ON mer.idRubrique = rub.idRubrique"
+            
+            + " JOIN Thematique     AS thq  ON thq.idOuvrage  = e.idOuvrage"
+            + " JOIN Theme          AS the  ON thq.idTheme    = the.idTheme"
+            
+            + " JOIN Referencement  AS ref  ON ref.idOuvrage  = e.idOuvrage"
+            + " JOIN Tag            AS tag  ON ref.idTag      = tag.idTag"
+            
+            + " WHERE (ouv.titre like ? OR e.titre like ?)"
+            + " OR tag.libelle = ?"
+            + " OR aut.nom = ?"
+            + " OR rub.libelle like ?"
+            + " OR the.libelle like ?"
+    ;
+
     public List<Edition> recherche(ConnexionBean bc, String q) {
         List<Edition> list = new ArrayList();
 
@@ -301,6 +305,10 @@ public class EditionBean {
 
             ps.setString(1, "%" + q + "%");
             ps.setString(2, "%" + q + "%");
+            ps.setString(3, q);
+            ps.setString(4, q);
+            ps.setString(5, "%" + q + "%");
+            ps.setString(6, "%" + q + "%");
 
             ResultSet rs = ps.executeQuery();
 

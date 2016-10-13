@@ -60,7 +60,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" class="form-control" id="recherche" name="q" placeholder="Votre recherche">
+                    <input type="text" class="form-control" id="recherche" name="q" value="${q}" placeholder="Votre recherche">
                     <div class="input-group-btn">
                         <button type="submit" class="btn btn-default">
                             <i class="glyphicon glyphicon-search"> </i>

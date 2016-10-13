@@ -10,10 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ConnexionBean;
 import model.beans.EditionBean;
+import model.beans.MessageBean;
 import model.classes.Edition;
 
 @WebServlet(name = "RechercheController", urlPatterns = {"/recherche"})
 public class RechercheController extends HttpServlet {
+    
+    private final String RECHERCHE_ROUTE = "/WEB-INF/jsp/edition/recherche.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,16 +37,25 @@ public class RechercheController extends HttpServlet {
             session.setAttribute("sessionConnexion", bc);
         }
         
+        MessageBean mb = (MessageBean) session.getAttribute("messages");
+        if (mb == null) {
+            session.setAttribute("messages", mb = new MessageBean());
+        }
+
         String q = request.getParameter("q");
         
-        List<Edition> recherche = new EditionBean().recherche(bc, q);
-        
-        request.setAttribute("editions", recherche);
+        if(q == null) {
+            mb.danger("Veuillez indiquer l'objet de votre recherche");
+        } else {
+            List<Edition> recherche = new EditionBean().recherche(bc, q);
+
+            request.setAttribute("q", q);
+            request.setAttribute("editions", recherche);
+        }
         
         getServletContext()
-                .getRequestDispatcher("/WEB-INF/jsp/edition/recherche.jsp")
+                .getRequestDispatcher(RECHERCHE_ROUTE)
                 .forward(request, response);
-        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

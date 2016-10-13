@@ -48,7 +48,7 @@
                                         <c:otherwise>
                                             <c:forEach items="${order}" var="o">
 
-                                               Numero de commande : ${o.numero}<br/>
+                                               Voici votre numéro de commande : ${o.numero}<br/>
                                                 
                                             </c:forEach>
                                         </c:otherwise>

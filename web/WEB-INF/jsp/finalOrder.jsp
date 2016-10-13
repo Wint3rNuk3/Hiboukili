@@ -4,15 +4,15 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <t:template title="Commande Générale">
-    
+
     <jsp:attribute name="styles">
-        
+
     </jsp:attribute>
-        
- <jsp:body>       
+
+    <jsp:body>       
 
         <form action="order" method="Post">
-            
+
             <div class="container">
                 <div class="row">
                     <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
@@ -20,7 +20,7 @@
                             <div class="col-xs-6 col-sm-6 col-md-6">
                                 <address>
                                     <h1>
-                                    <strong>Information(s)</strong>
+                                        <strong>Information(s)</strong>
                                     </h1>
                                     <br> 
                                 </address>
@@ -76,7 +76,7 @@
                                         </tr>
 
 
-                                        
+
                                     </c:forEach>
                                 </c:otherwise>
                             </c:choose>
@@ -131,32 +131,34 @@
                         </fieldset>
                         <br/>
                         <div align="right">
-                               
+
                             <a href="order?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
                         </div>
                         <br/>
                         <br/>
+                        <p align="center">
                             <input type='submit' name='doIt' value='Valider'>
                             <input type="hidden" name="section" value="finalOrder" />
                             <input type="hidden" name="final" value="" />
-                        
 
-                        <br/>
-                        <br/>
-                        <input type="submit" name="retour" value="Retour">
-                        <input type="hidden" name="section" value="finalOrder" />
-                        <input type="hidden" name="final" value="" />
-                        
-                        
 
-                        <br/>
-                        <br/>
+                            <br/>
+                            <br/>
+                            <input type="submit" name="retour" value="Retour">
+                            <input type="hidden" name="section" value="finalOrder" />
+                            <input type="hidden" name="final" value="" />
+
+
+
+                            <br/>
+                            <br/>
                     </div>
                 </div>
             </div>
-        </form>
-    
+        </p>
+    </form>
+
 </html>
- 
+
 </jsp:body>
 </t:template>

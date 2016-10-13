@@ -41,12 +41,12 @@
                         </div>
 
                         </span>
-                        Numero CB : <input type="text" name="cb" required/><br/>
+                        Numero CB : <input type="text" name="cb" onclick="1256-2548-8965-2569"/><br/>
 
                         <br/>
-                        Date d'expiration : <input type="text" name="date" required/><br/>
+                        Date d'expiration : <input type="text" name="date" onclick="01/12"/><br/>
                         <br/>
-                        Code de securité: <input type="text" name="crypto" title="Correspond aux 3 chiffres visibles au dos de votre carte " required/><br/>
+                        Code de securité: <input type="text" name="crypto" title="Correspond aux 3 chiffres visibles au dos de votre carte " onclick="236"/><br/>
                         <br/>
                         Nom du porteur :<input type="text" name="nom" required/><br/>
                         <br/>

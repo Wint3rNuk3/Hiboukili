@@ -107,7 +107,7 @@
                         </fieldSet>
                         <br/>
                         <div align="right">
-                            <a href="order?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
+                            <a href="UtilisateurController?section=ajouterAdresse">Ajouter une nouvelle adresse</a>
 
                         </div>
                         <br/>
@@ -132,7 +132,7 @@
                         <br/>
                         <div align="right">
 
-                            <a href="order?section=finalOrder&ajout">Ajouter une nouvelle adresse</a>
+                            <a href="UtilisateurController?section=ajouterAdresse">Ajouter une nouvelle adresse</a>
                         </div>
                         <br/>
                         <br/>

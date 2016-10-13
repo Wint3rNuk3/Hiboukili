@@ -140,7 +140,7 @@ public class OrderBean implements Serializable {
 
         try (Connection c = ds.getConnection();) {
 
-            String query = "SELECT TOP 1 numero FROM Commande WHERE idUtilisateur = ?";
+            String query = "SELECT numero FROM Commande WHERE idUtilisateur = ?";
             PreparedStatement stmt = c.prepareStatement(query);
             stmt.setLong(1, idUtilisateur);
 

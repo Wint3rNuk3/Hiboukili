@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +44,8 @@ public class RechercheController extends HttpServlet {
         }
 
         String q = request.getParameter("q");
+        
+//        q = URLEncoder.encode(q, "UTF-8");
         
         if(q == null) {
             mb.danger("Veuillez indiquer l'objet de votre recherche");

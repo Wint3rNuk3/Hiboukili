@@ -20,15 +20,35 @@
     <jsp:body>
         
         <div class="pull-left col-md-3 col-sm-3 col-xs-3">
-            <a href="#">
+            <c:url value="edition" var="url">
+                <c:param name="isbn" value="${ item.isbn }" />
+            </c:url>
+            <a href="${ url }">
                 <img class="edition" src="images/placeholder.png">
             </a>
         </div>
 
-        <div class="col-md-9 col-sm-9 col-xs-9">
+        <div class="col-md-9 col-sm-9 col-xs-9 clearfix">
             <h4 class="">
-                <c:out value="${ item.ouvrage.titre }"/>
+                <c:out value="${ item.ouvrage.titre }" />
+                de
+                <c:out value="${ item.ouvrage.auteur.prenom }"/> 
+                <c:out value="${ item.ouvrage.auteur.nom }"/>
+                (<c:out value="${ item.datePublication}" />)
+
+                <c:if test="${ !empty item.promotions }">
+                    <c:forEach varStatus="status" var="promotion" items="${ item.promotions }">
+                        <span class="label label-success">-<c:out value="${ promotion.reduction }"/>%</span>
+                    </c:forEach>
+                </c:if>
+                <span class="label label-info"><c:out value="${ item.statut.libelle }"/></span>
+                
             </h4>
+                
+                
+            <a id="add" class="pull-right btn btn-success" href="shoppingcart?add=${item.isbn}">
+                <i class="glyphicon glyphicon-shopping-cart"> </i>
+            </a>
             
             <p>
                 Editeur : 
@@ -41,45 +61,9 @@
             </p>
 
             <p>
-                Statut : 
-                <c:out value="${ item.statut.libelle }"/>
+                il nous en reste : <c:out value="${ item.stock }"/>
             </p>
 
-            <p>
-                Auteur : 
-                <c:out value="${ item.ouvrage.auteur.nom }"/>
-            </p>
-
-            <p>
-                Quantité : 
-                <c:out value="${ item.stock }"/>
-            </p>
-
-            <c:if test="${ !item.promotions.isEmpty() }">
-                <p>
-                    promos : 
-                    <c:forEach varStatus="status" var="promotion" items="${ item.promotions }">
-                        <span class="label label-default">-<c:out value="${ promotion.reduction }"/>%</span>
-                    </c:forEach>
-                </p>
-            </c:if>
-                
-            <div class="btn-group btn-group-lg" role="group" aria-label="...">
-                
-                <a id="add" class="btn btn-success" href="shoppingcart?add=${item.isbn}">
-                    <i class="glyphicon glyphicon-shopping-cart"> </i>
-                </a>
-                <!-- insert some href="shoppingcart?add=dollar{e.isbn}" kind of -->
-                
-                <c:url value="edition" var="url">
-                    <c:param name="isbn" value="${ item.isbn }" />
-                </c:url>
-                
-                <a href="${ url }" role="button" class="btn btn-primary">
-                    <i class="glyphicon glyphicon-eye-open"> </i>
-                </a>
-                    
-            </div>
         </div>
 
 <!--        <div class="pull-right col-md-1 col-sm-1 col-xs-1">

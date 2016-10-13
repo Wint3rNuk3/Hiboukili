@@ -12,10 +12,30 @@
 
     <jsp:body>
         <div class="panel panel-default">
-            <div class="panel-heading">
-                <c:out value="${ edition.ouvrage.titre }" />
+            <div class="panel-heading clearfix">
+                <h4>
+                    <c:out value="${ edition.ouvrage.titre }" />
+                    de
+                    <c:out value="${ edition.ouvrage.auteur.prenom }"/> 
+                    <c:out value="${ edition.ouvrage.auteur.nom }"/>
+                    (<c:out value="${ edition.datePublication}" />)
+                    
+                    <c:if test="${ !edition.promotions.isEmpty() }">
+                        <c:forEach varStatus="status" var="promotion" items="${ edition.promotions }">
+                            <span class="label label-success">-<c:out value="${ promotion.reduction }"/>%</span>
+                        </c:forEach>
+                    </c:if>
+                    <span class="label label-info"><c:out value="${ edition.statut.libelle }"/></span>
+
+                    <a id="add" class="pull-right btn btn-success" href="shoppingcart?add=${item.isbn}">
+                        <i class="glyphicon glyphicon-shopping-cart"> </i>
+                    </a>
+
+                </h4>
             </div>
             <div class="panel-body">
+                
+                <img src="" />
                 
                 <p>
                     Résumé : 
@@ -23,28 +43,9 @@
                 </p>
 
                 <p>
-                    Statut : 
-                    <c:out value="${ edition.statut.libelle }"/>
+                    Il en reste <c:out value="${ edition.stock }"/> !
                 </p>
 
-                <p>
-                    Auteur : 
-                    <c:out value="${ edition.ouvrage.auteur.nom }"/>
-                </p>
-
-                <p>
-                    Quantité : 
-                    <c:out value="${ edition.stock }"/>
-                </p>
-
-                <c:if test="${ !edition.promotions.isEmpty() }">
-                    <p>
-                        promos : 
-                        <c:forEach varStatus="status" var="promotion" items="${ edition.promotions }">
-                            <span class="label label-default">-<c:out value="${ promotion.reduction }"/>%</span>
-                        </c:forEach>
-                    </p>
-                </c:if>
             </div>
                 
             <div class="panel-footer">

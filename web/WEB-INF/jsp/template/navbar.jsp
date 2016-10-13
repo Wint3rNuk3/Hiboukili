@@ -16,12 +16,6 @@
     </jsp:attribute>
     <jsp:body>
         
-        <%--<c:out value="${ pageContext.request.getServletPath()  }" default="lol" />--%>
-        <%--<c:out value="${ request.getPathInfo() }" default="lol" />--%>
-        
-        <%--<c:out value="${ pageContext.request.requestURI }" default="lol" />--%>
-        
-        
         <ul class="nav navbar-nav navbar-left">
             
             <li class="visible-lg visible-md">

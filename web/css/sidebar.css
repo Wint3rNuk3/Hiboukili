@@ -56,7 +56,7 @@
 /* Sidebar Styles */
 
 #sidebar-wrapper {
-    border-right: solid #23527c 1px;
+    border-right: solid #34495E 1px;
 }
 
 .sidebar-nav {
@@ -67,10 +67,10 @@
 }
 
 .sidebar-nav li {
-    color: #23527c;
+    color: #34495E;
     text-indent: 20px;
     line-height: 40px;
-    border-left: solid #23527c 0;
+    border-left: solid #34495E 0;
     transition: all linear 0.5s;
 }
 
@@ -86,7 +86,7 @@
 
 .sidebar-nav li a:hover {
     text-decoration: none;
-    color: #23527c;
+    color: #34495E;
 }
 
 .sidebar-nav li a:active,
@@ -101,11 +101,11 @@
 }
 
 .sidebar-nav > .sidebar-brand a {
-    color: #23527c;
+    color: #34495E;
 }
 
 .sidebar-nav > .sidebar-brand:hover {
-    color: #23527c;
+    color: #34495E;
     background: none;
 }
 

@@ -79,7 +79,6 @@
                     <i class="glyphicon glyphicon-eye-open"> </i>
                 </a>
                     
-                <a role="button" class="btn btn-primary"><i class="glyphicon glyphicon-heart-empty"> </i></a>
             </div>
         </div>
 

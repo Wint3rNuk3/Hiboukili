@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -115,7 +116,6 @@ public class IndexController extends HttpServlet {
         // la liste des rubriques est chargée depuis le MenuFilter.
 //        List<Rubrique> rubriques = new RubriqueBean().findAll(bc);
 //        request.setAttribute("rubriques", rubriques);
-        
         // charger la liste des themes ?
         
         // on fait suivre à la jsp de l'index.

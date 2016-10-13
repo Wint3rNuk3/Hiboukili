@@ -9,13 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.beans.ConnexionBean;
-import model.beans.EditionBean;
-import model.beans.RubriqueBean;
-import model.classes.Edition;
-import model.classes.Rubrique;
+import model.beans.PromotionBean;
+import model.classes.Promotion;
 
-@WebServlet(name = "RubriqueController", urlPatterns = {"/rubrique"})
-public class RubriqueController extends HttpServlet {
+@WebServlet(name = "PromotionController", urlPatterns = {"/promotions"})
+public class PromotionController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,29 +34,25 @@ public class RubriqueController extends HttpServlet {
             session.setAttribute("sessionConnexion", bc);
         }
         
-        Rubrique rubrique = null;
+        PromotionBean pb = new PromotionBean();
         
-        if(request.getParameter("rubrique") != null) {
-            Long id = Long.parseLong(request.getParameter("rubrique"));
-            rubrique = new RubriqueBean().findById(bc, id);
-        }
-        
-        if(rubrique == null) {
-            // send error
-            // redirect to referer
-            request.getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+        if(request.getParameter("promotion") == null) {
+            List<Promotion> promotions = pb.findAll(bc);
+            request.setAttribute("promotions", promotions);
+            request
+                .getRequestDispatcher("/WEB-INF/jsp/promotion/list.jsp")
+                .forward(request, response);
             return;
         }
         
-        request.setAttribute("rubrique", rubrique);
         
-        // on va chercher la liste des editions rattaché a cette rubrique.
-        List<Edition> editions = new EditionBean().findByRubrique(bc, rubrique.getId());
-        request.setAttribute("editions", editions);
-        
-//        request.getDispatcherType() == DispatcherType.INCLUDE
-//        request.setAttribute("type", request.getDispatcherType());
-        request.getRequestDispatcher("/WEB-INF/jsp/rubrique/view.jsp").forward(request, response);
+        Long id = Long.parseLong(request.getParameter("promotion"));
+        Promotion promotion = pb.findById(bc, id);
+        request.setAttribute("promotion", promotion);
+        request
+            .getRequestDispatcher("/WEB-INF/jsp/promotion/view.jsp")
+            .forward(request, response);
+        return;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

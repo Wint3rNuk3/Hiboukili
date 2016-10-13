@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags"%>
 
 <t:navbar id="main-nav-bar" brandUrl="/" fluid="true" style="navbar-default navbar-fixed-top">
@@ -15,6 +16,12 @@
     </jsp:attribute>
     <jsp:body>
         
+        <%--<c:out value="${ pageContext.request.getServletPath()  }" default="lol" />--%>
+        <%--<c:out value="${ request.getPathInfo() }" default="lol" />--%>
+        
+        <%--<c:out value="${ pageContext.request.requestURI }" default="lol" />--%>
+        
+        
         <ul class="nav navbar-nav navbar-left">
             
             <li class="visible-lg visible-md">
@@ -23,28 +30,25 @@
                 </a>
             </li>
             
-            <li class="active">
-                <a href="#">
-                    Link 
-                    <span class="sr-only">(current)</span>
-                </a>
-            </li>
-            
-            <li>
-                <a href="#">Link</a>
-            </li>
-            
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+            <c:if var="active" test="${ fn:startsWith(pageContext.request.getServletPath(), '/WEB-INF/jsp/rubrique')}"/>
+            <li class="dropdown <c:if test="${active}">active</c:if> visible-sm visible-xs">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Rubriques <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">One more separated link</a></li>
+                    <c:forEach var="rubrique" items="${ rubriques }">
+                        <li>
+                            <c:url value="rubrique" var="url">
+                                <c:param name="rubrique" value="${ rubrique.id }" />
+                            </c:url>
+                            <a href="${ url }"><c:out value="${ rubrique.libelle }"></c:out></a>
+                        </li>
+                    </c:forEach>
                 </ul>
+            </li>
+            
+            <c:if var="active" test="${ fn:startsWith(pageContext.request.getServletPath(), '/WEB-INF/jsp/promotion')}"/>
+            <li class="<c:if test="${active}">active</c:if>">
+                <c:url value="/promotions" var="url"/>
+                <a href="${ url }">Promotions</a>
             </li>
         </ul>
         

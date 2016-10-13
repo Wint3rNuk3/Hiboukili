@@ -82,6 +82,7 @@
                         </c:forEach>
                     </ul>
                     
+                        <%--
                     <ul class="sidebar-nav">
                         
                         <li class="sidebar-brand">
@@ -102,6 +103,7 @@
                         </c:forEach>
                         </ul>
                     </ul>
+                        --%>
                     
                     <%-- 
                         Importation de la jsp contenant le menu de gauche 

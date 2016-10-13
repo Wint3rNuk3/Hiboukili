@@ -172,6 +172,8 @@ public class OrderController extends HttpServlet {
                 for (Edition e : cart.list()) {
                     ed.setStockInDB(bc, e);
                 }
+                
+                cart.clean();
 
             }
 

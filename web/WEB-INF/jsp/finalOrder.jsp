@@ -72,6 +72,7 @@
                                         <tr>
                                             <td class="col-md-9"><em>${c.cartQty}</em></h4></td>
                                             <td class="col-md-1 text-center">${c.getPrix() * c.getCartQty()}</td>
+                                            
                                             <td class="col-md-1 text-center">En cours de validation</td>
                                         </tr>
 

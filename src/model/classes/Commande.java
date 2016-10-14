@@ -54,10 +54,20 @@ public class Commande implements Serializable{
      * d'un entier (long).
      */
     
-    public Commande(String numero){
+    public Commande(String numero, StatutCommande orderStat){
         this.numero=numero;
+        this.orderStat=orderStat;
     }
-
+    
+    public Commande(String numero){
+        this.numero = numero;
+    }
+    
+    public Commande(StatutCommande orderStat){
+        this.orderStat=orderStat;
+    }
+    
+    
     
     
     

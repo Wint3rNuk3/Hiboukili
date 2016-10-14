@@ -70,7 +70,7 @@
                                 <c:otherwise>
                                     <c:forEach items="${cart.list()}" var="c">
                                         <tr>
-                                            <td class="col-md-9"><em>${c.cartQty}</em></h4></td>
+                                            <td class="col-md-9"><em>${cart.getInMap(c.isbn).getCartQty()}</em></h4></td>
                                             <td class="col-md-1 text-center">${c.getPrix() * c.getCartQty()}</td>
                                             
                                             <td class="col-md-1 text-center">En cours de validation</td>

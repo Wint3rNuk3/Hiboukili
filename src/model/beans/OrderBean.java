@@ -17,8 +17,7 @@ import model.classes.Edition;
 
 public class OrderBean implements Serializable {
 
-    //ArrayList commandes;
-    private String statCommande;
+    
     HashMap<Long, Commande>commandes;
 
     public OrderBean() {
@@ -27,13 +26,7 @@ public class OrderBean implements Serializable {
 
     }
 
-    public String getStatCommande() {
-        return statCommande;
-    }
-
-    public void setStatCommande(String statCommande) {
-        this.statCommande = statCommande;
-    }
+   
 
     public void save(ConnexionBean bc, Long idAdresseFacturation, Long idAdresseLivraison, Long idUtilisateur) {
         DataSource ds = bc.MaConnexion();
@@ -107,7 +100,7 @@ public class OrderBean implements Serializable {
         // retour au panier
     }
 
-    public String recupererStatutCommande(ConnexionBean bc) {
+    public String recupererStatutCommande(ConnexionBean bc, Long idUtilisateur) {
 
         String statCommande = null;
 
@@ -120,7 +113,7 @@ public class OrderBean implements Serializable {
             ResultSet rs = stmt.executeQuery(query);
 
             while (rs.next()) {
-                statCommande = (rs.getString("libelle"));
+                commandes.put(idUtilisateur, new Commande(rs.getString("libelle")));
             }
             rs.close();
             stmt.close();

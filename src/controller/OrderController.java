@@ -74,6 +74,7 @@ public class OrderController extends HttpServlet {
         OrderBean order = (OrderBean) session.getAttribute("order");
         EditionBean ed = new EditionBean();
         ShoppingCartBean cart = (ShoppingCartBean) session.getAttribute("cart");
+        MessageBean mb = (MessageBean) session.getAttribute("messages");
 ////////////////////////////////////////////////////////////////////////////////
 //                            Affichage du panier !                           //
 ////////////////////////////////////////////////////////////////////////////////
@@ -104,6 +105,8 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("panierVide", cart.isEmpty());
                 request.setAttribute("panier", cart.list());
             }
+            
+            /////////////////////////////////////////////////////////
 
             //adresse
             if (adresses == null) {
@@ -131,7 +134,7 @@ public class OrderController extends HttpServlet {
                         Long.valueOf(request.getParameter("adresseFacturation")),
                         Long.valueOf(request.getParameter("adresseLivraison")),
                         Long.valueOf(sync.getValue()));
-                MessageBean mb = (MessageBean) session.getAttribute("messages");
+                
                 if (mb == null) {
                     mb = new MessageBean();
                     session.setAttribute("messages", mb);
@@ -139,7 +142,7 @@ public class OrderController extends HttpServlet {
 
                 mb.info("Le hibou prend note de votre commande!");
 
-                url = "/WEB-INF/jsp/formPaiement.jsp";
+                url = "/WEB-INF/jsp/FormPaiement.jsp";
 
             } else if (request.getParameter("retour") != null) {
 

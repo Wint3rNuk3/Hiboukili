@@ -7,6 +7,7 @@ import java.text.DecimalFormatSymbols;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -144,5 +145,17 @@ public class ShoppingCartBean implements Serializable {
 
         //System.out.println(df.format(prixTotal));
         return df.format(prixTotal);
+    }
+    
+    public int calculTotal(HashMap map, int qty, Edition e, String isbn){
+        int qtyTotal = 0;
+        for(int i = 0; i<= map.size(); i++){
+            //qtyTotal += map.values(e.getCartQty());
+            
+            
+        }
+        
+        
+        return qtyTotal;
     }
 }

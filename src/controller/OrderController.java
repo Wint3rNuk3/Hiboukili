@@ -105,8 +105,10 @@ public class OrderController extends HttpServlet {
                 request.setAttribute("panierVide", cart.isEmpty());
                 request.setAttribute("panier", cart.list());
             }
+            String prixTotal = order.calculTotal(cart.list());
+            request.setAttribute("prixTotal", prixTotal);
             
-            /////////////////////////////////////////////////////////
+           
 
             //adresse
             if (adresses == null) {

@@ -147,15 +147,9 @@ public class ShoppingCartBean implements Serializable {
         return df.format(prixTotal);
     }
     
-    public int calculTotal(HashMap map, int qty, Edition e, String isbn){
-        int qtyTotal = 0;
-        for(int i = 0; i<= map.size(); i++){
-            //qtyTotal += map.values(e.getCartQty());
-            
-            
-        }
-        
-        
-        return qtyTotal;
-    }
+   
+    
+    
+    
+    
 }

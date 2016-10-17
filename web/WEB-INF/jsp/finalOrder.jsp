@@ -46,42 +46,15 @@
                                 </tr>
                             </thead>
 
-                            <c:choose> 
-                                <c:when test="${empty cart}">
-                                    <div class="row">
-                                        <div class="col-xs-2">
-                                        </div>
-                                        <div class="col-xs-4">
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="col-xs-4">
-                                            </div>
-                                            <div class="col-xs-4">
-                                                <span>Commande vide!</span>
-                                            </div>
-                                            <div class="col-xs-2">          
-                                            </div>
-                                            <div class="col-xs-2">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <hr>
-                                </c:when>
-                                <c:otherwise>
-                                    <c:forEach items="${cart.list()}" var="c">
+                            
                                         <tr>
-                                            <td class="col-md-9"><em>${cart.getInMap(c.isbn).getCartQty()}</em></h4></td>
-                                            <td class="col-md-1 text-center">${c.getPrix() * c.getCartQty()}</td>
+                                            <td class="col-md-9"><em>hello</em></h4></td>
+                                            <td class="col-md-1 text-center">${prixTotal}</td>
                                             
                                             <td class="col-md-1 text-center">En cours de validation</td>
                                         </tr>
-
-
-
-                                    </c:forEach>
-                                </c:otherwise>
-                            </c:choose>
-
+   
+                                        
                         </table>
 
 

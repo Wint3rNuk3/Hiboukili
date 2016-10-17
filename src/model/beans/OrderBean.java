@@ -1,6 +1,7 @@
 package model.beans;
 
 import java.io.Serializable;
+import java.math.RoundingMode;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -8,12 +9,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Locale;
 import javax.sql.DataSource;
 import model.classes.Commande;
 import model.classes.Edition;
+import model.classes.Promotion;
+import model.classes.Taxe;
 
 public class OrderBean implements Serializable {
 
@@ -171,6 +177,36 @@ public class OrderBean implements Serializable {
     public void clean() {
         commandes.clear();
         //apres la validation final : clean map
+    }
+    
+    
+   
+    
+    // calcul total du prix du panier 
+    public String calculTotal(Collection<Edition> list){
+        Float prixTotal = 0F;
+        
+        if (!(list().isEmpty())) {
+            for (Edition e : list) {
+                if (e.getPrixHt() != null) {
+                    
+                    prixTotal += (Float.parseFloat(e.getPrix())) * (e.getCartQty());
+                }
+            }
+        }
+
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
+        otherSymbols.setDecimalSeparator('.');
+        otherSymbols.setGroupingSeparator(',');
+        DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+        df.setRoundingMode(RoundingMode.HALF_UP);
+
+        //System.out.println(df.format(prixTotal));
+        return df.format(prixTotal);
+    }
+    
+    public String calculQty(){
+        
     }
 
 }

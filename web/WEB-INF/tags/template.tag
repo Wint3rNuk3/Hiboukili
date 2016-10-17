@@ -5,7 +5,6 @@
 --%>
 <%@tag description="put the tag description here" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <%@attribute name="title" required="true" description="Title"%>
 <%@attribute name="imgPath" description="An image to identify section" %>

@@ -45,7 +45,6 @@
             l'utilisateur que son navigateur est obsolète.
         --%>
         <c:import url="${ baseDIR }template/browserAlert.jsp" />
-        <%--<c:import url="template/browserAlert.jsp" />--%>
 
         <%--
             Importation de la jsp contenant la navbar. (menu du haut)
@@ -80,7 +79,7 @@
                         </c:forEach>
                     </ul>
                     
-                        <%--
+<%--
                     <ul class="sidebar-nav">
                         
                         <li class="sidebar-brand">
@@ -101,7 +100,7 @@
                         </c:forEach>
                         </ul>
                     </ul>
-                        --%>
+--%>
                     
                     <%-- 
                         Importation de la jsp contenant le menu de gauche 
@@ -138,14 +137,6 @@
                                 </c:forEach>
                             </c:forEach>
                         </div>
-                        
-                        <%-- infos --%>
-                        <%--<c:forEach var="info" items="${ messages.getInfos() }">--%>
-<!--                            <div class="alert alert-info">
-                                <%--<c:out value="${ info }" />--%>
-                            </div>-->
-                        <%--</c:forEach>--%>
-                        
                     </c:if>
                     
                     <div class="container-fluid">

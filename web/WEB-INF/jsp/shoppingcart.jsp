@@ -129,9 +129,19 @@
                             <div class="col-xs-3">
                                 <c:url value="order" var="url">
                                 </c:url>
-                                <a type="button" class="btn btn-success btn-block" href="${ url }" style="margin-bottom:4px; white-space: normal;">
-                                    Valider
-                                </a>
+                                
+                                <c:choose>
+                                    <c:when test="${cart.list().size() == 0}">
+                                    <button type="button" disabled class="btn btn-success btn-block" href="#" style="margin-bottom:4px; white-space: normal;">
+                                        Valider
+                                    </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                    <a type="button" class="btn btn-success btn-block" href="${ url }" style="margin-bottom:4px; white-space: normal;">
+                                        Valider
+                                    </a>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </div>
                     </div>

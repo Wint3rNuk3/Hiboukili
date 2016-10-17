@@ -108,6 +108,8 @@ public class OrderController extends HttpServlet {
             String prixTotal = order.calculTotal(cart.list());
             request.setAttribute("prixTotal", prixTotal);
             
+            String qtyTotal = order.calculQty(cart.list());
+            request.setAttribute("qtyTotal", qtyTotal);
            
 
             //adresse

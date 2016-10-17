@@ -205,8 +205,27 @@ public class OrderBean implements Serializable {
         return df.format(prixTotal);
     }
     
-    public String calculQty(){
-        
+    
+    // calcul de la quantite total. 
+    public String calculQty(Collection<Edition> list){
+        int qtyTotal = 0;
+        if(!(list().isEmpty())){
+            for(Edition e : list){
+                if(e.getCartQty() != 0){
+                    
+                    qtyTotal += (e.getCartQty());
+                    
+                }
+            }
+        }
+        DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.FRENCH);
+        otherSymbols.setDecimalSeparator('.');
+        otherSymbols.setGroupingSeparator(',');
+        DecimalFormat df = new DecimalFormat("0", otherSymbols);
+        df.setRoundingMode(RoundingMode.HALF_UP);
+
+        //System.out.println(df.format(prixTotal));
+        return df.format(qtyTotal);
     }
 
 }

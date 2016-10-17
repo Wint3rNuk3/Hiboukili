@@ -48,7 +48,7 @@
 
                             
                                         <tr>
-                                            <td class="col-md-9"><em>hello</em></h4></td>
+                                            <td class="col-md-9"><em>${qtyTotal}</em></h4></td>
                                             <td class="col-md-1 text-center">${prixTotal}</td>
                                             
                                             <td class="col-md-1 text-center">En cours de validation</td>

@@ -110,7 +110,8 @@ public class OrderController extends HttpServlet {
             
             String qtyTotal = order.calculQty(cart.list());
             request.setAttribute("qtyTotal", qtyTotal);
-           
+            
+            
 
             //adresse
             if (adresses == null) {

@@ -28,11 +28,7 @@
                                         </address>
                                     </div>
                                     <div class="col-xs-6 col-sm-6 col-md-6 text-right">
-                                        <p>
-                                        <h5>
-                                            <em>Date: 13 Octobre 2016</em>
-                                        </h5>
-                                        </p>
+                                        
 
                                     </div>
                                 </div>

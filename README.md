@@ -1,5 +1,6 @@
 # Hiboukili
-Fil Rouge n°2 Team Maïs.
+
+Premier projet MVC JavaEE.
 
 Site internet proposant la consultation d'un catalogue d'ouvrages littéraires ainsi que la possibilité
 pour le client d'acheter des livres en ligne.
